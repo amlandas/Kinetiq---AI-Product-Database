@@ -2,7 +2,7 @@ import { Product } from "../types";
 import { PRODUCTS as SEED_PRODUCTS } from "../data";
 
 const DB_KEY = 'ai_nexus_db_v1';
-const CURRENT_DB_VERSION = 9; // Incrementing version to 9 to load massive JSON list
+const CURRENT_DB_VERSION = 10; // Incrementing version to 10 to force reload of normalized names
 const UPDATE_INTERVAL_MS = 7 * 24 * 60 * 60 * 1000; // 7 Days in milliseconds
 
 interface DBSnapshot {

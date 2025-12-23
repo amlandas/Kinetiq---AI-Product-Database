@@ -9,7 +9,7 @@ const OUTPUT_FILE = path.join(__dirname, '../data.ts');
 const SEED_PRODUCTS = [
     {
         id: 'claude',
-        name: 'Claude 3.5',
+        name: 'Claude Desktop',
         companyId: 'anthropic',
         logoUrl: 'https://ui-avatars.com/api/?name=Claude&background=D97757&color=fff&size=200&font-size=0.4&bold=true',
         category: 'Productivity & Assistants',
@@ -280,8 +280,21 @@ try {
     const importedProducts = [];
 
     items.forEach(item => {
-        // ID Generation: handle spaces, special chars
-        let id = item.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        // Name Normalization
+        let name = item.name.trim();
+
+        // Remove version numbers like " v4", " 3.5", " 2", " V5.0"
+        // Heuristic: Space followed by v?digit+(.digit+)* at the end of string or separated by space
+        // Exception: "Group 9", "Salesforce 360", "Office 365" - we should be careful.
+        // Safer approach: Remove " v[0-9]+", " [0-9]+\.[0-9]+" (decimal versions)
+
+        name = name.replace(/\s+v\d+(\.\d+)?/gi, ''); // Remove " v4", " V5.0"
+        name = name.replace(/\s+\d+\.\d+$/g, ''); // Remove " 3.5" at end
+        name = name.replace(/\s+gpt-4/gi, ' GPT'); // Normalize GPT-4 -> GPT
+        name = name.trim();
+
+        // ID Generation: handle spaces, special chars based on normalized name
+        let id = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
         if (id.length === 0) id = 'product-' + Math.random().toString(36).substr(2, 9);
 
         // Deduplication
@@ -310,16 +323,16 @@ try {
         }
 
         // URL
-        const logoUrl = getLogo(item.name);
+        const logoUrl = getLogo(name);
 
         const product = {
             id,
-            name: item.name,
+            name: name,
             companyId: item.company || 'Unknown',
             logoUrl,
             category,
             subCategory,
-            description: item.description || `${item.name} is a leading ${subCategory} tool focused on ${category}.`,
+            description: item.description || `${name} is a leading ${subCategory} tool focused on ${category}.`,
             features: item.key_features || [],
             website: item.link || '',
             pricing,

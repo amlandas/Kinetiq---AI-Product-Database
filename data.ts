@@ -123,7 +123,7 @@ const getLogo = (name: string, bg: string = '0ea5e9') =>
 const SEED_PRODUCTS: Product[] = [
   {
     "id": "claude",
-    "name": "Claude 3.5",
+    "name": "Claude Desktop",
     "companyId": "anthropic",
     "logoUrl": "https://ui-avatars.com/api/?name=Claude&background=D97757&color=fff&size=200&font-size=0.4&bold=true",
     "category": "Productivity & Assistants",
@@ -32197,7 +32197,7 @@ const IMPORTED_PRODUCTS: Product[] = [
     ]
   },
   {
-    "id": "product-f6ri12fjb",
+    "id": "product-4h0q4pqzp",
     "name": "扣子",
     "companyId": "扣子",
     "logoUrl": "https://ui-avatars.com/api/?name=%E6%89%A3%E5%AD%90&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
@@ -60164,12 +60164,12 @@ const IMPORTED_PRODUCTS: Product[] = [
   },
   {
     "id": "saina",
-    "name": "Saina ",
+    "name": "Saina",
     "companyId": "Saina ",
-    "logoUrl": "https://ui-avatars.com/api/?name=Saina%C2%A0&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
+    "logoUrl": "https://ui-avatars.com/api/?name=Saina&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
     "category": "Lifestyle & Specific",
     "subCategory": "Other",
-    "description": "Saina  is a leading Other tool focused on Lifestyle & Specific.",
+    "description": "Saina is a leading Other tool focused on Lifestyle & Specific.",
     "features": [
       "AI-Powered",
       "Cloud-Based"
