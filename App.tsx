@@ -134,7 +134,7 @@ const App: React.FC = () => {
              <div className="inline-block p-4 bg-blue-500/10 rounded-full mb-4 animate-pulse">
                <Database className="w-12 h-12 text-blue-400" />
              </div>
-             <h1 className="text-3xl font-bold tracking-tight">AI Nexus System Startup</h1>
+             <h1 className="text-3xl font-bold tracking-tight">Kinetiq System Startup</h1>
              <p className="text-gray-400">Initializing global product database...</p>
            </div>
 

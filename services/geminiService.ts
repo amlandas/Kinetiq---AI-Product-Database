@@ -3,7 +3,15 @@ import { Product } from "../types";
 
 // Initialize the API client
 const apiKey = process.env.API_KEY;
-const ai = new GoogleGenAI({ apiKey: apiKey || 'DUMMY_KEY' }); // Prevent crash if env missing during build
+const ai = new GoogleGenAI({ apiKey: apiKey || 'DUMMY_KEY' }); 
+
+// Helper to generate consistent avatar URLs
+const generateLogoUrl = (name: string) => {
+  const encodedName = encodeURIComponent(name);
+  // Using a consistent color hash or just random is fine, ui-avatars handles it well.
+  // We use a specific background style to look professional.
+  return `https://ui-avatars.com/api/?name=${encodedName}&background=0ea5e9&color=fff&size=200&font-size=0.5&bold=true`;
+};
 
 export const getProductAnalysis = async (product: Product): Promise<string> => {
   if (!apiKey) return "API Key not configured. Unable to fetch analysis.";
@@ -33,32 +41,34 @@ export const getProductAnalysis = async (product: Product): Promise<string> => {
 
 /**
  * Fetches a batch of products for a specific category/subcategory
- * Designed for bulk initialization
+ * Designed for bulk initialization with Search Grounding
  */
 export const generateProductsForCategory = async (
   category: string, 
   subCategory: string,
-  count: number = 8
+  count: number = 10 // Requesting reasonable batch
 ): Promise<Product[]> => {
   if (!apiKey) {
     console.warn("API Key missing, returning empty list.");
     return [];
   }
 
+  // Explicitly prompt for the subcategory string to ensure data consistency
   const prompt = `
-    Generate a list of ${count} REAL, POPULAR, and SPECIFIC AI products that fit the category '${category}' and sub-category '${subCategory}'.
+    Find and list at least ${count} distinct, real, and popular AI products that specifically belong to the Category: '${category}' and Sub-Category: '${subCategory}'.
     
-    CRITICAL RULES:
-    1. Provide REAL products that actually exist (e.g., Midjourney, Jasper, Copy.ai, Tabnine, etc.).
-    2. Do NOT generate generic names like "AI Writer Tool". Use specific brand names.
-    3. Ensure the 'companyId' is the actual company name.
-    4. Construct a valid 'website' URL (best guess).
-    5. 'metrics' must be realistic estimates for established products.
-    6. 'id' must be a unique kebab-case string (e.g., 'jasper-ai', 'midjourney').
+    SEARCH INSTRUCTIONS:
+    - Use Google Search to find current tools listed on aggregators like Futurepedia.io, Toolify.ai, ProductHunt, and AI Scout.
+    - Look for top-rated and trending tools in 2024/2025.
+    - Ensure the 'subCategory' field in the output EXACTLY matches the string: "${subCategory}".
     
-    Schema details:
-    - logoUrl: Use "https://ui-avatars.com/api/?name=ProductName&background=random" (replace ProductName).
-    - pricing: Array of ['Free', 'Freemium', 'Paid', 'Enterprise'].
+    DATA REQUIREMENTS:
+    1. 'id': lowercase kebab-case (e.g. 'eleven-labs', 'cursor-so').
+    2. 'companyId': The actual company name.
+    3. 'metrics': Estimate 'totalUsers' and 'growthRate' based on popularity signals if exact numbers are not found. Do NOT return null.
+    4. 'website': Must be a valid URL.
+    
+    Do NOT invent fake tools. 
   `;
 
   const responseSchema: Schema = {
@@ -69,7 +79,7 @@ export const generateProductsForCategory = async (
         id: { type: Type.STRING },
         name: { type: Type.STRING },
         companyId: { type: Type.STRING },
-        logoUrl: { type: Type.STRING },
+        // logoUrl is excluded from schema, we construct it manually to ensure validity
         category: { type: Type.STRING },
         subCategory: { type: Type.STRING },
         description: { type: Type.STRING },
@@ -99,6 +109,7 @@ export const generateProductsForCategory = async (
       model: 'gemini-3-flash-preview',
       contents: prompt,
       config: {
+        tools: [{ googleSearch: {} }], // ENABLE SEARCH GROUNDING
         responseMimeType: "application/json",
         responseSchema: responseSchema,
       }
@@ -107,8 +118,29 @@ export const generateProductsForCategory = async (
     const rawText = response.text;
     if (!rawText) return [];
     
-    const parsed = JSON.parse(rawText);
-    return Array.isArray(parsed) ? parsed : [];
+    // Parse JSON
+    let parsed: any[] = JSON.parse(rawText);
+    
+    if (!Array.isArray(parsed)) return [];
+
+    // Post-process to ensure data quality and add Logo URLs
+    const processedProducts = parsed.map(p => ({
+      ...p,
+      // Enforce the requested category/subcategory to avoid filtering issues
+      category: category,
+      subCategory: subCategory,
+      // Manually generate the logo URL to ensure it never breaks
+      logoUrl: generateLogoUrl(p.name),
+      // Ensure metrics are numbers
+      metrics: {
+        ...p.metrics,
+        totalUsers: Number(p.metrics.totalUsers) || 10000,
+        rating: Math.min(Math.max(Number(p.metrics.rating) || 4.5, 0), 5),
+        growthRate: Number(p.metrics.growthRate) || 10
+      }
+    }));
+
+    return processedProducts;
   } catch (error) {
     console.error(`Failed to fetch products for ${category}/${subCategory}:`, error);
     return [];

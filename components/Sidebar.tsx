@@ -1,7 +1,7 @@
 import React from 'react';
 import { CATEGORIES } from '../data';
-import { LayoutGrid, BarChart2, Briefcase, Tag, Filter } from 'lucide-react';
-import { Category, FilterState } from '../types';
+import { LayoutGrid, Filter } from 'lucide-react';
+import { FilterState } from '../types';
 
 interface SidebarProps {
   filters: FilterState;
@@ -38,7 +38,7 @@ const Sidebar: React.FC<SidebarProps> = ({ filters, setFilters, isOpen, classNam
           <div className="bg-primary-600 p-2 rounded-lg">
             <LayoutGrid className="w-6 h-6 text-white" />
           </div>
-          <span className="text-xl font-bold text-gray-900 dark:text-white">AI Nexus</span>
+          <span className="text-xl font-bold text-gray-900 dark:text-white">Kinetiq</span>
         </div>
 
         <nav className="space-y-6 flex-1">

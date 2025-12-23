@@ -33,6 +33,9 @@ const Header: React.FC<HeaderProps> = ({
             <Menu className="w-6 h-6" />
           </button>
           
+          {/* Mobile Title (Visible only on small screens) */}
+          <span className="md:hidden text-lg font-bold text-gray-900 dark:text-white">Kinetiq</span>
+
           <div className="relative w-full max-w-xl hidden sm:block">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <Search className="h-4 w-4 text-gray-400" />
