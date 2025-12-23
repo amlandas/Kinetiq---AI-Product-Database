@@ -60,7 +60,8 @@ const App: React.FC = () => {
   // SYSTEM STARTUP
   useEffect(() => {
     // 1. Load initial data if available (Snapshots)
-    const cachedData = db.seed(); // Ensures at least static data is there
+    // The db.seed() will now load the V6 curated list
+    const cachedData = db.seed(); 
     setAllProducts(cachedData);
     setTotalProducts(cachedData.length);
 
@@ -84,6 +85,8 @@ const App: React.FC = () => {
     });
 
     // 3. Trigger System Initialization
+    // If DB version is new, this won't crawl (unless empty). 
+    // If >7 days passed, it will trigger background crawl.
     crawler.initializeSystem();
 
     return () => unsubscribe();
@@ -116,10 +119,25 @@ const App: React.FC = () => {
     }
   };
 
+  // Home Handler - Resets EVERYTHING
+  const handleHomeClick = () => {
+    setFilters({
+      search: '',
+      category: null,
+      subCategory: null,
+      pricing: [],
+      minRating: 0,
+    });
+    setActiveTab('products');
+    setViewMode('grid');
+    setComparisonList([]);
+    setIsSidebarOpen(false); // Close mobile sidebar
+  };
+
   // RENDER: INITIALIZATION SCREEN
   // If we have very few products (just the seed) AND the crawler is running vigorously (progress < 100), show the startup screen.
   // This ensures first-time users see the setup, but returning users with stale data see the app immediately.
-  const showStartupScreen = initStatus === 'crawling' && allProducts.length < 20;
+  const showStartupScreen = initStatus === 'crawling' && allProducts.length < 10;
 
   if (showStartupScreen) {
     return (
@@ -195,6 +213,7 @@ const App: React.FC = () => {
           setIsOpen={setIsSidebarOpen}
           filters={filters}
           setFilters={setFilters}
+          onHomeClick={handleHomeClick}
         />
 
         {/* Overlay for mobile sidebar */}
@@ -359,7 +378,7 @@ const App: React.FC = () => {
                      <h3 className="text-lg font-medium text-gray-900 dark:text-white">No products found</h3>
                      <p className="text-gray-500 dark:text-gray-400 mt-2">Try adjusting your search or filters to find what you're looking for.</p>
                      <button 
-                       onClick={() => setFilters({ search: '', category: null, subCategory: null, pricing: [], minRating: 0 })}
+                       onClick={handleHomeClick}
                        className="mt-4 text-primary-600 hover:text-primary-700 font-medium"
                      >
                        Clear all filters

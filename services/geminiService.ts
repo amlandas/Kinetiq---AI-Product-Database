@@ -55,11 +55,11 @@ export const generateProductsForCategory = async (
 
   // Explicitly prompt for the subcategory string to ensure data consistency
   const prompt = `
-    Find and list at least ${count} distinct, real, and popular AI products that specifically belong to the Category: '${category}' and Sub-Category: '${subCategory}'.
+    Find and list at least ${count} NEW, EMERGING, or HIGHLY POPULAR AI products that specifically belong to the Category: '${category}' and Sub-Category: '${subCategory}'.
     
     SEARCH INSTRUCTIONS:
     - Use Google Search to find current tools listed on aggregators like Futurepedia.io, Toolify.ai, ProductHunt, and AI Scout.
-    - Look for top-rated and trending tools in 2024/2025.
+    - Focus on tools released or updated in late 2024 and 2025 if possible.
     - Ensure the 'subCategory' field in the output EXACTLY matches the string: "${subCategory}".
     
     DATA REQUIREMENTS:

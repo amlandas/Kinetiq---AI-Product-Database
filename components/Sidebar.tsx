@@ -9,9 +9,10 @@ interface SidebarProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   className?: string;
+  onHomeClick: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ filters, setFilters, isOpen, className }) => {
+const Sidebar: React.FC<SidebarProps> = ({ filters, setFilters, isOpen, className, onHomeClick }) => {
   const handleCategoryClick = (category: string) => {
     setFilters(prev => ({
       ...prev,
@@ -34,7 +35,11 @@ const Sidebar: React.FC<SidebarProps> = ({ filters, setFilters, isOpen, classNam
       md:translate-x-0 md:static ${className}
     `}>
       <div className="h-full flex flex-col overflow-y-auto p-4">
-        <div className="flex items-center space-x-2 mb-8 px-2">
+        <div 
+          onClick={onHomeClick}
+          className="flex items-center space-x-2 mb-8 px-2 cursor-pointer hover:opacity-80 transition-opacity"
+          title="Return to Home"
+        >
           <div className="bg-primary-600 p-2 rounded-lg">
             <LayoutGrid className="w-6 h-6 text-white" />
           </div>
@@ -104,7 +109,10 @@ const Sidebar: React.FC<SidebarProps> = ({ filters, setFilters, isOpen, classNam
         </nav>
 
         <div className="mt-auto pt-6 border-t border-gray-200 dark:border-gray-700 px-2">
-          <button className="flex items-center space-x-2 text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-300">
+          <button 
+            onClick={onHomeClick}
+            className="flex items-center space-x-2 text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-300"
+          >
              <Filter className="w-4 h-4" />
              <span>Reset All Filters</span>
           </button>
