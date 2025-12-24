@@ -399,37 +399,6 @@ const SEED_PRODUCTS: Product[] = [
     ]
   },
   {
-    "id": "canva",
-    "name": "Canva Magic",
-    "companyId": "canva",
-    "logoUrl": "https://ui-avatars.com/api/?name=Canva&background=00C4CC&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Content & Creative",
-    "subCategory": "Image Editing",
-    "description": "A suite of AI tools within Canva. Magic Edit, Magic Eraser, and Magic Design make design accessible to everyone.",
-    "features": [
-      "Magic Edit",
-      "Magic Eraser",
-      "Text to Image",
-      "Design Gen"
-    ],
-    "website": "https://canva.com",
-    "pricing": [
-      "Freemium",
-      "Paid"
-    ],
-    "launchDate": "2013-01-01",
-    "lastUpdate": "2025-01-01",
-    "metrics": {
-      "totalUsers": 150000000,
-      "rating": 4.8,
-      "growthRate": 10
-    },
-    "tags": [
-      "Design",
-      "Mass Market"
-    ]
-  },
-  {
     "id": "bubble",
     "name": "Bubble",
     "companyId": "bubble",
@@ -34036,7 +34005,7 @@ const IMPORTED_PRODUCTS: Product[] = [
     ]
   },
   {
-    "id": "product-ydi169yxe",
+    "id": "product-1w0y3rjig",
     "name": "扣子",
     "companyId": "扣子",
     "logoUrl": "https://ui-avatars.com/api/?name=%E6%89%A3%E5%AD%90&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
