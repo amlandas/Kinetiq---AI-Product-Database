@@ -14,7 +14,7 @@ metadata:
     cloud.googleapis.com/location: us-west1
     managed-by: google-ai-studio
   name: kinetiq-ai-product-database
-  namespace: '215079223818'
+  namespace: '<YOUR_PROJECT_NUMBER>'
 spec:
   template:
     metadata:
