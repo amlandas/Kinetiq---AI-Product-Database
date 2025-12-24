@@ -112,7 +112,7 @@ app.post('/api/compare', async (req, res) => {
             || categoryPrompts[Object.keys(categoryPrompts).find(k => dominantCategory.includes(k))]
             || '';
 
-        // 3. Construct Prompt
+        // 3. Construct Prompt (Updated for Valid Schema)
         const prompt = `
       COMPARE the following AI products based on the latest available data.
       Use Google Search to verify pricing, recent updates, and reputation.
@@ -126,15 +126,18 @@ app.post('/api/compare', async (req, res) => {
       {
         "summary": "High-level objective comparison...",
         "lastUpdated": "YYYY-MM-DD",
-        "pricing": { "${products[0].name}": "$X/mo", ... },
-        "pros": { "${products[0].name}": ["Pro 1", "Pro 2"], ... },
-        "cons": { "${products[0].name}": ["Con 1", "Con 2"], ... },
-        "rating_sentiment": { "${products[0].name}": "Sentiment...", ... },
+        "pricing": [ { "productName": "${products[0].name}", "price": "$X/mo" }, ... ],
+        "pros": [ { "productName": "${products[0].name}", "items": ["Pro 1", "Pro 2"] }, ... ],
+        "cons": [ { "productName": "${products[0].name}", "items": ["Con 1", "Con 2"] }, ... ],
+        "rating_sentiment": [ { "productName": "${products[0].name}", "sentiment": "Positive/Neutral/Negative because..." }, ... ],
         "features": [
            // UNIVERSAL QUESTIONS
-           { "label": "Free Trial", "values": { "${products[0].name}": "Yes/No", ... } },
-           { "label": "Major Backing", "values": { ... } },
-           { "label": "Last Update", "values": { ... } },
+           { 
+             "label": "Free Trial", 
+             "items": [ { "productName": "${products[0].name}", "value": "Yes/No" }, ... ]
+           },
+           { "label": "Major Backing", "items": [...] },
+           { "label": "Last Update", "items": [...] },
            
            // CATEGORY SPECIFIC
            ${specificQuestions}
@@ -147,29 +150,79 @@ app.post('/api/compare', async (req, res) => {
       - Focus on distinct differences.
     `;
 
-        // 4. Schema
+        // 4. Schema (Strict Typed Arrays)
         const responseSchema = {
             type: "OBJECT",
             properties: {
                 summary: { type: "STRING" },
                 lastUpdated: { type: "STRING" },
-                pricing: { type: "OBJECT", nullable: true },
-                pros: { type: "OBJECT", nullable: true },
-                cons: { type: "OBJECT", nullable: true },
-                rating_sentiment: { type: "OBJECT", nullable: true },
+                pricing: {
+                    type: "ARRAY",
+                    items: {
+                        type: "OBJECT",
+                        properties: {
+                            productName: { type: "STRING" },
+                            price: { type: "STRING" }
+                        },
+                        required: ["productName", "price"]
+                    }
+                },
+                pros: {
+                    type: "ARRAY",
+                    items: {
+                        type: "OBJECT",
+                        properties: {
+                            productName: { type: "STRING" },
+                            items: { type: "ARRAY", items: { type: "STRING" } }
+                        },
+                        required: ["productName", "items"]
+                    }
+                },
+                cons: {
+                    type: "ARRAY",
+                    items: {
+                        type: "OBJECT",
+                        properties: {
+                            productName: { type: "STRING" },
+                            items: { type: "ARRAY", items: { type: "STRING" } }
+                        },
+                        required: ["productName", "items"]
+                    }
+                },
+                rating_sentiment: {
+                    type: "ARRAY",
+                    items: {
+                        type: "OBJECT",
+                        properties: {
+                            productName: { type: "STRING" },
+                            sentiment: { type: "STRING" }
+                        },
+                        required: ["productName", "sentiment"]
+                    }
+                },
                 features: {
                     type: "ARRAY",
                     items: {
                         type: "OBJECT",
                         properties: {
                             label: { type: "STRING" },
-                            values: { type: "OBJECT", nullable: true }
+                            items: {
+                                type: "ARRAY",
+                                items: {
+                                    type: "OBJECT",
+                                    properties: {
+                                        productName: { type: "STRING" },
+                                        value: { type: "STRING" }
+                                    },
+                                    required: ["productName", "value"]
+                                }
+                            }
                         },
-                        required: ["label", "values"]
+                        required: ["label", "items"]
                     }
                 }
             },
-            required: ["summary", "features"]
+            required: ["summary", "features", "pricing", "pros", "cons", "rating_sentiment"]
         };
 
         // 5. Call Gemini
@@ -183,15 +236,50 @@ app.post('/api/compare', async (req, res) => {
             }
         });
 
-        const rawText = response.text;
-        if (!rawText) throw new Error("No response from AI");
+        let rawText;
+        if (typeof response.text === 'function') {
+            rawText = response.text();
+        } else {
+            rawText = response.text;
+        }
+
+        if (!rawText) throw new Error("No response text from AI");
 
         const parsed = JSON.parse(rawText);
-        res.json(parsed);
+
+        // 6. Transform Arrays back to Maps (Adapter Pattern)
+        // The Client expects Maps { "Product A": "Value" }, so we convert the Arrays here.
+
+        const transformMap = (list, valueKey) => {
+            if (!list || !Array.isArray(list)) return {};
+            return list.reduce((acc, item) => {
+                acc[item.productName] = item[valueKey];
+                return acc;
+            }, {});
+        };
+
+        const finalResult = {
+            summary: parsed.summary,
+            lastUpdated: parsed.lastUpdated,
+            pricing: transformMap(parsed.pricing, 'price'),
+            pros: transformMap(parsed.pros, 'items'),
+            cons: transformMap(parsed.cons, 'items'),
+            rating_sentiment: transformMap(parsed.rating_sentiment, 'sentiment'),
+            features: (parsed.features || []).map(f => ({
+                label: f.label,
+                values: transformMap(f.items, 'value')
+            }))
+        };
+
+        res.json(finalResult);
 
     } catch (error) {
         console.error("Comparison Error:", error);
-        res.status(500).json({ error: "Failed to generate comparison" });
+        res.status(500).json({
+            error: "Failed to generate comparison",
+            details: error.message,
+            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+        });
     }
 });
 
