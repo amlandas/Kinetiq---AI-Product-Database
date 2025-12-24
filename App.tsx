@@ -6,7 +6,8 @@ import ProductListRow from './components/ProductListRow';
 import ProductModal from './components/ProductModal';
 import MarketOverview from './components/MarketOverview';
 import ComparisonView from './components/ComparisonView';
-import { Product, FilterState } from './types';
+import ComparisonPage from './components/ComparisonPage';
+import { Product, FilterState, ComparisonResult } from './types';
 import { Table, Database, Sparkles, CheckCircle, Server, Loader2, Share2, Download } from 'lucide-react';
 import { db } from './services/db';
 import { crawler, CrawlStatus } from './services/crawler';
@@ -40,6 +41,11 @@ const App: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [comparisonList, setComparisonList] = useState<Product[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
+
+  // AI Comparison State (Lifted)
+  const [aiData, setAiData] = useState<ComparisonResult | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 48;
 
@@ -305,6 +311,11 @@ const App: React.FC = () => {
     }
   };
 
+  const handleClearComparison = () => {
+    setComparisonList([]);
+    setAiData(null); // Clear AI data when clearing products
+  };
+
   // Home Handler - Resets EVERYTHING
   const handleHomeClick = () => {
     setFilters({
@@ -321,6 +332,7 @@ const App: React.FC = () => {
     setActiveTab('products');
     setViewMode('grid');
     setComparisonList([]);
+    setAiData(null);
     setIsSidebarOpen(false); // Close mobile sidebar
   };
 
@@ -443,6 +455,18 @@ const App: React.FC = () => {
               <MarketOverview products={filteredProducts} />
             )}
 
+            {activeTab === 'comparison' && (
+              <ComparisonPage
+                products={comparisonList}
+                onBack={() => setActiveTab('products')}
+                onRemove={(id) => setComparisonList(prev => prev.filter(p => p.id !== id))}
+                aiData={aiData}
+                setAiData={setAiData}
+                isAnalyzing={isAnalyzing}
+                setIsAnalyzing={setIsAnalyzing}
+              />
+            )}
+
             {activeTab === 'companies' && (
               <div className="text-center py-20">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Company Directory</h2>
@@ -491,7 +515,8 @@ const App: React.FC = () => {
                   <ComparisonView
                     products={comparisonList}
                     onRemove={(id) => setComparisonList(prev => prev.filter(p => p.id !== id))}
-                    onClear={() => setComparisonList([])}
+                    onClear={handleClearComparison}
+                    onCompareNow={() => setActiveTab('comparison')}
                   />
                 )}
 
