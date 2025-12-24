@@ -69,3 +69,16 @@ export interface FilterState {
     secondary: SortOption;
   };
 }
+
+export interface ComparisonResult {
+  summary: string;
+  lastUpdated: string;
+  pricing: Record<string, string>;
+  pros: Record<string, string[]>;
+  cons: Record<string, string[]>;
+  rating_sentiment: Record<string, string>;
+  features: {
+    label: string;
+    values: Record<string, string>;
+  }[];
+}
