@@ -165,122 +165,26 @@ export const generateProductsForCategory = async (
 
 /**
  * Generates a comprehensive comparison between selected products
- * Uses Search Grounding to fetch latest data (pricing, updates, etc.)
+ * Proxies the request to the secure backend server
  */
 export const generateComparison = async (products: Product[]): Promise<ComparisonResult | null> => {
-  if (!apiKey || products.length === 0) return null;
-
-  // Determine Dominant Category (Simple majority or first)
-  const categoryCounts: Record<string, number> = {};
-  products.forEach(p => {
-    categoryCounts[p.category] = (categoryCounts[p.category] || 0) + 1;
-  });
-  const dominantCategory = Object.keys(categoryCounts).reduce((a, b) => categoryCounts[a] > categoryCounts[b] ? a : b);
-
-  // Category-Specific Prompt Modules
-  const categoryPrompts: Record<string, string> = {
-    'Productivity': `
-      - Application Integrations (Gmail, Slack, etc.)
-      - Tier Limits (Messages/day)
-      - Mobile App Availability
-      - Data Privacy (Training on user data?)`,
-    'Creative': `
-      - Output Capabilities (Text, Image, Video, Code?)
-      - Image Resolution / Quality limits
-      - Copyright / Ownership of outputs
-      - Content Filters`,
-    'Business': `
-      - Industry Templates
-      - Collaboration Features
-      - Security Certifications (SOC2, SSO)
-      - Support SLA & Contract Terms`,
-    'Development': `
-      - Supported Programming Languages
-      - IDE Compatibilities (VSCode, JetBrains)
-      - Code Gen vs Completion
-      - API Access / Documentation`,
-    'Lifestyle': `
-      - Specialized Domain (Health, Legal, etc.)
-      - Credentials / Partnerships
-      - Citation of sources
-      - Personalization options`
-  };
-
-  const specificQuestions = categoryPrompts[dominantCategory] || categoryPrompts[Object.keys(categoryPrompts).find(k => dominantCategory.includes(k)) || ''] || '';
-
-  const prompt = `
-    COMPARE the following AI products based on the latest available data.
-    Use Google Search to verify pricing, recent updates, and reputation.
-
-    PRODUCTS TO COMPARE:
-    ${products.map(p => `${p.name} (${p.category}): ${p.description}`).join('\n')}
-
-    CATEGORY CONTEXT: ${dominantCategory}
-
-    REQUIRED OUTPUT (JSON):
-    {
-      "summary": "High-level objective comparison...",
-      "lastUpdated": "YYYY-MM-DD",
-      "pricing": { "${products[0].name}": "$X/mo", ... },
-      "pros": { "${products[0].name}": ["Pro 1", "Pro 2"], ... },
-      "cons": { "${products[0].name}": ["Con 1", "Con 2"], ... },
-      "rating_sentiment": { "${products[0].name}": "Sentiment...", ... },
-      "features": [
-         // UNIVERSAL QUESTIONS
-         { "label": "Free Trial", "values": { "${products[0].name}": "Yes/No", ... } },
-         { "label": "Major Backing", "values": { ... } },
-         { "label": "Last Update", "values": { ... } },
-         
-         // CATEGORY SPECIFIC (Derived from context: ${dominantCategory})
-         // Fill in relevant rows based on: 
-         ${specificQuestions}
-      ]
-    }
-
-    STRICT GUIDELINES:
-    - Be specific (e.g., instead of "Yes", say "Yes (Python, JS, Go)").
-    - If data is not found via search, return "N/A".
-    - Focus on distinct differences.
-  `;
-
-  const responseSchema: Schema = {
-    type: Type.OBJECT,
-    properties: {
-      summary: { type: Type.STRING },
-      lastUpdated: { type: Type.STRING },
-      pricing: { type: Type.OBJECT, nullable: true }, // Relaxed
-      pros: { type: Type.OBJECT, nullable: true }, // Relaxed
-      cons: { type: Type.OBJECT, nullable: true }, // Relaxed
-      rating_sentiment: { type: Type.OBJECT, nullable: true }, // Relaxed
-      features: {
-        type: Type.ARRAY,
-        items: {
-          type: Type.OBJECT,
-          properties: {
-            label: { type: Type.STRING },
-            values: { type: Type.OBJECT, nullable: true } // Relaxed
-          },
-          required: ["label", "values"]
-        }
-      }
-    },
-    required: ["summary", "features"] // Minimal required
-  };
+  if (products.length === 0) return null;
 
   try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview', // USING GEMINI 3 FLASH
-      contents: prompt,
-      config: {
-        tools: [{ googleSearch: {} }],
-        responseMimeType: "application/json",
-        responseSchema: responseSchema,
-      }
+    const response = await fetch('/api/compare', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ products }),
     });
 
-    const rawText = response.text;
-    if (!rawText) return null;
-    return JSON.parse(rawText) as ComparisonResult;
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data as ComparisonResult;
 
   } catch (error) {
     console.error("Error generating comparison:", error);
