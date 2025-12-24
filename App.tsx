@@ -649,6 +649,9 @@ const App: React.FC = () => {
                 </button>
               </div>
             )}
+
+            {/* Spacer for Comparison View Overlay */}
+            {comparisonList.length > 0 && <div className="h-[50vh] w-full" aria-hidden="true" />}
           </div>
         </main>
       </div>
