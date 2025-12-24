@@ -45,13 +45,27 @@ export type SortOption =
   | 'users-asc'
   | 'users-desc'
   | 'growth-asc'
-  | 'growth-desc';
+  | 'growth-desc'
+  | 'rating-asc'
+  | 'rating-desc';
+
+
+export type SearchField = 'name' | 'company' | 'description';
 
 export interface FilterState {
   search: string;
+  searchFields: SearchField[];
   category: string[];
   subCategory: string | null;
   pricing: string[];
   minRating: number;
-  sort: SortOption;
+  minGrowth: number;
+  dateRange: {
+    start: string; // YYYY-MM-DD
+    end: string;   // YYYY-MM-DD
+  };
+  sort: {
+    primary: SortOption;
+    secondary: SortOption;
+  };
 }

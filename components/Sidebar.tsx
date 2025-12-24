@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CATEGORIES } from '../data';
-import { LayoutGrid, Filter, Bookmark, Plus, Trash2, Save } from 'lucide-react';
-import { FilterState } from '../types';
+import { LayoutGrid, Filter, Bookmark, Plus, Trash2, Save, Calendar, TrendingUp } from 'lucide-react';
+import { FilterState, SearchField } from '../types';
 
 interface SidebarProps {
   filters: FilterState;
@@ -234,7 +234,80 @@ const Sidebar: React.FC<SidebarProps> = ({ filters, setFilters, isOpen, classNam
                 </div>
               </div>
 
-              <div>
+              <div className="mb-6">
+                <label className="text-xs text-gray-500 mb-2 block font-medium flex items-center">
+                  <TrendingUp className="w-3 h-3 mr-1" />
+                  Min Growth Rate: {filters.minGrowth}%+
+                </label>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="5"
+                  value={filters.minGrowth}
+                  onChange={(e) => setFilters(prev => ({ ...prev, minGrowth: Number(e.target.value) }))}
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                />
+              </div>
+
+              <div className="mb-6">
+                <label className="text-xs text-gray-500 mb-2 block font-medium flex items-center">
+                  <Calendar className="w-3 h-3 mr-1" />
+                  Launch Date
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <span className="text-[10px] text-gray-400">From</span>
+                    <input
+                      type="date"
+                      value={filters.dateRange.start}
+                      onChange={(e) => setFilters(prev => ({ ...prev, dateRange: { ...prev.dateRange, start: e.target.value } }))}
+                      className="w-full text-xs px-2 py-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-dark-900 dark:text-gray-300"
+                    />
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-gray-400">To</span>
+                    <input
+                      type="date"
+                      value={filters.dateRange.end}
+                      onChange={(e) => setFilters(prev => ({ ...prev, dateRange: { ...prev.dateRange, end: e.target.value } }))}
+                      className="w-full text-xs px-2 py-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-dark-900 dark:text-gray-300"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Advanced Search Options */}
+              <div className="mb-6">
+                <h4 className="text-xs font-medium text-gray-500 mb-3">Search In</h4>
+                <div className="space-y-2">
+                  {['name', 'company', 'description'].map((field) => (
+                    <label key={field} className="flex items-center space-x-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={filters.searchFields.length === 0 || filters.searchFields.includes(field as SearchField)}
+                        onChange={(e) => {
+                          setFilters(prev => {
+                            const current = prev.searchFields.length > 0 ? prev.searchFields : ['name', 'company', 'description'] as SearchField[];
+                            if (e.target.checked) {
+                              return { ...prev, searchFields: [...current, field as SearchField] };
+                            } else {
+                              const newFields = current.filter(f => f !== field);
+                              return { ...prev, searchFields: newFields.length === 0 ? [] : newFields }; // Keep empty if all removed? Or enforce at least one?
+                              // Actually nice logic: if user explicitly unchecks everything, maybe reset to all? 
+                              // Let's allow empty to mean "all" technically in UI but logic handles default.
+                            }
+                          });
+                        }}
+                        className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                      />
+                      <span className="text-sm text-gray-700 dark:text-gray-300 capitalize">{field}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mb-6">
                 <label className="text-xs text-gray-500 mb-2 block">Min Rating: {filters.minRating}+</label>
                 <input
                   type="range"

@@ -54,11 +54,14 @@ const App: React.FC = () => {
 
   const [filters, setFilters] = useState<FilterState>({
     search: '',
+    searchFields: [], // Empty means all
     category: [],
     subCategory: null,
     pricing: [],
     minRating: 0,
-    sort: 'users-desc', // Default sort
+    minGrowth: 0,
+    dateRange: { start: '', end: '' },
+    sort: { primary: 'users-desc', secondary: 'rating-desc' }
   });
 
   // URL SYNC & FAVORITES PERSISTENCE
@@ -78,7 +81,16 @@ const App: React.FC = () => {
         category: params.get('cat') ? params.get('cat')!.split(',') : [],
         pricing: params.get('price') ? params.get('price')!.split(',') : [],
         minRating: Number(params.get('rating') || 0),
-        sort: (params.get('sort') as any) || 'users-desc'
+        minGrowth: Number(params.get('growth') || 0),
+        dateRange: {
+          start: params.get('start') || '',
+          end: params.get('end') || ''
+        },
+        searchFields: params.get('fields') ? (params.get('fields')!.split(',') as any) : [],
+        sort: {
+          primary: (params.get('sort') as any) || 'users-desc',
+          secondary: (params.get('sort2') as any) || 'rating-desc'
+        }
       }));
     }
   }, []);
@@ -90,7 +102,12 @@ const App: React.FC = () => {
     if (filters.category.length > 0) params.set('cat', filters.category.join(','));
     if (filters.pricing.length > 0) params.set('price', filters.pricing.join(','));
     if (filters.minRating > 0) params.set('rating', filters.minRating.toString());
-    if (filters.sort !== 'users-desc') params.set('sort', filters.sort);
+    if (filters.minGrowth > 0) params.set('growth', filters.minGrowth.toString());
+    if (filters.dateRange.start) params.set('start', filters.dateRange.start);
+    if (filters.dateRange.end) params.set('end', filters.dateRange.end);
+    if (filters.searchFields.length > 0) params.set('fields', filters.searchFields.join(','));
+    if (filters.sort.primary !== 'users-desc') params.set('sort', filters.sort.primary);
+    if (filters.sort.secondary !== 'rating-desc') params.set('sort2', filters.sort.secondary);
 
     const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
     window.history.replaceState({}, '', newUrl);
@@ -204,9 +221,19 @@ const App: React.FC = () => {
   // Filter & Sort Logic
   const filteredProducts = useMemo(() => {
     let result = allProducts.filter(product => {
-      const matchesSearch = product.name.toLowerCase().includes(filters.search.toLowerCase()) ||
-        product.description.toLowerCase().includes(filters.search.toLowerCase()) ||
-        product.companyId.toLowerCase().includes(filters.search.toLowerCase());
+      // Advanced Search Logic
+      let matchesSearch = true;
+      if (filters.search) {
+        const searchLower = filters.search.toLowerCase();
+        const searchIn = filters.searchFields.length > 0 ? filters.searchFields : ['name', 'description', 'company'];
+
+        matchesSearch = searchIn.some(field => {
+          if (field === 'name') return product.name.toLowerCase().includes(searchLower);
+          if (field === 'description') return product.description.toLowerCase().includes(searchLower);
+          if (field === 'company') return product.companyId.toLowerCase().includes(searchLower);
+          return false;
+        });
+      }
       const matchesCategory = filters.category.length > 0 ? filters.category.includes(product.category) : true;
       const matchesSubCategory = filters.subCategory ? product.subCategory === filters.subCategory : true;
       const matchesRating = Number(product.metrics.rating) >= Number(filters.minRating);
@@ -214,22 +241,52 @@ const App: React.FC = () => {
         ? product.pricing.some(p => filters.pricing.includes(p))
         : true;
 
-      return matchesSearch && matchesCategory && matchesSubCategory && matchesRating && matchesPricing;
+      const matchesGrowth = product.metrics.growthRate >= filters.minGrowth;
+
+      // Date Range Logic
+      let matchesDate = true;
+      if (filters.dateRange.start || filters.dateRange.end) {
+        const productDate = new Date(product.launchDate);
+        if (filters.dateRange.start) {
+          matchesDate = matchesDate && productDate >= new Date(filters.dateRange.start);
+        }
+        if (filters.dateRange.end) {
+          matchesDate = matchesDate && productDate <= new Date(filters.dateRange.end);
+        }
+      }
+
+      return matchesSearch && matchesCategory && matchesSubCategory && matchesRating && matchesGrowth && matchesPricing && matchesDate;
     });
 
-    // Sort Logic
+    // Multi-Criteria Sort Logic
     return result.sort((a, b) => {
-      switch (filters.sort) {
-        case 'name-asc': return a.name.localeCompare(b.name);
-        case 'name-desc': return b.name.localeCompare(a.name);
-        case 'company-asc': return a.companyId.localeCompare(b.companyId);
-        case 'company-desc': return b.companyId.localeCompare(a.companyId);
-        case 'users-asc': return a.metrics.totalUsers - b.metrics.totalUsers;
-        case 'users-desc': return b.metrics.totalUsers - a.metrics.totalUsers;
-        case 'growth-asc': return a.metrics.growthRate - b.metrics.growthRate;
-        case 'growth-desc': return b.metrics.growthRate - a.metrics.growthRate;
-        default: return 0;
-      }
+      const getSortValue = (product: Product, sortOption: string) => {
+        switch (sortOption) {
+          case 'name-asc': return product.name;
+          case 'name-desc': return product.name;
+          case 'company-asc': return product.companyId;
+          case 'company-desc': return product.companyId;
+          case 'users-asc': return product.metrics.totalUsers;
+          case 'users-desc': return product.metrics.totalUsers;
+          case 'growth-asc': return product.metrics.growthRate;
+          case 'growth-desc': return product.metrics.growthRate;
+          case 'rating-asc': return product.metrics.rating;
+          case 'rating-desc': return product.metrics.rating;
+          default: return 0;
+        }
+      };
+
+      const compare = (valA: any, valB: any, sortOption: string) => {
+        const isDesc = sortOption.endsWith('-desc');
+        if (valA < valB) return isDesc ? 1 : -1;
+        if (valA > valB) return isDesc ? -1 : 1;
+        return 0;
+      };
+
+      const primaryDiff = compare(getSortValue(a, filters.sort.primary), getSortValue(b, filters.sort.primary), filters.sort.primary);
+      if (primaryDiff !== 0) return primaryDiff;
+
+      return compare(getSortValue(a, filters.sort.secondary), getSortValue(b, filters.sort.secondary), filters.sort.secondary);
     });
   }, [filters, allProducts]);
 
@@ -257,11 +314,14 @@ const App: React.FC = () => {
   const handleHomeClick = () => {
     setFilters({
       search: '',
+      searchFields: [],
       category: [],
       subCategory: null,
       pricing: [],
       minRating: 0,
-      sort: 'users-desc',
+      minGrowth: 0,
+      dateRange: { start: '', end: '' },
+      sort: { primary: 'users-desc', secondary: 'rating-desc' }
     });
     setActiveTab('products');
     setViewMode('grid');

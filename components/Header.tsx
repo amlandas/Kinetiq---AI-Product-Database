@@ -86,24 +86,37 @@ const Header: React.FC<HeaderProps> = ({
           </div>
 
           <div className="hidden md:flex items-center space-x-2">
+            <span className="text-xs font-medium text-gray-500 uppercase tracking-wider mr-1">Sort By</span>
             <div className="relative">
               <select
-                value={filters.sort}
-                onChange={(e) => setFilters(prev => ({ ...prev, sort: e.target.value as any }))}
-                className="appearance-none bg-gray-100 dark:bg-dark-900 border-none text-sm font-medium text-gray-700 dark:text-gray-200 py-1.5 pl-3 pr-8 rounded-lg cursor-pointer focus:ring-1 focus:ring-primary-500"
+                value={filters.sort.primary}
+                onChange={(e) => setFilters(prev => ({ ...prev, sort: { ...prev.sort, primary: e.target.value as any } }))}
+                className="appearance-none bg-gray-100 dark:bg-dark-900 border-none text-xs font-medium text-gray-700 dark:text-gray-200 py-1.5 pl-2 pr-6 rounded-lg cursor-pointer focus:ring-1 focus:ring-primary-500 w-28"
+                title="Primary Sort"
               >
-                <option value="users-desc">Most Users</option>
-                <option value="users-asc">Fewest Users</option>
-                <option value="growth-desc">Fastest Growing</option>
-                <option value="growth-asc">Slowest Growing</option>
+                <option value="users-desc">Users (High)</option>
+                <option value="users-asc">Users (Low)</option>
+                <option value="growth-desc">Growth (Fast)</option>
+                <option value="growth-asc">Growth (Slow)</option>
+                <option value="rating-desc">Rating (High)</option>
+                <option value="rating-asc">Rating (Low)</option>
                 <option value="name-asc">Name (A-Z)</option>
                 <option value="name-desc">Name (Z-A)</option>
-                <option value="company-asc">Company (A-Z)</option>
-                <option value="company-desc">Company (Z-A)</option>
               </select>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                <ArrowUpDown className="h-3 w-3 text-gray-400" />
-              </div>
+            </div>
+            <span className="text-xs text-gray-400">then</span>
+            <div className="relative">
+              <select
+                value={filters.sort.secondary}
+                onChange={(e) => setFilters(prev => ({ ...prev, sort: { ...prev.sort, secondary: e.target.value as any } }))}
+                className="appearance-none bg-gray-100 dark:bg-dark-900 border-none text-xs font-medium text-gray-700 dark:text-gray-200 py-1.5 pl-2 pr-6 rounded-lg cursor-pointer focus:ring-1 focus:ring-primary-500 w-28"
+                title="Secondary Sort"
+              >
+                <option value="users-desc">Users</option>
+                <option value="growth-desc">Growth</option>
+                <option value="rating-desc">Rating</option>
+                <option value="name-asc">Name</option>
+              </select>
             </div>
           </div>
 
