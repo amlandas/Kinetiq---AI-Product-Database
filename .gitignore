@@ -24,3 +24,11 @@ dist-ssr
 *.sw?
 
 files/
+
+# Security & Config
+.env
+.env.*
+service.yaml
+*.pem
+*.key
+google-credentials.json
