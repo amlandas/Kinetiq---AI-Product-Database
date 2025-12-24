@@ -41,7 +41,7 @@ const App: React.FC = () => {
   const [comparisonList, setComparisonList] = useState<Product[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const ITEMS_PER_PAGE = 24;
+  const ITEMS_PER_PAGE = 48;
 
   // Data State
   const [allProducts, setAllProducts] = useState<Product[]>([]);
@@ -258,35 +258,30 @@ const App: React.FC = () => {
       return matchesSearch && matchesCategory && matchesSubCategory && matchesRating && matchesGrowth && matchesPricing && matchesDate;
     });
 
-    // Multi-Criteria Sort Logic
+    // Multi-Criteria Sort Logic - Optimized
+    const getComparator = (sortOption: string) => {
+      switch (sortOption) {
+        case 'name-asc': return (a: Product, b: Product) => a.name.localeCompare(b.name);
+        case 'name-desc': return (a: Product, b: Product) => b.name.localeCompare(a.name);
+        case 'company-asc': return (a: Product, b: Product) => a.companyId.localeCompare(b.companyId);
+        case 'company-desc': return (a: Product, b: Product) => b.companyId.localeCompare(a.companyId);
+        case 'users-asc': return (a: Product, b: Product) => a.metrics.totalUsers - b.metrics.totalUsers;
+        case 'users-desc': return (a: Product, b: Product) => b.metrics.totalUsers - a.metrics.totalUsers;
+        case 'growth-asc': return (a: Product, b: Product) => a.metrics.growthRate - b.metrics.growthRate;
+        case 'growth-desc': return (a: Product, b: Product) => b.metrics.growthRate - a.metrics.growthRate;
+        case 'rating-asc': return (a: Product, b: Product) => a.metrics.rating - b.metrics.rating;
+        case 'rating-desc': return (a: Product, b: Product) => b.metrics.rating - a.metrics.rating;
+        default: return (a: Product, b: Product) => 0;
+      }
+    };
+
+    const primarySort = getComparator(filters.sort.primary);
+    const secondarySort = getComparator(filters.sort.secondary);
+
     return result.sort((a, b) => {
-      const getSortValue = (product: Product, sortOption: string) => {
-        switch (sortOption) {
-          case 'name-asc': return product.name;
-          case 'name-desc': return product.name;
-          case 'company-asc': return product.companyId;
-          case 'company-desc': return product.companyId;
-          case 'users-asc': return product.metrics.totalUsers;
-          case 'users-desc': return product.metrics.totalUsers;
-          case 'growth-asc': return product.metrics.growthRate;
-          case 'growth-desc': return product.metrics.growthRate;
-          case 'rating-asc': return product.metrics.rating;
-          case 'rating-desc': return product.metrics.rating;
-          default: return 0;
-        }
-      };
-
-      const compare = (valA: any, valB: any, sortOption: string) => {
-        const isDesc = sortOption.endsWith('-desc');
-        if (valA < valB) return isDesc ? 1 : -1;
-        if (valA > valB) return isDesc ? -1 : 1;
-        return 0;
-      };
-
-      const primaryDiff = compare(getSortValue(a, filters.sort.primary), getSortValue(b, filters.sort.primary), filters.sort.primary);
+      const primaryDiff = primarySort(a, b);
       if (primaryDiff !== 0) return primaryDiff;
-
-      return compare(getSortValue(a, filters.sort.secondary), getSortValue(b, filters.sort.secondary), filters.sort.secondary);
+      return secondarySort(a, b);
     });
   }, [filters, allProducts]);
 
@@ -614,17 +609,41 @@ const App: React.FC = () => {
                 <button
                   onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg disabled:opacity-50 hover:bg-gray-100 dark:hover:bg-dark-800"
+                  className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded-md disabled:opacity-50 hover:bg-gray-100 dark:hover:bg-dark-800 text-sm"
                 >
-                  Previous
+                  Prev
                 </button>
-                <span className="text-sm text-gray-600 dark:text-gray-400">
-                  Page {currentPage} of {totalPages}
-                </span>
+
+                <div className="flex space-x-1">
+                  {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                    // Logic to show a window of pages around current
+                    let pNum = i + 1;
+                    if (totalPages > 5) {
+                      if (currentPage > 3) {
+                        pNum = currentPage - 2 + i;
+                      }
+                      if (pNum > totalPages) {
+                        pNum = totalPages - 4 + i;
+                      }
+                    }
+                    return pNum;
+                  }).map(pNum => (
+                    <button
+                      key={pNum}
+                      onClick={() => setCurrentPage(pNum)}
+                      className={`w-8 h-8 flex items-center justify-center rounded-md text-sm ${currentPage === pNum
+                        ? 'bg-primary-600 text-white'
+                        : 'border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-dark-800'}`}
+                    >
+                      {pNum}
+                    </button>
+                  ))}
+                </div>
+
                 <button
                   onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg disabled:opacity-50 hover:bg-gray-100 dark:hover:bg-dark-800"
+                  className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded-md disabled:opacity-50 hover:bg-gray-100 dark:hover:bg-dark-800 text-sm"
                 >
                   Next
                 </button>
