@@ -31,9 +31,6 @@ spec:
     spec:
       containerConcurrency: 80
       containers:
-      - env:
-        - name: API_KEY
-          value: <YOUR_API_KEY>
         image: <YOUR_IMAGE_URL>
         ports:
         - containerPort: 8080
