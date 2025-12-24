@@ -12,12 +12,12 @@ const ComparisonView: React.FC<ComparisonViewProps> = ({ products, onRemove, onC
   if (products.length === 0) return null;
 
   return (
-    <div className="bg-white dark:bg-dark-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-8 animate-slide-up">
-      <div className="p-4 bg-gray-50 dark:bg-dark-900 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-        <h2 className="text-lg font-bold text-gray-900 dark:text-white">Product Comparison</h2>
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-dark-800 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] border-t border-gray-200 dark:border-gray-700 animate-slide-up max-h-[50vh] overflow-hidden flex flex-col">
+      <div className="p-4 bg-gray-50 dark:bg-dark-900 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center flex-shrink-0">
+        <h2 className="text-lg font-bold text-gray-900 dark:text-white">Product Comparison ({products.length}/5)</h2>
         <button onClick={onClear} className="text-sm text-red-600 hover:text-red-700 font-medium">Clear All</button>
       </div>
-      
+
       <div className="overflow-x-auto">
         <table className="w-full text-sm text-left">
           <thead>
@@ -26,7 +26,7 @@ const ComparisonView: React.FC<ComparisonViewProps> = ({ products, onRemove, onC
               {products.map(p => (
                 <th key={p.id} className="p-4 min-w-[200px] border-b border-gray-100 dark:border-gray-700 relative">
                   <div className="flex flex-col items-center text-center">
-                    <button 
+                    <button
                       onClick={() => onRemove(p.id)}
                       className="absolute top-2 right-2 p-1 text-gray-400 hover:text-red-500 rounded-full hover:bg-gray-100 dark:hover:bg-dark-700 transition-colors"
                     >
@@ -76,8 +76,8 @@ const ComparisonView: React.FC<ComparisonViewProps> = ({ products, onRemove, onC
               <td className="p-4 font-medium text-gray-500 bg-gray-50 dark:bg-dark-900/50 sticky left-0 border-r border-gray-100 dark:border-gray-700">API Access</td>
               {products.map(p => (
                 <td key={p.id} className="p-4 text-center">
-                  {p.tags.includes('API Available') || p.category === 'Development' 
-                    ? <Check className="w-5 h-5 text-green-500 mx-auto" /> 
+                  {p.tags.includes('API Available') || p.category === 'Development'
+                    ? <Check className="w-5 h-5 text-green-500 mx-auto" />
                     : <Minus className="w-5 h-5 text-gray-300 mx-auto" />
                   }
                 </td>

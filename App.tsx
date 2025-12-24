@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import ProductCard from './components/ProductCard';
@@ -7,7 +7,7 @@ import ProductModal from './components/ProductModal';
 import MarketOverview from './components/MarketOverview';
 import ComparisonView from './components/ComparisonView';
 import { Product, FilterState } from './types';
-import { Table, Database, Sparkles, CheckCircle, Server, Loader2 } from 'lucide-react';
+import { Table, Database, Sparkles, CheckCircle, Server, Loader2, Share2, Download } from 'lucide-react';
 import { db } from './services/db';
 import { crawler, CrawlStatus } from './services/crawler';
 
@@ -39,6 +39,9 @@ const App: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list' | 'table'>('grid');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [comparisonList, setComparisonList] = useState<Product[]>([]);
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 24;
 
   // Data State
   const [allProducts, setAllProducts] = useState<Product[]>([]);
@@ -51,12 +54,94 @@ const App: React.FC = () => {
 
   const [filters, setFilters] = useState<FilterState>({
     search: '',
-    category: null,
+    category: [],
     subCategory: null,
     pricing: [],
     minRating: 0,
     sort: 'users-desc', // Default sort
   });
+
+  // URL SYNC & FAVORITES PERSISTENCE
+  useEffect(() => {
+    // Load favorites
+    const savedFavs = localStorage.getItem('kinetiq_favorites');
+    if (savedFavs) {
+      try { setFavorites(JSON.parse(savedFavs)); } catch (e) { }
+    }
+
+    // Load URL params (Initial Load)
+    const params = new URLSearchParams(window.location.search);
+    if (params.toString()) {
+      setFilters(prev => ({
+        ...prev,
+        search: params.get('q') || '',
+        category: params.get('cat') ? params.get('cat')!.split(',') : [],
+        pricing: params.get('price') ? params.get('price')!.split(',') : [],
+        minRating: Number(params.get('rating') || 0),
+        sort: (params.get('sort') as any) || 'users-desc'
+      }));
+    }
+  }, []);
+
+  // Sync URL on Filter Change
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (filters.search) params.set('q', filters.search);
+    if (filters.category.length > 0) params.set('cat', filters.category.join(','));
+    if (filters.pricing.length > 0) params.set('price', filters.pricing.join(','));
+    if (filters.minRating > 0) params.set('rating', filters.minRating.toString());
+    if (filters.sort !== 'users-desc') params.set('sort', filters.sort);
+
+    const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
+    window.history.replaceState({}, '', newUrl);
+    setCurrentPage(1); // Reset page on filter change
+  }, [filters]);
+
+  const toggleFavorite = (id: string) => {
+    setFavorites(prev => {
+      const newFavs = prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id];
+      localStorage.setItem('kinetiq_favorites', JSON.stringify(newFavs));
+      return newFavs;
+    });
+  };
+
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href);
+    alert("Link copied to clipboard!");
+  };
+
+  const handleExport = () => {
+    if (filteredProducts.length === 0) return;
+
+    // Convert to CSV
+    const headers = ['Name', 'Company', 'Category', 'SubCategory', 'Rating', 'Users', 'Growth', 'Pricing', 'Website'];
+    const csvContent = [
+      headers.join(','),
+      ...filteredProducts.map(p => [
+        `"${p.name}"`,
+        `"${p.companyId}"`,
+        `"${p.category}"`,
+        `"${p.subCategory}"`,
+        p.metrics.rating,
+        p.metrics.totalUsers,
+        `${p.metrics.growthRate}%`,
+        `"${p.pricing.join(';')}"`,
+        p.website
+      ].join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    if (link.download !== undefined) {
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `kinetiq_export_${new Date().toISOString().split('T')[0]}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
 
   // SYSTEM STARTUP
   useEffect(() => {
@@ -93,15 +178,38 @@ const App: React.FC = () => {
     return () => unsubscribe();
   }, []);
 
+  // Keyboard Shortcuts
+  const searchFocusRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Search Focus (/)
+      if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)) {
+        e.preventDefault();
+        searchFocusRef.current?.focus();
+      }
+
+      // Escape actions
+      if (e.key === 'Escape') {
+        if (selectedProduct) setSelectedProduct(null);
+        else if (isSidebarOpen) setIsSidebarOpen(false);
+        else if (comparisonList.length > 0) setComparisonList([]);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedProduct, isSidebarOpen, comparisonList]);
+
   // Filter & Sort Logic
   const filteredProducts = useMemo(() => {
     let result = allProducts.filter(product => {
       const matchesSearch = product.name.toLowerCase().includes(filters.search.toLowerCase()) ||
         product.description.toLowerCase().includes(filters.search.toLowerCase()) ||
         product.companyId.toLowerCase().includes(filters.search.toLowerCase());
-      const matchesCategory = filters.category ? product.category === filters.category : true;
+      const matchesCategory = filters.category.length > 0 ? filters.category.includes(product.category) : true;
       const matchesSubCategory = filters.subCategory ? product.subCategory === filters.subCategory : true;
-      const matchesRating = product.metrics.rating >= filters.minRating;
+      const matchesRating = Number(product.metrics.rating) >= Number(filters.minRating);
       const matchesPricing = filters.pricing.length > 0
         ? product.pricing.some(p => filters.pricing.includes(p))
         : true;
@@ -125,15 +233,22 @@ const App: React.FC = () => {
     });
   }, [filters, allProducts]);
 
+  const paginatedProducts = useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  }, [filteredProducts, currentPage]);
+
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+
   // Comparison Handlers
   const toggleComparison = (product: Product) => {
     if (comparisonList.find(p => p.id === product.id)) {
       setComparisonList(prev => prev.filter(p => p.id !== product.id));
     } else {
-      if (comparisonList.length < 4) {
+      if (comparisonList.length < 5) {
         setComparisonList(prev => [...prev, product]);
       } else {
-        alert("You can compare up to 4 products at a time.");
+        alert("You can compare up to 5 products at a time.");
       }
     }
   };
@@ -142,7 +257,7 @@ const App: React.FC = () => {
   const handleHomeClick = () => {
     setFilters({
       search: '',
-      category: null,
+      category: [],
       subCategory: null,
       pricing: [],
       minRating: 0,
@@ -224,6 +339,7 @@ const App: React.FC = () => {
         toggleTheme={toggleTheme}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        searchRef={searchFocusRef}
       />
 
       <div className="flex pt-0 h-[calc(100vh-64px)] overflow-hidden">
@@ -285,16 +401,32 @@ const App: React.FC = () => {
                 {(filters.category || filters.search) && (
                   <div className="mb-6 flex items-center justify-between">
                     <div className="flex items-center gap-2 text-sm text-gray-500">
-                      <span>Showing {filteredProducts.length} results</span>
-                      {filters.category && (
+                      <span className="font-semibold text-gray-900 dark:text-white">Showing {filteredProducts.length} results</span>
+                      {filters.category.length > 0 && (
                         <span className="bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300 px-2 py-0.5 rounded-full flex items-center">
-                          {filters.category}
+                          {filters.category.length === 1 ? filters.category[0] : `${filters.category.length} Categories`}
                           {filters.subCategory && ` > ${filters.subCategory}`}
-                          <button onClick={() => setFilters(prev => ({ ...prev, category: null, subCategory: null }))} className="ml-1 hover:text-primary-900">
+                          <button onClick={() => setFilters(prev => ({ ...prev, category: [], subCategory: null }))} className="ml-1 hover:text-primary-900">
                             <span className="sr-only">Remove</span>&times;
                           </button>
                         </span>
                       )}
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={handleShare}
+                        className="p-1.5 text-gray-500 hover:text-primary-600 hover:bg-gray-100 dark:hover:bg-dark-800 rounded-md transition-colors"
+                        title="Share this view"
+                      >
+                        <Share2 className="w-4 h-4" />
+                      </button>
+                      <button
+                        onClick={handleExport}
+                        className="p-1.5 text-gray-500 hover:text-primary-600 hover:bg-gray-100 dark:hover:bg-dark-800 rounded-md transition-colors"
+                        title="Export to CSV"
+                      >
+                        <Download className="w-4 h-4" />
+                      </button>
                     </div>
                   </div>
                 )}
@@ -311,13 +443,15 @@ const App: React.FC = () => {
                 {/* Product Grid/List */}
                 {viewMode === 'grid' && (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {filteredProducts.map(product => (
+                    {paginatedProducts.map(product => (
                       <ProductCard
                         key={product.id}
                         product={product}
                         onClick={setSelectedProduct}
                         onCompare={toggleComparison}
                         isSelectedForComparison={!!comparisonList.find(p => p.id === product.id)}
+                        isFavorite={favorites.includes(product.id)}
+                        onToggleFavorite={toggleFavorite}
                       />
                     ))}
                   </div>
@@ -325,13 +459,15 @@ const App: React.FC = () => {
 
                 {viewMode === 'list' && (
                   <div className="bg-white dark:bg-dark-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-                    {filteredProducts.map(product => (
+                    {paginatedProducts.map(product => (
                       <ProductListRow
                         key={product.id}
                         product={product}
                         onClick={setSelectedProduct}
                         onCompare={toggleComparison}
                         isSelectedForComparison={!!comparisonList.find(p => p.id === product.id)}
+                        isFavorite={favorites.includes(product.id)}
+                        onToggleFavorite={toggleFavorite}
                       />
                     ))}
                   </div>
@@ -350,7 +486,7 @@ const App: React.FC = () => {
                         </tr>
                       </thead>
                       <tbody className="bg-white dark:bg-dark-800 divide-y divide-gray-200 dark:divide-gray-700">
-                        {filteredProducts.map(product => (
+                        {paginatedProducts.map(product => (
                           <tr
                             key={product.id}
                             onClick={() => setSelectedProduct(product)}
@@ -396,7 +532,11 @@ const App: React.FC = () => {
                       <Table className="w-8 h-8 text-gray-400" />
                     </div>
                     <h3 className="text-lg font-medium text-gray-900 dark:text-white">No products found</h3>
-                    <p className="text-gray-500 dark:text-gray-400 mt-2">Try adjusting your search or filters to find what you're looking for.</p>
+                    <p className="text-gray-500 dark:text-gray-400 mt-2">
+                      {/[^a-zA-Z0-9\s]/.test(filters.search)
+                        ? "It looks like your search contains special characters. Try using only letters and numbers."
+                        : "Try adjusting your search or filters to find what you're looking for."}
+                    </p>
                     <button
                       onClick={handleHomeClick}
                       className="mt-4 text-primary-600 hover:text-primary-700 font-medium"
@@ -406,6 +546,29 @@ const App: React.FC = () => {
                   </div>
                 )}
               </>
+            )}
+
+            {/* Pagination Controls */}
+            {filteredProducts.length > ITEMS_PER_PAGE && (
+              <div className="mt-8 flex justify-center items-center space-x-2">
+                <button
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg disabled:opacity-50 hover:bg-gray-100 dark:hover:bg-dark-800"
+                >
+                  Previous
+                </button>
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button
+                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg disabled:opacity-50 hover:bg-gray-100 dark:hover:bg-dark-800"
+                >
+                  Next
+                </button>
+              </div>
             )}
           </div>
         </main>

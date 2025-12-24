@@ -49,7 +49,7 @@ export type SortOption =
 
 export interface FilterState {
   search: string;
-  category: string | null;
+  category: string[];
   subCategory: string | null;
   pricing: string[];
   minRating: number;

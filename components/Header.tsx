@@ -12,7 +12,18 @@ interface HeaderProps {
   toggleTheme: () => void;
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  searchRef: React.RefObject<HTMLInputElement>;
 }
+
+// Simple debounce hook could be extracted, but keeping it inline for simplicity
+const useDebounce = (value: string, delay: number) => {
+  const [debouncedValue, setDebouncedValue] = React.useState(value);
+  React.useEffect(() => {
+    const handler = setTimeout(() => setDebouncedValue(value), delay);
+    return () => clearTimeout(handler);
+  }, [value, delay]);
+  return debouncedValue;
+};
 
 const Header: React.FC<HeaderProps> = ({
   onMenuClick,
@@ -23,7 +34,8 @@ const Header: React.FC<HeaderProps> = ({
   isDark,
   toggleTheme,
   activeTab,
-  setActiveTab
+  setActiveTab,
+  searchRef
 }) => {
   return (
     <header className="sticky top-0 z-30 bg-white dark:bg-dark-800 border-b border-gray-200 dark:border-gray-700 px-4 py-3 shadow-sm">
@@ -41,12 +53,22 @@ const Header: React.FC<HeaderProps> = ({
               <Search className="h-4 w-4 text-gray-400" />
             </div>
             <input
+              ref={searchRef}
               type="text"
               className="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg leading-5 bg-gray-50 dark:bg-dark-900 text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 sm:text-sm transition duration-150 ease-in-out"
               placeholder="Search products, companies, or tags..."
               value={filters.search}
+              title={filters.search} // Tooltip for long queries
               onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
             />
+            {/* Filter Count Badge (Usability Fix) */}
+            {(filters.category.length > 0 || filters.pricing.length > 0 || filters.minRating > 0) && (
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center space-x-1">
+                <span className="bg-primary-100 text-primary-700 text-xs font-bold px-2 py-0.5 rounded-full border border-primary-200">
+                  {(filters.category.length + filters.pricing.length + (filters.minRating > 0 ? 1 : 0))}
+                </span>
+              </div>
+            )}
           </div>
         </div>
 
