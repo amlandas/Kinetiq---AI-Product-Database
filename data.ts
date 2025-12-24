@@ -1955,6 +1955,437 @@ const SEED_PRODUCTS: Product[] = [
       "Marketing",
       "Performance"
     ]
+  },
+  {
+    "id": "gong",
+    "name": "Gong",
+    "companyId": "gong",
+    "logoUrl": "https://ui-avatars.com/api/?name=Gong&background=612F91&color=fff&size=200&font-size=0.4&bold=true",
+    "category": "Business & Operations",
+    "subCategory": "Sales",
+    "description": "The Revenue Intelligence platform. Gong captures your customer interactions and provides insights to close more deals.",
+    "features": [
+      "Revenue Intelligence",
+      "Call Recording",
+      "Analysis",
+      "Forecasting"
+    ],
+    "website": "https://gong.io",
+    "pricing": [
+      "Paid"
+    ],
+    "launchDate": "2015-01-01",
+    "lastUpdate": "2025-02-01",
+    "metrics": {
+      "totalUsers": 3000000,
+      "rating": 4.8,
+      "growthRate": 50
+    },
+    "tags": [
+      "Sales",
+      "Intelligence"
+    ]
+  },
+  {
+    "id": "salesforce-einstein",
+    "name": "Salesforce Einstein",
+    "companyId": "salesforce",
+    "logoUrl": "https://ui-avatars.com/api/?name=Einstein&background=00A1E0&color=fff&size=200&font-size=0.4&bold=true",
+    "category": "Business & Operations",
+    "subCategory": "Sales",
+    "description": "AI for CRM. Einstein delivers AI-created content, predictive insights, and automated tasks across the Salesforce Customer 360.",
+    "features": [
+      "CRM AI",
+      "Predictive",
+      "Automation",
+      "Insights"
+    ],
+    "website": "https://salesforce.com/einstein",
+    "pricing": [
+      "Paid"
+    ],
+    "launchDate": "2016-09-01",
+    "lastUpdate": "2025-01-01",
+    "metrics": {
+      "totalUsers": 10000000,
+      "rating": 4.7,
+      "growthRate": 20
+    },
+    "tags": [
+      "Sales",
+      "CRM",
+      "Business"
+    ]
+  },
+  {
+    "id": "outreach",
+    "name": "Outreach",
+    "companyId": "outreach",
+    "logoUrl": "https://ui-avatars.com/api/?name=Outreach&background=5925DC&color=fff&size=200&font-size=0.4&bold=true",
+    "category": "Business & Operations",
+    "subCategory": "Sales",
+    "description": "The leading Sales Execution Platform. Automate your sales workflows and generate more pipeline with AI.",
+    "features": [
+      "Sales Engagement",
+      "Automation",
+      "Workflows",
+      "Pipeline"
+    ],
+    "website": "https://outreach.io",
+    "pricing": [
+      "Paid"
+    ],
+    "launchDate": "2014-01-01",
+    "lastUpdate": "2025-01-01",
+    "metrics": {
+      "totalUsers": 1000000,
+      "rating": 4.7,
+      "growthRate": 30
+    },
+    "tags": [
+      "Sales",
+      "Automation"
+    ]
+  },
+  {
+    "id": "salesloft",
+    "name": "Salesloft",
+    "companyId": "salesloft",
+    "logoUrl": "https://ui-avatars.com/api/?name=Salesloft&background=00C7B1&color=fff&size=200&font-size=0.4&bold=true",
+    "category": "Business & Operations",
+    "subCategory": "Sales",
+    "description": "The Modern Revenue Workspace. Salesloft helps sellers execute on their digital selling strategy with AI.",
+    "features": [
+      "Sales Engagement",
+      "Rhythm",
+      "AI",
+      "Pipeline"
+    ],
+    "website": "https://salesloft.com",
+    "pricing": [
+      "Paid"
+    ],
+    "launchDate": "2011-01-01",
+    "lastUpdate": "2025-01-15",
+    "metrics": {
+      "totalUsers": 800000,
+      "rating": 4.7,
+      "growthRate": 25
+    },
+    "tags": [
+      "Sales",
+      "Engagement"
+    ]
+  },
+  {
+    "id": "clari",
+    "name": "Clari",
+    "companyId": "clari",
+    "logoUrl": "https://ui-avatars.com/api/?name=Clari&background=000&color=fff&size=200&font-size=0.4&bold=true",
+    "category": "Business & Operations",
+    "subCategory": "Sales",
+    "description": "Revenue Collaboration & Governance. Clari uses AI to stop revenue leak and improve forecast accuracy.",
+    "features": [
+      "Revenue Ops",
+      "Forecasting",
+      "Inspection",
+      "AI"
+    ],
+    "website": "https://clari.com",
+    "pricing": [
+      "Paid"
+    ],
+    "launchDate": "2013-01-01",
+    "lastUpdate": "2025-02-01",
+    "metrics": {
+      "totalUsers": 500000,
+      "rating": 4.8,
+      "growthRate": 35
+    },
+    "tags": [
+      "Sales",
+      "Revenue",
+      "Forecasting"
+    ]
+  },
+  {
+    "id": "hirevue",
+    "name": "HireVue",
+    "companyId": "hirevue",
+    "logoUrl": "https://ui-avatars.com/api/?name=HireVue&background=F74E23&color=fff&size=200&font-size=0.4&bold=true",
+    "category": "Business & Operations",
+    "subCategory": "Customer Support",
+    "description": "AI-driven hiring platform. HireVue uses video interviewing and assessments to speed up hiring and find better talent.",
+    "features": [
+      "Video Interview",
+      "Assessments",
+      "Hiring",
+      "Recruiting"
+    ],
+    "website": "https://hirevue.com",
+    "pricing": [
+      "Paid"
+    ],
+    "launchDate": "2004-01-01",
+    "lastUpdate": "2025-01-15",
+    "metrics": {
+      "totalUsers": 1000000,
+      "rating": 4.6,
+      "growthRate": 15
+    },
+    "tags": [
+      "HR",
+      "Hiring",
+      "Recruiting"
+    ]
+  },
+  {
+    "id": "leena-ai",
+    "name": "Leena AI",
+    "companyId": "leena",
+    "logoUrl": "https://ui-avatars.com/api/?name=Leena&background=2E3A59&color=fff&size=200&font-size=0.4&bold=true",
+    "category": "Business & Operations",
+    "subCategory": "Customer Support",
+    "description": "AI HR Assistant. Automate employee helpdesk and engagement with Leena AI's conversational platform.",
+    "features": [
+      "HR Chatbot",
+      "Employee Experience",
+      "Helpdesk",
+      "Automation"
+    ],
+    "website": "https://leena.ai",
+    "pricing": [
+      "Paid"
+    ],
+    "launchDate": "2016-01-01",
+    "lastUpdate": "2025-02-01",
+    "metrics": {
+      "totalUsers": 5000000,
+      "rating": 4.7,
+      "growthRate": 60
+    },
+    "tags": [
+      "HR",
+      "Chatbot",
+      "Employee"
+    ]
+  },
+  {
+    "id": "quickbooks-ai",
+    "name": "QuickBooks AI",
+    "companyId": "intuit",
+    "logoUrl": "https://ui-avatars.com/api/?name=QB&background=2CA01C&color=fff&size=200&font-size=0.4&bold=true",
+    "category": "Business & Operations",
+    "subCategory": "Finance",
+    "description": "Intuit Assist. AI-powered financial assistant integrated into QuickBooks to automate tasks and provide insights.",
+    "features": [
+      "Accounting",
+      "Invoicing",
+      "Insights",
+      "Automation"
+    ],
+    "website": "https://quickbooks.intuit.com",
+    "pricing": [
+      "Paid"
+    ],
+    "launchDate": "2023-09-01",
+    "lastUpdate": "2025-01-01",
+    "metrics": {
+      "totalUsers": 50000000,
+      "rating": 4.6,
+      "growthRate": 10
+    },
+    "tags": [
+      "Finance",
+      "Accounting"
+    ]
+  },
+  {
+    "id": "vic-ai",
+    "name": "Vic.ai",
+    "companyId": "vic-ai",
+    "logoUrl": "https://ui-avatars.com/api/?name=Vic&background=000&color=fff&size=200&font-size=0.4&bold=true",
+    "category": "Business & Operations",
+    "subCategory": "Finance",
+    "description": "Autonomous accounting platform. Vic.ai processes invoices and facilitates approvals with AI.",
+    "features": [
+      "AP Automation",
+      "Invoicing",
+      "Accounting",
+      "AI"
+    ],
+    "website": "https://vic.ai",
+    "pricing": [
+      "Paid"
+    ],
+    "launchDate": "2017-01-01",
+    "lastUpdate": "2025-01-15",
+    "metrics": {
+      "totalUsers": 100000,
+      "rating": 4.7,
+      "growthRate": 80
+    },
+    "tags": [
+      "Finance",
+      "Accounting"
+    ]
+  },
+  {
+    "id": "canva",
+    "name": "Canva",
+    "companyId": "canva",
+    "logoUrl": "https://ui-avatars.com/api/?name=Canva&background=00C4CC&color=fff&size=200&font-size=0.4&bold=true",
+    "category": "Content & Creative",
+    "subCategory": "Design",
+    "description": "Design for everyone. Canva's Magic Studio brings comprehensive AI design tools to the popular platform.",
+    "features": [
+      "Graphic Design",
+      "Magic Edit",
+      "Templates",
+      "Social Media"
+    ],
+    "website": "https://canva.com",
+    "pricing": [
+      "Freemium",
+      "Paid"
+    ],
+    "launchDate": "2013-01-01",
+    "lastUpdate": "2025-03-01",
+    "metrics": {
+      "totalUsers": 150000000,
+      "rating": 4.8,
+      "growthRate": 30
+    },
+    "tags": [
+      "Design",
+      "Graphics",
+      "Creative"
+    ]
+  },
+  {
+    "id": "uizard",
+    "name": "Uizard",
+    "companyId": "uizard",
+    "logoUrl": "https://ui-avatars.com/api/?name=Uizard&background=E5FD52&color=000&size=200&font-size=0.4&bold=true",
+    "category": "Content & Creative",
+    "subCategory": "Design",
+    "description": "Design stunning wireframes, mockups, and prototypes in minutes with AI. No design experience required.",
+    "features": [
+      "UI Design",
+      "Wireframing",
+      "Prototyping",
+      "Text to Design"
+    ],
+    "website": "https://uizard.io",
+    "pricing": [
+      "Freemium",
+      "Paid"
+    ],
+    "launchDate": "2018-01-01",
+    "lastUpdate": "2025-02-15",
+    "metrics": {
+      "totalUsers": 2000000,
+      "rating": 4.7,
+      "growthRate": 100
+    },
+    "tags": [
+      "UI/UX",
+      "Design",
+      "Prototyping"
+    ]
+  },
+  {
+    "id": "khroma",
+    "name": "Khroma",
+    "companyId": "khroma",
+    "logoUrl": "https://ui-avatars.com/api/?name=Khroma&background=000&color=fff&size=200&font-size=0.4&bold=true",
+    "category": "Content & Creative",
+    "subCategory": "Design",
+    "description": "The AI color tool for designers. Khroma uses AI to learn which colors you like and creates limitless palettes.",
+    "features": [
+      "Color Palettes",
+      "Design",
+      "Inspiration",
+      "AI"
+    ],
+    "website": "https://khroma.co",
+    "pricing": [
+      "Free"
+    ],
+    "launchDate": "2018-01-01",
+    "lastUpdate": "2025-01-01",
+    "metrics": {
+      "totalUsers": 500000,
+      "rating": 4.6,
+      "growthRate": 20
+    },
+    "tags": [
+      "Design",
+      "Color"
+    ]
+  },
+  {
+    "id": "looka",
+    "name": "Looka",
+    "companyId": "looka",
+    "logoUrl": "https://ui-avatars.com/api/?name=Looka&background=3F2A56&color=fff&size=200&font-size=0.4&bold=true",
+    "category": "Content & Creative",
+    "subCategory": "Design",
+    "description": "Design your own beautiful brand. Looka uses AI to create a logo and brand identity you'll love.",
+    "features": [
+      "Logo Maker",
+      "Branding",
+      "Design",
+      "Marketing Materials"
+    ],
+    "website": "https://looka.com",
+    "pricing": [
+      "Paid"
+    ],
+    "launchDate": "2016-01-01",
+    "lastUpdate": "2025-01-01",
+    "metrics": {
+      "totalUsers": 5000000,
+      "rating": 4.7,
+      "growthRate": 40
+    },
+    "tags": [
+      "Design",
+      "Branding",
+      "Logo"
+    ]
+  },
+  {
+    "id": "interior-ai",
+    "name": "Interior AI",
+    "companyId": "interior-ai",
+    "logoUrl": "https://ui-avatars.com/api/?name=Interior&background=000&color=fff&size=200&font-size=0.4&bold=true",
+    "category": "Content & Creative",
+    "subCategory": "Design",
+    "description": "Interior design ideas and virtual staging with AI. Redesign your home in seconds.",
+    "features": [
+      "Interior Design",
+      "Virtual Staging",
+      "Home Decor",
+      "Rendering"
+    ],
+    "website": "https://interiorai.com",
+    "pricing": [
+      "Freemium",
+      "Paid"
+    ],
+    "launchDate": "2022-09-01",
+    "lastUpdate": "2025-02-01",
+    "metrics": {
+      "totalUsers": 1000000,
+      "rating": 4.6,
+      "growthRate": 150
+    },
+    "tags": [
+      "Interior",
+      "Design",
+      "Home"
+    ]
   }
 ];
 
@@ -33605,7 +34036,7 @@ const IMPORTED_PRODUCTS: Product[] = [
     ]
   },
   {
-    "id": "product-z7gqz10u0",
+    "id": "product-ydi169yxe",
     "name": "扣子",
     "companyId": "扣子",
     "logoUrl": "https://ui-avatars.com/api/?name=%E6%89%A3%E5%AD%90&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
@@ -34055,36 +34486,6 @@ const IMPORTED_PRODUCTS: Product[] = [
       "Video Editing",
       "Customizable",
       "AI-Powered"
-    ]
-  },
-  {
-    "id": "outreach",
-    "name": "Outreach",
-    "companyId": "Outreach",
-    "logoUrl": "https://ui-avatars.com/api/?name=Outreach&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Business & Operations",
-    "subCategory": "Sales",
-    "description": "Outreach is a leading Sales tool focused on Business & Operations.",
-    "features": [
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://www.outreach.io",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2024-11-25",
-    "lastUpdate": "2025-02-21",
-    "metrics": {
-      "totalUsers": 6047,
-      "rating": 3.6,
-      "growthRate": 182
-    },
-    "tags": [
-      "Business & Operations",
-      "Sales",
-      "AI-Powered",
-      "Cloud-Based"
     ]
   },
   {
