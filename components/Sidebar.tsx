@@ -35,7 +35,7 @@ const Sidebar: React.FC<SidebarProps> = ({ filters, setFilters, isOpen, classNam
       md:translate-x-0 md:static ${className}
     `}>
       <div className="h-full flex flex-col overflow-y-auto p-4">
-        <div 
+        <div
           onClick={onHomeClick}
           className="flex items-center space-x-2 mb-8 px-2 cursor-pointer hover:opacity-80 transition-opacity"
           title="Return to Home"
@@ -54,29 +54,27 @@ const Sidebar: React.FC<SidebarProps> = ({ filters, setFilters, isOpen, classNam
                 <li key={cat.id}>
                   <button
                     onClick={() => handleCategoryClick(cat.name)}
-                    className={`w-full flex items-center justify-between px-2 py-2 text-sm rounded-md transition-colors ${
-                      filters.category === cat.name
+                    className={`w-full flex items-center justify-between px-2 py-2 text-sm rounded-md transition-colors ${filters.category === cat.name
                         ? 'bg-primary-50 text-primary-700 dark:bg-primary-900/20 dark:text-primary-400'
                         : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-dark-900'
-                    }`}
+                      }`}
                   >
                     <span className="font-medium">{cat.name}</span>
                     <span className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-500 rounded-full px-2 py-0.5">
                       {cat.subCategories.length}
                     </span>
                   </button>
-                  
+
                   {filters.category === cat.name && (
                     <ul className="mt-1 ml-4 space-y-1 border-l-2 border-gray-100 dark:border-gray-700 pl-2">
                       {cat.subCategories.map((sub) => (
                         <li key={sub}>
                           <button
                             onClick={() => handleSubCategoryClick(sub)}
-                            className={`w-full text-left px-2 py-1.5 text-sm rounded-md transition-colors ${
-                              filters.subCategory === sub
+                            className={`w-full text-left px-2 py-1.5 text-sm rounded-md transition-colors ${filters.subCategory === sub
                                 ? 'text-primary-600 font-medium'
                                 : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200'
-                            }`}
+                              }`}
                           >
                             {sub}
                           </button>
@@ -92,6 +90,29 @@ const Sidebar: React.FC<SidebarProps> = ({ filters, setFilters, isOpen, classNam
           <div>
             <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-2">Filters</h3>
             <div className="space-y-4 px-2">
+              <div className="mb-6">
+                <h4 className="text-xs font-medium text-gray-500 mb-3">Pricing</h4>
+                <div className="space-y-2">
+                  {['Free', 'Freemium', 'Paid'].map((price) => (
+                    <label key={price} className="flex items-center space-x-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={filters.pricing.includes(price)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setFilters(prev => ({ ...prev, pricing: [...prev.pricing, price] }));
+                          } else {
+                            setFilters(prev => ({ ...prev, pricing: prev.pricing.filter(p => p !== price) }));
+                          }
+                        }}
+                        className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                      />
+                      <span className="text-sm text-gray-700 dark:text-gray-300">{price}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
               <div>
                 <label className="text-xs text-gray-500 mb-2 block">Min Rating: {filters.minRating}+</label>
                 <input
@@ -109,12 +130,12 @@ const Sidebar: React.FC<SidebarProps> = ({ filters, setFilters, isOpen, classNam
         </nav>
 
         <div className="mt-auto pt-6 border-t border-gray-200 dark:border-gray-700 px-2">
-          <button 
+          <button
             onClick={onHomeClick}
             className="flex items-center space-x-2 text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-300"
           >
-             <Filter className="w-4 h-4" />
-             <span>Reset All Filters</span>
+            <Filter className="w-4 h-4" />
+            <span>Reset All Filters</span>
           </button>
         </div>
       </div>

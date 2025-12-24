@@ -37,10 +37,21 @@ export interface Product {
   tags: string[];
 }
 
+export type SortOption =
+  | 'name-asc'
+  | 'name-desc'
+  | 'company-asc'
+  | 'company-desc'
+  | 'users-asc'
+  | 'users-desc'
+  | 'growth-asc'
+  | 'growth-desc';
+
 export interface FilterState {
   search: string;
   category: string | null;
   subCategory: string | null;
-  pricing: PricingModel[];
+  pricing: string[];
   minRating: number;
+  sort: SortOption;
 }

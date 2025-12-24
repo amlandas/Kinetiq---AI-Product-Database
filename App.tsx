@@ -15,8 +15,8 @@ const App: React.FC = () => {
   // Theme State
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
-      return localStorage.getItem('theme') === 'dark' || 
-             (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      return localStorage.getItem('theme') === 'dark' ||
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
     }
     return false;
   });
@@ -39,10 +39,10 @@ const App: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list' | 'table'>('grid');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [comparisonList, setComparisonList] = useState<Product[]>([]);
-  
+
   // Data State
   const [allProducts, setAllProducts] = useState<Product[]>([]);
-  
+
   // Initialization State
   const [initStatus, setInitStatus] = useState<CrawlStatus>('idle');
   const [initProgress, setInitProgress] = useState(0);
@@ -55,13 +55,14 @@ const App: React.FC = () => {
     subCategory: null,
     pricing: [],
     minRating: 0,
+    sort: 'users-desc', // Default sort
   });
 
   // SYSTEM STARTUP
   useEffect(() => {
     // 1. Load initial data if available (Snapshots)
     // The db.seed() will now load the V6 curated list
-    const cachedData = db.seed(); 
+    const cachedData = db.seed();
     setAllProducts(cachedData);
     setTotalProducts(cachedData.length);
 
@@ -70,17 +71,17 @@ const App: React.FC = () => {
       setInitStatus(state.status);
       setInitProgress(state.progress);
       setInitTask(state.currentTask);
-      
+
       // Real-time update of the product list as it grows
       if (state.totalProductsFound > 0 && state.status === 'crawling') {
         const updatedData = db.load();
         if (updatedData) setAllProducts(updatedData);
       }
-      
+
       // Final sync on complete
       if (state.status === 'complete') {
-         const finalData = db.load();
-         if (finalData) setAllProducts(finalData);
+        const finalData = db.load();
+        if (finalData) setAllProducts(finalData);
       }
     });
 
@@ -92,17 +93,35 @@ const App: React.FC = () => {
     return () => unsubscribe();
   }, []);
 
-  // Filter Logic
+  // Filter & Sort Logic
   const filteredProducts = useMemo(() => {
-    return allProducts.filter(product => {
-      const matchesSearch = product.name.toLowerCase().includes(filters.search.toLowerCase()) || 
-                            product.description.toLowerCase().includes(filters.search.toLowerCase()) ||
-                            product.companyId.toLowerCase().includes(filters.search.toLowerCase());
+    let result = allProducts.filter(product => {
+      const matchesSearch = product.name.toLowerCase().includes(filters.search.toLowerCase()) ||
+        product.description.toLowerCase().includes(filters.search.toLowerCase()) ||
+        product.companyId.toLowerCase().includes(filters.search.toLowerCase());
       const matchesCategory = filters.category ? product.category === filters.category : true;
       const matchesSubCategory = filters.subCategory ? product.subCategory === filters.subCategory : true;
       const matchesRating = product.metrics.rating >= filters.minRating;
+      const matchesPricing = filters.pricing.length > 0
+        ? product.pricing.some(p => filters.pricing.includes(p))
+        : true;
 
-      return matchesSearch && matchesCategory && matchesSubCategory && matchesRating;
+      return matchesSearch && matchesCategory && matchesSubCategory && matchesRating && matchesPricing;
+    });
+
+    // Sort Logic
+    return result.sort((a, b) => {
+      switch (filters.sort) {
+        case 'name-asc': return a.name.localeCompare(b.name);
+        case 'name-desc': return b.name.localeCompare(a.name);
+        case 'company-asc': return a.companyId.localeCompare(b.companyId);
+        case 'company-desc': return b.companyId.localeCompare(a.companyId);
+        case 'users-asc': return a.metrics.totalUsers - b.metrics.totalUsers;
+        case 'users-desc': return b.metrics.totalUsers - a.metrics.totalUsers;
+        case 'growth-asc': return a.metrics.growthRate - b.metrics.growthRate;
+        case 'growth-desc': return b.metrics.growthRate - a.metrics.growthRate;
+        default: return 0;
+      }
     });
   }, [filters, allProducts]);
 
@@ -127,6 +146,7 @@ const App: React.FC = () => {
       subCategory: null,
       pricing: [],
       minRating: 0,
+      sort: 'users-desc',
     });
     setActiveTab('products');
     setViewMode('grid');
@@ -148,43 +168,43 @@ const App: React.FC = () => {
         </div>
 
         <div className="z-10 w-full max-w-md space-y-8">
-           <div className="text-center space-y-2">
-             <div className="inline-block p-4 bg-blue-500/10 rounded-full mb-4 animate-pulse">
-               <Database className="w-12 h-12 text-blue-400" />
-             </div>
-             <h1 className="text-3xl font-bold tracking-tight">Kinetiq System Startup</h1>
-             <p className="text-gray-400">Initializing global product database...</p>
-           </div>
+          <div className="text-center space-y-2">
+            <div className="inline-block p-4 bg-blue-500/10 rounded-full mb-4 animate-pulse">
+              <Database className="w-12 h-12 text-blue-400" />
+            </div>
+            <h1 className="text-3xl font-bold tracking-tight">Kinetiq System Startup</h1>
+            <p className="text-gray-400">Initializing global product database...</p>
+          </div>
 
-           <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 space-y-6 shadow-2xl">
-              <div>
-                <div className="flex justify-between text-xs uppercase tracking-wider text-gray-500 mb-2">
-                  <span>System Progress</span>
-                  <span>{initProgress}%</span>
-                </div>
-                <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
-                  <div 
-                    className="bg-blue-500 h-2 rounded-full transition-all duration-300 ease-out"
-                    style={{ width: `${initProgress}%` }}
-                  ></div>
-                </div>
+          <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 space-y-6 shadow-2xl">
+            <div>
+              <div className="flex justify-between text-xs uppercase tracking-wider text-gray-500 mb-2">
+                <span>System Progress</span>
+                <span>{initProgress}%</span>
               </div>
-
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3 text-sm text-gray-300">
-                  {initTask ? <Loader2 className="w-4 h-4 animate-spin text-blue-400" /> : <CheckCircle className="w-4 h-4 text-green-400" />}
-                  <span className="truncate">{initTask || "Finalizing..."}</span>
-                </div>
-                <div className="flex items-center space-x-3 text-sm text-gray-300">
-                  <Server className="w-4 h-4 text-purple-400" />
-                  <span>Indexed {allProducts.length} AI Products</span>
-                </div>
+              <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+                <div
+                  className="bg-blue-500 h-2 rounded-full transition-all duration-300 ease-out"
+                  style={{ width: `${initProgress}%` }}
+                ></div>
               </div>
-           </div>
+            </div>
 
-           <p className="text-center text-xs text-gray-500">
-             This initial setup runs once. Subsequent loads will be instant.
-           </p>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3 text-sm text-gray-300">
+                {initTask ? <Loader2 className="w-4 h-4 animate-spin text-blue-400" /> : <CheckCircle className="w-4 h-4 text-green-400" />}
+                <span className="truncate">{initTask || "Finalizing..."}</span>
+              </div>
+              <div className="flex items-center space-x-3 text-sm text-gray-300">
+                <Server className="w-4 h-4 text-purple-400" />
+                <span>Indexed {allProducts.length} AI Products</span>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-center text-xs text-gray-500">
+            This initial setup runs once. Subsequent loads will be instant.
+          </p>
         </div>
       </div>
     );
@@ -192,7 +212,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-dark-900 transition-colors duration-200 font-sans">
-      
+
       {/* Header */}
       <Header
         onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -218,7 +238,7 @@ const App: React.FC = () => {
 
         {/* Overlay for mobile sidebar */}
         {isSidebarOpen && (
-          <div 
+          <div
             className="fixed inset-0 bg-black/50 z-30 md:hidden"
             onClick={() => setIsSidebarOpen(false)}
           ></div>
@@ -227,23 +247,23 @@ const App: React.FC = () => {
         {/* Main Content Area */}
         <main className="flex-1 overflow-y-auto p-4 md:p-6 scroll-smooth">
           <div className="max-w-7xl mx-auto">
-            
+
             {/* Background Update Indicator */}
             {initStatus === 'crawling' && allProducts.length >= 20 && (
               <div className="mb-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3 flex items-center justify-between animate-fade-in">
-                 <div className="flex items-center space-x-3">
-                   <div className="relative">
-                     <Database className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                     <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-blue-500 rounded-full animate-ping"></span>
-                   </div>
-                   <div className="text-sm">
-                     <span className="font-medium text-gray-900 dark:text-white">Updating Database...</span>
-                     <span className="text-gray-500 dark:text-gray-400 ml-2 hidden sm:inline">{initTask}</span>
-                   </div>
-                 </div>
-                 <div className="text-xs font-mono text-blue-600 dark:text-blue-400">
-                   {initProgress}%
-                 </div>
+                <div className="flex items-center space-x-3">
+                  <div className="relative">
+                    <Database className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                    <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-blue-500 rounded-full animate-ping"></span>
+                  </div>
+                  <div className="text-sm">
+                    <span className="font-medium text-gray-900 dark:text-white">Updating Database...</span>
+                    <span className="text-gray-500 dark:text-gray-400 ml-2 hidden sm:inline">{initTask}</span>
+                  </div>
+                </div>
+                <div className="text-xs font-mono text-blue-600 dark:text-blue-400">
+                  {initProgress}%
+                </div>
               </div>
             )}
 
@@ -281,8 +301,8 @@ const App: React.FC = () => {
 
                 {/* Comparison Bar */}
                 {comparisonList.length > 0 && (
-                  <ComparisonView 
-                    products={comparisonList} 
+                  <ComparisonView
+                    products={comparisonList}
                     onRemove={(id) => setComparisonList(prev => prev.filter(p => p.id !== id))}
                     onClear={() => setComparisonList([])}
                   />
@@ -292,9 +312,9 @@ const App: React.FC = () => {
                 {viewMode === 'grid' && (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {filteredProducts.map(product => (
-                      <ProductCard 
-                        key={product.id} 
-                        product={product} 
+                      <ProductCard
+                        key={product.id}
+                        product={product}
                         onClick={setSelectedProduct}
                         onCompare={toggleComparison}
                         isSelectedForComparison={!!comparisonList.find(p => p.id === product.id)}
@@ -306,9 +326,9 @@ const App: React.FC = () => {
                 {viewMode === 'list' && (
                   <div className="bg-white dark:bg-dark-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
                     {filteredProducts.map(product => (
-                      <ProductListRow 
-                        key={product.id} 
-                        product={product} 
+                      <ProductListRow
+                        key={product.id}
+                        product={product}
                         onClick={setSelectedProduct}
                         onCompare={toggleComparison}
                         isSelectedForComparison={!!comparisonList.find(p => p.id === product.id)}
@@ -318,71 +338,71 @@ const App: React.FC = () => {
                 )}
 
                 {viewMode === 'table' && (
-                   <div className="bg-white dark:bg-dark-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden overflow-x-auto">
-                     <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                       <thead className="bg-gray-50 dark:bg-dark-900">
-                         <tr>
-                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Product</th>
-                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Category</th>
-                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Users</th>
-                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Rating</th>
-                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Pricing</th>
-                         </tr>
-                       </thead>
-                       <tbody className="bg-white dark:bg-dark-800 divide-y divide-gray-200 dark:divide-gray-700">
-                         {filteredProducts.map(product => (
-                           <tr 
-                              key={product.id} 
-                              onClick={() => setSelectedProduct(product)}
-                              className="hover:bg-gray-50 dark:hover:bg-dark-700 cursor-pointer transition-colors"
-                           >
-                             <td className="px-6 py-4 whitespace-nowrap">
-                               <div className="flex items-center">
-                                 <div className="flex-shrink-0 h-10 w-10">
-                                   <img className="h-10 w-10 rounded-lg object-cover" src={product.logoUrl} alt="" />
-                                 </div>
-                                 <div className="ml-4">
-                                   <div className="text-sm font-medium text-gray-900 dark:text-white">{product.name}</div>
-                                   <div className="text-sm text-gray-500">{product.companyId}</div>
-                                 </div>
-                               </div>
-                             </td>
-                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                               <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                                 {product.category}
-                               </span>
-                             </td>
-                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                               {new Intl.NumberFormat('en-US', { notation: "compact" }).format(product.metrics.totalUsers)}
-                             </td>
-                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                               <div className="flex items-center">
-                                 <span className="text-yellow-500 mr-1">★</span> {product.metrics.rating}
-                               </div>
-                             </td>
-                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                               {product.pricing.join(', ')}
-                             </td>
-                           </tr>
-                         ))}
-                       </tbody>
-                     </table>
-                   </div>
+                  <div className="bg-white dark:bg-dark-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                      <thead className="bg-gray-50 dark:bg-dark-900">
+                        <tr>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Product</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Category</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Users</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Rating</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Pricing</th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white dark:bg-dark-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        {filteredProducts.map(product => (
+                          <tr
+                            key={product.id}
+                            onClick={() => setSelectedProduct(product)}
+                            className="hover:bg-gray-50 dark:hover:bg-dark-700 cursor-pointer transition-colors"
+                          >
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="flex items-center">
+                                <div className="flex-shrink-0 h-10 w-10">
+                                  <img className="h-10 w-10 rounded-lg object-cover" src={product.logoUrl} alt="" />
+                                </div>
+                                <div className="ml-4">
+                                  <div className="text-sm font-medium text-gray-900 dark:text-white">{product.name}</div>
+                                  <div className="text-sm text-gray-500">{product.companyId}</div>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                              <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                {product.category}
+                              </span>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                              {new Intl.NumberFormat('en-US', { notation: "compact" }).format(product.metrics.totalUsers)}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                              <div className="flex items-center">
+                                <span className="text-yellow-500 mr-1">★</span> {product.metrics.rating}
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                              {product.pricing.join(', ')}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 )}
-                
+
                 {filteredProducts.length === 0 && (
                   <div className="text-center py-20">
-                     <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 dark:bg-dark-800 mb-4">
-                        <Table className="w-8 h-8 text-gray-400" />
-                     </div>
-                     <h3 className="text-lg font-medium text-gray-900 dark:text-white">No products found</h3>
-                     <p className="text-gray-500 dark:text-gray-400 mt-2">Try adjusting your search or filters to find what you're looking for.</p>
-                     <button 
-                       onClick={handleHomeClick}
-                       className="mt-4 text-primary-600 hover:text-primary-700 font-medium"
-                     >
-                       Clear all filters
-                     </button>
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 dark:bg-dark-800 mb-4">
+                      <Table className="w-8 h-8 text-gray-400" />
+                    </div>
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-white">No products found</h3>
+                    <p className="text-gray-500 dark:text-gray-400 mt-2">Try adjusting your search or filters to find what you're looking for.</p>
+                    <button
+                      onClick={handleHomeClick}
+                      className="mt-4 text-primary-600 hover:text-primary-700 font-medium"
+                    >
+                      Clear all filters
+                    </button>
                   </div>
                 )}
               </>
@@ -393,9 +413,9 @@ const App: React.FC = () => {
 
       {/* Modals */}
       {selectedProduct && (
-        <ProductModal 
-          product={selectedProduct} 
-          onClose={() => setSelectedProduct(null)} 
+        <ProductModal
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
         />
       )}
     </div>
