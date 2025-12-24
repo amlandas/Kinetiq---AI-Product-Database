@@ -3,7 +3,7 @@ import { Product } from "../types";
 
 // Initialize the API client
 const apiKey = process.env.API_KEY;
-const ai = new GoogleGenAI({ apiKey: apiKey || 'DUMMY_KEY' }); 
+const ai = new GoogleGenAI({ apiKey: apiKey || 'DUMMY_KEY' });
 
 // Helper to generate consistent avatar URLs
 const generateLogoUrl = (name: string) => {
@@ -14,7 +14,25 @@ const generateLogoUrl = (name: string) => {
 };
 
 export const getProductAnalysis = async (product: Product): Promise<string> => {
-  if (!apiKey) return "API Key not configured. Unable to fetch analysis.";
+  if (!apiKey) {
+    // Return a mocked analysis for demonstration purposes if no API key is present
+    return `### Strategic Analysis: ${product.name}
+
+**Market Position:**
+${product.name} holds a strong position in the ${product.category} market, leveraging its key features like ${(product.features && product.features[0]) || 'AI capabilities'} to attract a user base of over ${new Intl.NumberFormat('en-US', { notation: "compact" }).format(product.metrics.totalUsers)}.
+
+**Strengths:**
+- **User Growth:** With a growth rate of ${product.metrics.growthRate}%, it demonstrates significant market traction.
+- **Feature Set:** Offers competitive tools for ${product.subCategory}.
+- **Brand Recognition:** As a product of ${product.companyId}, it benefits from established trust.
+
+**Weaknesses:**
+- **Competition:** faces stiff competition in the crowded ${product.category} space.
+- **Pricing:** ${product.pricing.join(', ')} model may limit accessibility for some segments.
+
+**Verdict:**
+A robust contender with solid fundamentals and a clear growth trajectory.`;
+  }
 
   try {
     const prompt = `
@@ -44,7 +62,7 @@ export const getProductAnalysis = async (product: Product): Promise<string> => {
  * Designed for bulk initialization with Search Grounding
  */
 export const generateProductsForCategory = async (
-  category: string, 
+  category: string,
   subCategory: string,
   count: number = 10 // Requesting reasonable batch
 ): Promise<Product[]> => {
@@ -117,10 +135,10 @@ export const generateProductsForCategory = async (
 
     const rawText = response.text;
     if (!rawText) return [];
-    
+
     // Parse JSON
     let parsed: any[] = JSON.parse(rawText);
-    
+
     if (!Array.isArray(parsed)) return [];
 
     // Post-process to ensure data quality and add Logo URLs

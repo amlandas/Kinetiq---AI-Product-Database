@@ -61,24 +61,6 @@ const Header: React.FC<HeaderProps> = ({
             >
               Products
             </button>
-            <button
-              onClick={() => setActiveTab('analytics')}
-              className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all ${activeTab === 'analytics'
-                ? 'bg-white dark:bg-dark-800 text-gray-900 dark:text-white shadow-sm'
-                : 'text-gray-500 dark:text-gray-400 hover:text-gray-900'
-                }`}
-            >
-              Analytics
-            </button>
-            <button
-              onClick={() => setActiveTab('companies')}
-              className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all ${activeTab === 'companies'
-                ? 'bg-white dark:bg-dark-800 text-gray-900 dark:text-white shadow-sm'
-                : 'text-gray-500 dark:text-gray-400 hover:text-gray-900'
-                }`}
-            >
-              Companies
-            </button>
           </div>
 
           <div className="hidden md:flex items-center space-x-2">
@@ -137,11 +119,6 @@ const Header: React.FC<HeaderProps> = ({
           >
             {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </button>
-
-          <button className="p-2 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-dark-900 rounded-lg relative">
-            <Bell className="w-5 h-5" />
-            <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
-          </button>
         </div>
       </div>
 
@@ -169,24 +146,6 @@ const Header: React.FC<HeaderProps> = ({
             }`}
         >
           Products
-        </button>
-        <button
-          onClick={() => setActiveTab('analytics')}
-          className={`whitespace-nowrap px-3 py-1.5 text-xs font-medium rounded-full border ${activeTab === 'analytics'
-            ? 'bg-primary-50 border-primary-200 text-primary-700 dark:bg-primary-900/20 dark:border-primary-800 dark:text-primary-300'
-            : 'bg-white border-gray-200 text-gray-600 dark:bg-dark-800 dark:border-gray-700 dark:text-gray-400'
-            }`}
-        >
-          Analytics
-        </button>
-        <button
-          onClick={() => setActiveTab('companies')}
-          className={`whitespace-nowrap px-3 py-1.5 text-xs font-medium rounded-full border ${activeTab === 'companies'
-            ? 'bg-primary-50 border-primary-200 text-primary-700 dark:bg-primary-900/20 dark:border-primary-800 dark:text-primary-300'
-            : 'bg-white border-gray-200 text-gray-600 dark:bg-dark-800 dark:border-gray-700 dark:text-gray-400'
-            }`}
-        >
-          Companies
         </button>
       </div>
     </header>
