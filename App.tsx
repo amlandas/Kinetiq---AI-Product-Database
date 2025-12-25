@@ -7,6 +7,7 @@ import ProductModal from './components/ProductModal';
 import MarketOverview from './components/MarketOverview';
 import ComparisonView from './components/ComparisonView';
 import ComparisonPage from './components/ComparisonPage';
+import MatchmakerView from './components/MatchmakerView';
 import { Product, FilterState, ComparisonResult } from './types';
 import { Table, Database, Sparkles, CheckCircle, Server, Loader2, Share2, Download } from 'lucide-react';
 import { db } from './services/db';
@@ -464,9 +465,26 @@ const App: React.FC = () => {
               <MarketOverview products={filteredProducts} />
             )}
 
+            {activeTab === 'matchmaker' && (
+              <MatchmakerView
+                allProducts={allProducts}
+                onProductClick={setSelectedProduct}
+                onCompare={toggleComparison}
+                comparisonList={comparisonList}
+                favorites={favorites}
+                onToggleFavorite={toggleFavorite}
+              />
+            )}
+
             {activeTab === 'comparison' && (
               <ComparisonPage
                 products={comparisonList}
+                allProducts={allProducts}
+                onAdd={(product) => {
+                  if (!comparisonList.find(p => p.id === product.id)) {
+                    toggleComparison(product);
+                  }
+                }}
                 onBack={() => setActiveTab('products')}
                 onRemove={(id) => {
                   setComparisonList(prev => prev.filter(p => p.id !== id));

@@ -1,5 +1,5 @@
 import { GoogleGenAI, Type, Schema } from "@google/genai";
-import { Product, ComparisonResult } from "../types";
+import { Product, ComparisonResult, MatchResult } from "../types";
 
 // Initialize the API client
 const apiKey = process.env.API_KEY;
@@ -188,6 +188,45 @@ export const generateComparison = async (products: Product[]): Promise<Compariso
 
   } catch (error) {
     console.error("Error generating comparison:", error);
+    return null;
+  }
+};
+
+/**
+ * Finds the best matching products for a user query
+ */
+export const matchProducts = async (query: string, allProducts: Product[]): Promise<MatchResult | null> => {
+  try {
+    // Optimize payload: Only send essential fields for matching
+    const simplifiedProducts = allProducts.map(p => ({
+      id: p.id,
+      name: p.name,
+      description: p.description,
+      category: p.category,
+      subCategory: p.subCategory,
+      tags: p.tags,
+      pricing: p.pricing // Included so AI knows if it's free
+    }));
+
+    const response = await fetch('/api/match', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query, products: simplifiedProducts }),
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      console.error(`Server error (${response.status}):`, errText);
+      throw new Error(`Server error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data as MatchResult;
+
+  } catch (error) {
+    console.error("Error matching products:", error);
     return null;
   }
 };

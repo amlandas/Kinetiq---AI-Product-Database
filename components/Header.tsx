@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Bell, Sun, Moon, Grid, List, Table as TableIcon, Menu, ArrowUpDown } from 'lucide-react';
+import { Search, Bell, Sun, Moon, Grid, List, Table as TableIcon, Menu, ArrowUpDown, Sparkles } from 'lucide-react';
 import { FilterState } from '../types';
 
 interface HeaderProps {
@@ -48,7 +48,7 @@ const Header: React.FC<HeaderProps> = ({
           {/* Mobile Title (Visible only on small screens) */}
           <span className="md:hidden text-lg font-bold text-gray-900 dark:text-white">Kinetiq</span>
 
-          <div className="relative w-full max-w-xl hidden sm:block">
+          <div className="relative w-full max-w-md hidden sm:block">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <Search className="h-4 w-4 text-gray-400" />
             </div>
@@ -72,6 +72,20 @@ const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
+        {/* Prominent Matchmaker Button (Top Center) */}
+        <button
+          onClick={() => setActiveTab('matchmaker')}
+          className={`
+            hidden lg:flex items-center gap-2.5 px-8 py-3 rounded-full font-bold text-base tracking-wide shadow-lg transition-all duration-300 transform hover:scale-105
+            bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600 text-white
+            shadow-purple-500/30 hover:shadow-purple-500/50 border border-white/20
+            ${activeTab === 'matchmaker' ? 'ring-2 ring-offset-2 ring-fuchsia-500' : ''}
+          `}
+        >
+          <Sparkles className="w-5 h-5 text-yellow-300 animate-pulse" />
+          <span>Ask AI Matchmaker</span>
+        </button>
+
         <div className="flex items-center space-x-2 sm:space-x-4">
           <div className="hidden md:flex bg-gray-100 dark:bg-dark-900 rounded-lg p-1">
             <button
@@ -82,6 +96,25 @@ const Header: React.FC<HeaderProps> = ({
                 }`}
             >
               Products
+            </button>
+            {/* Matchmaker Removed */}
+            <button
+              onClick={() => setActiveTab('comparison')}
+              className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all ${activeTab === 'comparison'
+                ? 'bg-white dark:bg-dark-800 text-gray-900 dark:text-white shadow-sm'
+                : 'text-gray-500 dark:text-gray-400 hover:text-gray-900'
+                }`}
+            >
+              Compare
+            </button>
+            <button
+              onClick={() => setActiveTab('analytics')}
+              className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all ${activeTab === 'analytics'
+                ? 'bg-white dark:bg-dark-800 text-gray-900 dark:text-white shadow-sm'
+                : 'text-gray-500 dark:text-gray-400 hover:text-gray-900'
+                }`}
+            >
+              Analytics
             </button>
           </div>
 
@@ -173,6 +206,16 @@ const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile Tabs */}
       <div className="mt-3 flex md:hidden space-x-2 overflow-x-auto pb-1">
+        <button
+          onClick={() => setActiveTab('matchmaker')}
+          className={`whitespace-nowrap px-3 py-1.5 text-xs font-medium rounded-full border flex items-center gap-1 ${activeTab === 'matchmaker'
+            ? 'bg-purple-50 border-purple-200 text-purple-700 dark:bg-purple-900/20 dark:border-purple-800 dark:text-purple-300'
+            : 'bg-white border-gray-200 text-gray-600 dark:bg-dark-800 dark:border-gray-700 dark:text-gray-400'
+            }`}
+        >
+          <Sparkles className="w-3 h-3" />
+          Ask AI
+        </button>
         <button
           onClick={() => setActiveTab('products')}
           className={`whitespace-nowrap px-3 py-1.5 text-xs font-medium rounded-full border ${activeTab === 'products'
