@@ -13,7 +13,9 @@ interface ProductPageProps {
 
 // 1. Dynamic Metadata for SEO
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
-    const product = products.find((p) => p.id === params.id);
+    if (!params?.id) return { title: 'Product Not Found - Kinetiq' };
+
+    const product = products.find((p) => p.id && p.id.toLowerCase() === params.id.toLowerCase());
 
     if (!product) {
         return {
@@ -32,19 +34,33 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     };
 }
 
-// 2. Static Params for SSG (Optional but good for performance)
-export async function generateStaticParams() {
-    return products.map((product) => ({
-        id: product.id,
-    }));
-}
+// Force dynamic rendering to ensure case-insensitive lookup always runs
+export const dynamic = 'force-dynamic';
+
+// 2. Static Params removed to prevent build-time 404s
+// export async function generateStaticParams() { ... }
 
 // 3. Page Component
 export default function ProductPage({ params }: ProductPageProps) {
-    const product = products.find((p) => p.id === params.id);
+    if (!params?.id) {
+        console.error("[ProductPage] Missing params.id");
+        return notFound();
+    }
+
+    console.log(`[ProductPage] Searching for ID: ${params.id}`);
+
+    // Case-insensitive lookup check
+    const product = products.find((p) => p.id && p.id.toLowerCase() === params.id.toLowerCase());
 
     if (!product) {
-        notFound();
+        console.error(`[ProductPage] Product not found for ID: ${params.id}`);
+        // Log first few IDs for debugging context
+        try {
+            console.log(`[ProductPage] Available IDs context: ${products.slice(0, 5).filter(p => p.id).map(p => p.id).join(', ')}`);
+        } catch (e) {
+            console.error("Error logging context ids");
+        }
+        return notFound();
     }
 
     return (
@@ -122,7 +138,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
                     <div className="bg-gray-50 dark:bg-dark-900/50 px-8 py-6 border-t border-gray-100 dark:border-gray-700 flex justify-end">
                         <a
-                            href="#"
+                            href={product.website}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
