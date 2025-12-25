@@ -122,8 +122,8 @@ const MatchmakerView: React.FC<MatchmakerViewProps> = ({
 
                             {/* Avatar */}
                             <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${msg.role === 'user'
-                                    ? 'bg-primary-100 text-primary-600 dark:bg-primary-900 dark:text-primary-300'
-                                    : 'bg-purple-100 text-purple-600 dark:bg-purple-900 dark:text-purple-300'
+                                ? 'bg-primary-100 text-primary-600 dark:bg-primary-900 dark:text-primary-300'
+                                : 'bg-purple-100 text-purple-600 dark:bg-purple-900 dark:text-purple-300'
                                 }`}>
                                 {msg.role === 'user' ? <UserIcon size={16} /> : <Bot size={16} />}
                             </div>
@@ -134,8 +134,8 @@ const MatchmakerView: React.FC<MatchmakerViewProps> = ({
                                 {/* Text Bubble */}
                                 {msg.text && (
                                     <div className={`inline-block px-4 py-3 rounded-2xl text-sm ${msg.role === 'user'
-                                            ? 'bg-primary-600 text-white rounded-tr-none'
-                                            : 'bg-white dark:bg-dark-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-tl-none shadow-sm'
+                                        ? 'bg-primary-600 text-white rounded-tr-none'
+                                        : 'bg-white dark:bg-dark-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-tl-none shadow-sm'
                                         }`}>
                                         {msg.text}
                                     </div>
@@ -179,7 +179,7 @@ const MatchmakerView: React.FC<MatchmakerViewProps> = ({
 
                                                         {/* Relevance Score */}
                                                         <div className="absolute top-12 right-2 bg-white dark:bg-dark-800 shadow-lg border border-gray-100 dark:border-gray-700 rounded-full px-2 py-0.5 text-[10px] font-bold text-gray-600 dark:text-gray-300 z-10">
-                                                            {rec.relevanceScore}% Match
+                                                            {Math.round(rec.relevanceScore * 100)}% Match
                                                         </div>
                                                     </div>
                                                 );
@@ -216,7 +216,7 @@ const MatchmakerView: React.FC<MatchmakerViewProps> = ({
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Describe what you need (e.g., 'open source text to speech for python')..."
-                    className="w-full pl-6 pr-14 py-4 rounded-full bg-white dark:bg-dark-800 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-purple-500 focus:border-transparent shadow-lg text-base"
+                    className="w-full pl-6 pr-14 py-4 rounded-full bg-white dark:bg-dark-800 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-purple-500 focus:border-transparent shadow-lg text-base text-gray-900 dark:text-white"
                     disabled={isLoading}
                 />
                 <button

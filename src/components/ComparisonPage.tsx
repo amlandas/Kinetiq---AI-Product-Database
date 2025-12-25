@@ -157,7 +157,7 @@ const ComparisonPage: React.FC<ComparisonPageProps> = ({
                                 setSearchQuery(e.target.value);
                                 setShowSuggestions(true);
                             }}
-                            className="w-full pl-4 pr-10 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-dark-900 text-sm focus:ring-1 focus:ring-primary-500"
+                            className="w-full pl-4 pr-10 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-dark-900 text-sm focus:ring-1 focus:ring-primary-500 text-gray-900 dark:text-white"
                         />
                         {showSuggestions && filteredSuggestions.length > 0 && (
                             <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-dark-800 rounded-lg shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden z-50">
