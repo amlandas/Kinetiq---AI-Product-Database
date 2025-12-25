@@ -4,6 +4,7 @@ const nextConfig = {
     images: {
         domains: ['ui-avatars.com'],
     },
+    output: 'standalone',
 }
 
 export default nextConfig;

@@ -33,4 +33,3 @@ service.yaml
 *.pem
 *.key
 google-credentials.json
-service.yaml
