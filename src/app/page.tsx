@@ -612,7 +612,7 @@ export default function Home() {
                                 <button
                                     onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                                     disabled={currentPage === 1}
-                                    className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded-md disabled:opacity-50 hover:bg-gray-100 dark:hover:bg-dark-800 text-sm"
+                                    className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded-md disabled:opacity-50 hover:bg-gray-100 dark:hover:bg-dark-800 text-sm text-gray-900 dark:text-white"
                                 >
                                     Prev
                                 </button>
@@ -630,7 +630,7 @@ export default function Home() {
                                             onClick={() => setCurrentPage(pNum)}
                                             className={`w-8 h-8 flex items-center justify-center rounded-md text-sm ${currentPage === pNum
                                                 ? 'bg-primary-600 text-white'
-                                                : 'border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-dark-800'}`}
+                                                : 'border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-dark-800 text-gray-900 dark:text-white'}`}
                                         >
                                             {pNum}
                                         </button>
@@ -639,7 +639,7 @@ export default function Home() {
                                 <button
                                     onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                                     disabled={currentPage === totalPages}
-                                    className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded-md disabled:opacity-50 hover:bg-gray-100 dark:hover:bg-dark-800 text-sm"
+                                    className="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded-md disabled:opacity-50 hover:bg-gray-100 dark:hover:bg-dark-800 text-sm text-gray-900 dark:text-white"
                                 >
                                     Next
                                 </button>
