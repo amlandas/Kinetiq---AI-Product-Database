@@ -82,3 +82,14 @@ export interface ComparisonResult {
     values: Record<string, string>;
   }[];
 }
+
+export interface MatchRecommendation {
+  productId: string;
+  reason: string;
+  relevanceScore: number; // 0-100
+}
+
+export interface MatchResult {
+  recommendations: MatchRecommendation[];
+  summary: string;
+}

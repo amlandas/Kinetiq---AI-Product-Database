@@ -45,7 +45,8 @@ const apiLimiter = rateLimit({
 });
 
 app.use('/api/', apiLimiter);
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+
 
 // ============================================================================
 // API ENDPOINTS
@@ -279,6 +280,91 @@ app.post('/api/compare', async (req, res) => {
             error: "Failed to generate comparison",
             details: error.message,
             stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+        });
+    }
+});
+
+// ============================================================================
+// AI MATCHMAKER ENDPOINT
+// ============================================================================
+
+app.post('/api/match', async (req, res) => {
+    try {
+        const { query, products } = req.body;
+
+        if (!query) {
+            return res.status(400).json({ error: "Missing query" });
+        }
+
+        if (!API_KEY) {
+            return res.status(500).json({ error: "Server configuration error: API Key missing" });
+        }
+
+        // Limit context size - if too many products, just send names and descriptions
+        const context = products.map(p => ({
+            id: p.id,
+            name: p.name,
+            description: p.description,
+            category: p.category,
+            tags: p.tags
+        }));
+
+        const prompt = `
+            You are an expert AI Software Matchmaker.
+            User Query: "${query}"
+
+            Here is the database of available tools:
+            ${JSON.stringify(context)}
+
+            TASK:
+            1. Select the top 3-5 tools that best match the user's need.
+            2. If the user asks for "free", prioritize free tools.
+            3. Provide a brief, personalized reason for each recommendation.
+            4. Assign a relevance score (0-100).
+            5. Provide a short summary of your recommendations.
+
+            Return JSON.
+        `;
+
+        const responseSchema = {
+            type: "OBJECT",
+            properties: {
+                recommendations: {
+                    type: "ARRAY",
+                    items: {
+                        type: "OBJECT",
+                        properties: {
+                            productId: { type: "STRING" },
+                            reason: { type: "STRING" },
+                            relevanceScore: { type: "NUMBER" }
+                        },
+                        required: ["productId", "reason", "relevanceScore"]
+                    }
+                },
+                summary: { type: "STRING" }
+            },
+            required: ["recommendations", "summary"]
+        };
+
+        const response = await ai.models.generateContent({
+            model: 'gemini-3-flash-preview',
+            contents: prompt,
+            config: {
+                responseMimeType: "application/json",
+                responseSchema: responseSchema,
+            }
+        });
+
+        const rawText = typeof response.text === 'function' ? response.text() : response.text;
+        if (!rawText) throw new Error("No response text from AI");
+
+        res.json(JSON.parse(rawText));
+
+    } catch (error) {
+        console.error("Matchmaker Error:", error);
+        res.status(500).json({
+            error: "Failed to match products",
+            details: error.message
         });
     }
 });
