@@ -1,6 +1,7 @@
 import React from 'react';
 import { Product } from '../types';
 import { Star, Users, TrendingUp, Heart } from 'lucide-react';
+import Link from 'next/link';
 
 interface ProductCardProps {
   product: Product;
@@ -21,9 +22,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick, onCompare, 
               <img src={product.logoUrl} alt={product.name} className="w-full h-full object-cover" />
             </div>
             <div>
-              <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                {product.name}
-              </h3>
+              <Link href={`/product/${product.id}`} className="hover:underline" onClick={(e) => e.stopPropagation()}>
+                <h3 className="font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                  {product.name}
+                </h3>
+              </Link>
               <p className="text-xs text-gray-500 dark:text-gray-400">{product.companyId}</p>
             </div>
           </div>
@@ -72,8 +75,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onClick, onCompare, 
         <button
           onClick={(e) => { e.stopPropagation(); onCompare(product); }}
           className={`px-3 py-1 rounded-full text-xs font-medium transition-colors border ${isSelectedForComparison
-              ? 'bg-primary-600 text-white border-primary-600'
-              : 'bg-white dark:bg-dark-800 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-dark-700'
+            ? 'bg-primary-600 text-white border-primary-600'
+            : 'bg-white dark:bg-dark-800 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-dark-700'
             }`}
         >
           {isSelectedForComparison ? 'Selected' : 'Compare'}
