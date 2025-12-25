@@ -300,6 +300,9 @@ const App: React.FC = () => {
 
   // Comparison Handlers
   const toggleComparison = (product: Product) => {
+    // Reset AI data whenever list changes to ensure validity
+    setAiData(null);
+
     if (comparisonList.find(p => p.id === product.id)) {
       setComparisonList(prev => prev.filter(p => p.id !== product.id));
     } else {
@@ -459,7 +462,10 @@ const App: React.FC = () => {
               <ComparisonPage
                 products={comparisonList}
                 onBack={() => setActiveTab('products')}
-                onRemove={(id) => setComparisonList(prev => prev.filter(p => p.id !== id))}
+                onRemove={(id) => {
+                  setComparisonList(prev => prev.filter(p => p.id !== id));
+                  setAiData(null);
+                }}
                 aiData={aiData}
                 setAiData={setAiData}
                 isAnalyzing={isAnalyzing}
@@ -514,7 +520,10 @@ const App: React.FC = () => {
                 {comparisonList.length > 0 && (
                   <ComparisonView
                     products={comparisonList}
-                    onRemove={(id) => setComparisonList(prev => prev.filter(p => p.id !== id))}
+                    onRemove={(id) => {
+                      setComparisonList(prev => prev.filter(p => p.id !== id));
+                      setAiData(null);
+                    }}
                     onClear={handleClearComparison}
                     onCompareNow={() => setActiveTab('comparison')}
                   />
