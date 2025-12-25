@@ -434,6 +434,12 @@ const App: React.FC = () => {
         <main className="flex-1 overflow-y-auto p-4 md:p-6 scroll-smooth">
           <div className="max-w-7xl mx-auto">
 
+            {/* Global Disclaimer Banner */}
+            <div className="mb-6 bg-gray-50 dark:bg-dark-800 border border-gray-200 dark:border-gray-700 rounded-lg p-3 text-xs text-gray-500 dark:text-gray-400 text-center leading-relaxed">
+              <span className="font-medium text-gray-700 dark:text-gray-300">Disclaimer:</span> Product metrics (user counts, ratings, growth rates) are approximate estimates aggregated from public sources and third-party data.
+              Actual figures may vary and should be independently verified. AI-generated analysis may contain inaccuracies. Use as a research starting point only.
+            </div>
+
             {/* Background Update Indicator */}
             {initStatus === 'crawling' && allProducts.length >= 20 && (
               <div className="mb-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3 flex items-center justify-between animate-fade-in">
@@ -686,6 +692,8 @@ const App: React.FC = () => {
 
             {/* Spacer for Comparison View Overlay */}
             {comparisonList.length > 0 && <div className="h-[50vh] w-full" aria-hidden="true" />}
+
+            {/* Global Disclaimer Footer - Removed */}
           </div>
         </main>
       </div>
