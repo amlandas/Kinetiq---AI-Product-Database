@@ -6,16 +6,17 @@ import { ArrowLeft, ExternalLink, Star, Users, Calendar, Tag, Check, X } from 'l
 import { notFound } from 'next/navigation';
 
 interface ProductPageProps {
-    params: {
+    params: Promise<{
         id: string;
-    };
+    }>;
 }
 
 // 1. Dynamic Metadata for SEO
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
-    if (!params?.id) return { title: 'Product Not Found - Kinetiq' };
+    const { id } = await params; // Await params
+    if (!id) return { title: 'Product Not Found - Kinetiq' };
 
-    const product = products.find((p) => p.id && p.id.toLowerCase() === params.id.toLowerCase());
+    const product = products.find((p) => p.id && p.id.toLowerCase() === id.toLowerCase());
 
     if (!product) {
         return {
@@ -41,19 +42,21 @@ export const dynamic = 'force-dynamic';
 // export async function generateStaticParams() { ... }
 
 // 3. Page Component
-export default function ProductPage({ params }: ProductPageProps) {
-    if (!params?.id) {
+export default async function ProductPage({ params }: ProductPageProps) {
+    const { id } = await params; // Await params
+
+    if (!id) {
         console.error("[ProductPage] Missing params.id");
         return notFound();
     }
 
-    console.log(`[ProductPage] Searching for ID: ${params.id}`);
+    console.log(`[ProductPage] Searching for ID: ${id}`);
 
     // Case-insensitive lookup check
-    const product = products.find((p) => p.id && p.id.toLowerCase() === params.id.toLowerCase());
+    const product = products.find((p) => p.id && p.id.toLowerCase() === id.toLowerCase());
 
     if (!product) {
-        console.error(`[ProductPage] Product not found for ID: ${params.id}`);
+        console.error(`[ProductPage] Product not found for ID: ${id}`);
         // Log first few IDs for debugging context
         try {
             console.log(`[ProductPage] Available IDs context: ${products.slice(0, 5).filter(p => p.id).map(p => p.id).join(', ')}`);
