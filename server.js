@@ -310,20 +310,27 @@ app.post('/api/match', async (req, res) => {
         }));
 
         const prompt = `
-            You are an expert AI Software Matchmaker.
+            You are an expert AI Software Matchmaker / CIO.
+            Your goal is to recommend the *specific* best tools for a user's unique persona and constraint set.
+
             User Query: "${query}"
 
-            Here is the database of available tools:
+            INTERNAL TOOL DATABASE:
             ${JSON.stringify(context)}
 
-            TASK:
-            1. Select the top 3-5 tools that best match the user's need.
-            2. If the user asks for "free", prioritize free tools.
-            3. Provide a brief, personalized reason for each recommendation.
-            4. Assign a relevance score (0-100).
-            5. Provide a short summary of your recommendations.
+            INSTRUCTIONS (CHAIN OF THOUGHT):
+            1.  **Analyze Persona**: Deduce the user's role (e.g., Architect, Developer, Student, Marketer) from the query.
+            2.  **Identify Constraints**: Detect implicit constraints (e.g., "free" => budget constraint, "secure" => enterprise constraint, "teams" => collaboration).
+            3.  **Search Grounding**: Use Google Search to understand the specific ecosystem if needed (e.g., "Tools compatible with Autodesk Revit" or "HIPAA compliant translation").
+            4.  **Database Scanning & Filtering**:
+                *   Scan the Internal Database for matches.
+                *   **CRITICAL RULE**: "Specialist over Generalist". If a user asks for a specific task (e.g., "Coding", "Translation", "Design") and there is a *Specialized Tool* in the DB (e.g., Copilot, DeepL, Midjourney), you MUST prioritize it over a Generalist LLM (ChatGPT, Claude, Gemini) unless the user explicitly asks for a chatbot.
+                *   *Penalize* generic tools if they are not the best fit for the specific domain.
+            5.  **Selection**: Select the top 3-5 best matches.
+            6.  **Reasoning**: For each match, write a personalized "Why it matches" reasoning that explicitly connects the tool's specific features to the user's persona/constraints.
 
-            Return JSON.
+            OUTPUT FORMAT (JSON):
+            Return a JSON object matching the schema below.
         `;
 
         const responseSchema = {
@@ -350,6 +357,7 @@ app.post('/api/match', async (req, res) => {
             model: 'gemini-3-flash-preview',
             contents: prompt,
             config: {
+                tools: [{ googleSearch: {} }], // Enable Search Grounding
                 responseMimeType: "application/json",
                 responseSchema: responseSchema,
             }
