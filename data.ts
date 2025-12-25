@@ -31,7 +31,6 @@ export const CATEGORIES: Category[] = [
     "id": "business_ops",
     "name": "Business & Operations",
     "subCategories": [
-      "Business",
       "Marketing",
       "Sales",
       "E-commerce",
@@ -118,7 +117,7 @@ export const COMPANIES: Company[] = [
 ];
 
 // Helper for consistent branding
-const getLogo = (name: string, bg: string = '0ea5e9') => 
+const getLogo = (name: string, bg: string = '0ea5e9') =>
   `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=${bg}&color=fff&size=200&font-size=0.4&bold=true`;
 
 // INITIAL SEED DATA (High Quality, Manually Curated)
