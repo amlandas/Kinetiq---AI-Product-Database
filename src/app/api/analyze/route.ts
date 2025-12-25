@@ -47,7 +47,7 @@ ${product.name} is a key player in the ${product.category}.
             contents: prompt,
         });
 
-        const text = typeof response.text === 'function' ? response.text() : response.text;
+        const text = response.text;
         return NextResponse.json({ analysis: text || "No analysis available." });
 
     } catch (error: any) {

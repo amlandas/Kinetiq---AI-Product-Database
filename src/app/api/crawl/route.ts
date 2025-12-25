@@ -80,7 +80,7 @@ export async function POST(req: Request) {
             }
         });
 
-        const rawText = typeof response.text === 'function' ? response.text() : response.text;
+        const rawText = response.text;
         if (!rawText) return NextResponse.json([], { status: 200 });
 
         let parsed: any[] = JSON.parse(rawText);

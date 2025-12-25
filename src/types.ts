@@ -1,4 +1,4 @@
-export type PricingModel = 'Free' | 'Freemium' | 'Paid' | 'Enterprise';
+export type PricingModel = 'Free' | 'Freemium' | 'Paid' | 'Enterprise' | 'Open Source' | 'Cloud' | 'Hosted' | 'Business';
 
 export interface Category {
   id: string;

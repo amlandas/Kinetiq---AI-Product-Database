@@ -79,7 +79,7 @@ export async function POST(req: Request) {
             }
         });
 
-        const rawText = typeof response.text === 'function' ? response.text() : response.text;
+        const rawText = response.text;
         if (!rawText) throw new Error("No response text from AI");
 
         return NextResponse.json(JSON.parse(rawText));
