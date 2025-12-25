@@ -2,7 +2,9 @@ import { GoogleGenAI, Type, Schema } from "@google/genai";
 import { Product, ComparisonResult, MatchResult } from "../types";
 
 // Initialize the API client
-const apiKey = process.env.API_KEY;
+// Initialize the API client
+// In Next.js, process.env is only available on server unless prefixed with NEXT_PUBLIC_
+const apiKey = process.env.NEXT_PUBLIC_API_KEY || process.env.API_KEY;
 const ai = new GoogleGenAI({ apiKey: apiKey || 'DUMMY_KEY' });
 
 // Helper to generate consistent avatar URLs
