@@ -4,6 +4,7 @@ import { PRODUCTS as products } from '../../../data'; // Corrected import alias
 import Link from 'next/link';
 import { ArrowLeft, ExternalLink, Star, Users, Calendar, Tag, Check, X } from 'lucide-react';
 import { notFound } from 'next/navigation';
+import ProductAnalysisSection from '../../../components/ProductAnalysisSection';
 
 interface ProductPageProps {
     params: Promise<{
@@ -139,6 +140,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
                         </div>
                     </div>
 
+
+
                     <div className="bg-gray-50 dark:bg-dark-900/50 px-8 py-6 border-t border-gray-100 dark:border-gray-700 flex justify-end">
                         <a
                             href={product.website}
@@ -150,6 +153,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
                         </a>
                     </div>
                 </div>
+
+                {/* AI Analysis Section */}
+                <ProductAnalysisSection product={product} />
 
                 {/* Feature Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
