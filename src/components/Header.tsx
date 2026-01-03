@@ -70,6 +70,17 @@ const Header: React.FC<HeaderProps> = ({
               </div>
             )}
           </div>
+
+          <a
+            href="https://simpleflo.dev"
+            className="hidden sm:inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-gray-700 px-3 py-2 text-sm font-semibold text-gray-700 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-dark-900 transition-colors"
+            aria-label="Go to simpleflo home"
+          >
+            <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary-100 text-primary-700 text-xs font-bold dark:bg-primary-900/30 dark:text-primary-300">
+              sf
+            </span>
+            <span>simpleflo</span>
+          </a>
         </div>
 
         {/* Prominent Matchmaker Button (Top Center) */}
