@@ -85,6 +85,9 @@ npm run snapshot:analytics
 
 The script appends (or updates) the current week and keeps the latest 52 snapshots.
 
+Automation:
+- A GitHub Actions workflow (`.github/workflows/analytics-snapshot.yml`) runs weekly to capture a snapshot and commit updates.
+
 ## 🤝 Contributing
 
 We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to submit pull requests, report issues, and code standards.

@@ -146,6 +146,8 @@ const MarketOverview: React.FC<MarketOverviewProps> = ({ products }) => {
     return { snapshots, series, latest: snapshots[snapshots.length - 1], effectiveRange };
   }, [filteredProductIds, rangeWeeks]);
 
+  const snapshotAgeDays = snapshotMeta.latest ? daysSince(snapshotMeta.latest.date) : null;
+
   if (totalProducts === 0) {
     return (
       <div className="rounded-xl border border-gray-200 bg-white p-6 text-sm text-gray-600 dark:border-gray-700 dark:bg-dark-800 dark:text-gray-300">
@@ -196,6 +198,14 @@ const MarketOverview: React.FC<MarketOverviewProps> = ({ products }) => {
               <span>
                 Last capture:{' '}
                 {snapshotMeta.latest ? formatSnapshotLabel(snapshotMeta.latest.date) : 'Not yet captured'}
+              </span>
+              {snapshotAgeDays !== null && (
+                <span className="inline-flex items-center rounded-full bg-gray-100 px-2 py-1 text-[11px] font-semibold text-gray-600 dark:bg-dark-900 dark:text-gray-300">
+                  {snapshotAgeDays === 0 ? 'today' : `${snapshotAgeDays}d ago`}
+                </span>
+              )}
+              <span className="text-[11px] text-gray-400">
+                Showing {snapshotMeta.effectiveRange || 0} weeks
               </span>
               <div className="flex items-center gap-1 rounded-full bg-gray-100 p-1 dark:bg-dark-900">
                 {RANGE_OPTIONS.map((option) => (
