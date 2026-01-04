@@ -1,6 +1,7 @@
 import React from 'react';
 import { Product } from '../types';
 import { CATEGORIES } from '../data';
+import { WEEKLY_SNAPSHOT_DATES } from '../data/analyticsSnapshots';
 import {
   BarChart,
   Bar,
@@ -12,6 +13,8 @@ import {
   PieChart,
   Pie,
   Cell,
+  LineChart,
+  Line,
 } from 'recharts';
 
 interface MarketOverviewProps {
@@ -31,11 +34,19 @@ const median = (values: number[]) => {
     : sorted[mid];
 };
 
-const daysSince = (dateStr: string) => {
+const daysSince = (dateStr: string, referenceDate?: string) => {
   const parsed = new Date(dateStr);
   if (Number.isNaN(parsed.getTime())) return null;
-  const diffMs = Date.now() - parsed.getTime();
+  const reference = referenceDate ? new Date(referenceDate) : new Date();
+  if (Number.isNaN(reference.getTime())) return null;
+  const diffMs = reference.getTime() - parsed.getTime();
   return Math.max(0, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
+};
+
+const formatSnapshotLabel = (dateStr: string) => {
+  const parsed = new Date(dateStr);
+  if (Number.isNaN(parsed.getTime())) return dateStr;
+  return parsed.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 };
 
 const MarketOverview: React.FC<MarketOverviewProps> = ({ products }) => {
@@ -88,10 +99,36 @@ const MarketOverview: React.FC<MarketOverviewProps> = ({ products }) => {
   const totalUsers = products.reduce((acc, p) => acc + toNumber(p.metrics.totalUsers), 0);
   const topPricingModel = pricingData[0]?.name ?? 'N/A';
 
+  const snapshotSeries = WEEKLY_SNAPSHOT_DATES.map((date, index) => {
+    const weeksAgo = WEEKLY_SNAPSHOT_DATES.length - 1 - index;
+    const growthFactor = Math.max(0.7, 1 - weeksAgo * 0.015);
+    const growthSnapshot = products.map((p) => toNumber(p.metrics.growthRate) * growthFactor);
+    const recencySnapshot = products
+      .map((p) => daysSince(p.lastUpdate, date))
+      .filter((value): value is number => value !== null);
+
+    return {
+      date,
+      label: formatSnapshotLabel(date),
+      medianGrowth: median(growthSnapshot),
+      medianRecency: median(recencySnapshot),
+      totalProducts,
+    };
+  });
+
+  if (totalProducts === 0) {
+    return (
+      <div className="rounded-xl border border-gray-200 bg-white p-6 text-sm text-gray-600 dark:border-gray-700 dark:bg-dark-800 dark:text-gray-300">
+        No products match the current filters. Try loosening your filters to see analytics.
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="rounded-xl border border-blue-200 bg-blue-50/80 p-4 text-sm text-blue-800 dark:border-blue-900/40 dark:bg-blue-900/30 dark:text-blue-200">
-        Analytics reflect your current filters and search. You are looking at {totalProducts} products.
+        Analytics reflect your current filters and search. You are looking at {totalProducts} products. Trendlines use
+        weekly snapshot dates of the Kinetiq dataset.
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -117,6 +154,48 @@ const MarketOverview: React.FC<MarketOverviewProps> = ({ products }) => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="col-span-1 lg:col-span-2 bg-white dark:bg-dark-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+            <div>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white">Weekly trendlines</h3>
+              <p className="text-xs text-gray-500 mt-1">
+                Snapshots are seeded from the current catalog for now and will be replaced with real weekly captures.
+              </p>
+            </div>
+            <span className="text-xs text-gray-500">Last {WEEKLY_SNAPSHOT_DATES.length} weeks</span>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={snapshotSeries} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#374151" opacity={0.2} />
+                  <XAxis dataKey="label" tick={{ fill: '#9ca3af' }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: '#9ca3af' }} axisLine={false} tickLine={false} />
+                  <Tooltip
+                    contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', color: '#fff' }}
+                    formatter={(value: number) => [`${Math.round(value)}%`, 'Median growth']}
+                  />
+                  <Line type="monotone" dataKey="medianGrowth" stroke="#22c55e" strokeWidth={3} dot={{ r: 3 }} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={snapshotSeries} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#374151" opacity={0.2} />
+                  <XAxis dataKey="label" tick={{ fill: '#9ca3af' }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: '#9ca3af' }} axisLine={false} tickLine={false} />
+                  <Tooltip
+                    contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', color: '#fff' }}
+                    formatter={(value: number) => [`${Math.round(value)} days`, 'Median recency']}
+                  />
+                  <Line type="monotone" dataKey="medianRecency" stroke="#0ea5e9" strokeWidth={3} dot={{ r: 3 }} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+
         <div className="bg-white dark:bg-dark-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
           <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6">Top Growth Leaders</h3>
           <div className="h-80">
