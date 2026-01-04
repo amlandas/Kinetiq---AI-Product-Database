@@ -4,7 +4,7 @@ import { X, ExternalLink, Globe, Calendar, RefreshCw, Zap, MessageSquare, Loader
 import ReactMarkdown from 'react-markdown';
 import { getProductAnalysis } from '../services/geminiService';
 import { ConfidenceLevel, formatCompactNumber, formatConfidenceLabel, formatDateLabel, getConfidenceBadgeClasses, getExternalSignals, getExternalSignalsUpdatedAt } from '../lib/externalSignals';
-import { isExternalSignalsAnalyticsEnabled } from '../lib/featureFlags';
+import { useFeatureFlags } from '../lib/featureFlags';
 
 interface ProductModalProps {
   product: Product;
@@ -15,7 +15,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
   const [analysis, setAnalysis] = useState<string | null>(null);
   const [loadingAnalysis, setLoadingAnalysis] = useState(false);
   const analysisRef = useRef<HTMLDivElement>(null);
-  const showExternalSignals = isExternalSignalsAnalyticsEnabled();
+  const { externalSignalsAnalytics: showExternalSignals } = useFeatureFlags();
   const signals = getExternalSignals(product.id);
   const signalsUpdatedAt = getExternalSignalsUpdatedAt();
 

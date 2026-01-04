@@ -111,7 +111,7 @@ Automation:
 - The same GitHub Actions workflow refreshes external signals on the weekly cadence and commits updates.
 
 Feature flag:
-- `NEXT_PUBLIC_FEATURE_EXTERNAL_SIGNALS=true` enables the external signals UI and decision report export.
+- `FEATURE_EXTERNAL_SIGNALS_ANALYTICS=true` enables the external signals UI and decision report export.
 
 ## 🤝 Contributing
 

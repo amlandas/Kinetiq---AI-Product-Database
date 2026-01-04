@@ -3,7 +3,7 @@ import { Product, ComparisonResult } from '../types';
 import { ArrowLeft, Sparkles, Loader2, X, Check, Minus, Download } from 'lucide-react';
 import { generateComparison } from '../services/geminiService';
 import { ConfidenceLevel, ExternalSignalsEntry, formatCompactNumber, formatConfidenceLabel, formatDateLabel, getConfidenceBadgeClasses, getExternalSignals } from '../lib/externalSignals';
-import { isExternalSignalsAnalyticsEnabled } from '../lib/featureFlags';
+import { useFeatureFlags } from '../lib/featureFlags';
 
 interface ComparisonPageProps {
     products: Product[];
@@ -30,7 +30,7 @@ const ComparisonPage: React.FC<ComparisonPageProps> = ({
 }) => {
     const [searchQuery, setSearchQuery] = React.useState('');
     const [showSuggestions, setShowSuggestions] = React.useState(false);
-    const showExternalSignals = isExternalSignalsAnalyticsEnabled();
+    const { externalSignalsAnalytics: showExternalSignals } = useFeatureFlags();
 
     const renderConfidencePill = (confidence?: ConfidenceLevel) => {
         if (!confidence) return null;
