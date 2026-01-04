@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { Product } from '../types';
 import { CATEGORIES } from '../data';
-import { WEEKLY_SNAPSHOT_DATES } from '../data/analyticsSnapshots';
+import analyticsSnapshots from '../data/analyticsSnapshots.json';
 import {
   BarChart,
   Bar,
@@ -22,6 +22,18 @@ interface MarketOverviewProps {
 }
 
 const COLORS = ['#0ea5e9', '#22c55e', '#eab308', '#f97316', '#ef4444', '#8b5cf6', '#ec4899'];
+const RANGE_OPTIONS = [8, 12, 24] as const;
+
+type RangeOption = typeof RANGE_OPTIONS[number];
+
+type AnalyticsSnapshot = {
+  date: string;
+  products: {
+    id: string;
+    growthRate: number;
+    lastUpdate: string;
+  }[];
+};
 
 const toNumber = (value: number | undefined) => (Number.isFinite(value) ? Number(value) : 0);
 
@@ -50,7 +62,9 @@ const formatSnapshotLabel = (dateStr: string) => {
 };
 
 const MarketOverview: React.FC<MarketOverviewProps> = ({ products }) => {
+  const [rangeWeeks, setRangeWeeks] = useState<RangeOption>(8);
   const totalProducts = products.length;
+  const filteredProductIds = useMemo(() => new Set(products.map((product) => product.id)), [products]);
 
   const categoryData = CATEGORIES.map((cat) => ({
     name: cat.name,
@@ -99,22 +113,38 @@ const MarketOverview: React.FC<MarketOverviewProps> = ({ products }) => {
   const totalUsers = products.reduce((acc, p) => acc + toNumber(p.metrics.totalUsers), 0);
   const topPricingModel = pricingData[0]?.name ?? 'N/A';
 
-  const snapshotSeries = WEEKLY_SNAPSHOT_DATES.map((date, index) => {
-    const weeksAgo = WEEKLY_SNAPSHOT_DATES.length - 1 - index;
-    const growthFactor = Math.max(0.7, 1 - weeksAgo * 0.015);
-    const growthSnapshot = products.map((p) => toNumber(p.metrics.growthRate) * growthFactor);
-    const recencySnapshot = products
-      .map((p) => daysSince(p.lastUpdate, date))
-      .filter((value): value is number => value !== null);
+  const snapshotMeta = useMemo(() => {
+    const snapshots = [...(analyticsSnapshots as AnalyticsSnapshot[])].sort((a, b) =>
+      a.date.localeCompare(b.date),
+    );
 
-    return {
-      date,
-      label: formatSnapshotLabel(date),
-      medianGrowth: median(growthSnapshot),
-      medianRecency: median(recencySnapshot),
-      totalProducts,
-    };
-  });
+    if (snapshots.length === 0) {
+      return { snapshots, series: [], latest: null, effectiveRange: 0 };
+    }
+
+    const effectiveRange = Math.min(rangeWeeks, snapshots.length);
+    const range = snapshots.slice(-effectiveRange);
+    const series = range.map((snapshot) => {
+      const relevantProducts = snapshot.products.filter((product) =>
+        filteredProductIds.has(product.id),
+      );
+
+      const growthSnapshot = relevantProducts.map((product) => toNumber(product.growthRate));
+      const recencySnapshot = relevantProducts
+        .map((product) => daysSince(product.lastUpdate, snapshot.date))
+        .filter((value): value is number => value !== null);
+
+      return {
+        date: snapshot.date,
+        label: formatSnapshotLabel(snapshot.date),
+        medianGrowth: median(growthSnapshot),
+        medianRecency: median(recencySnapshot),
+        totalProducts: relevantProducts.length,
+      };
+    });
+
+    return { snapshots, series, latest: snapshots[snapshots.length - 1], effectiveRange };
+  }, [filteredProductIds, rangeWeeks]);
 
   if (totalProducts === 0) {
     return (
@@ -128,7 +158,7 @@ const MarketOverview: React.FC<MarketOverviewProps> = ({ products }) => {
     <div className="space-y-6 animate-fade-in">
       <div className="rounded-xl border border-blue-200 bg-blue-50/80 p-4 text-sm text-blue-800 dark:border-blue-900/40 dark:bg-blue-900/30 dark:text-blue-200">
         Analytics reflect your current filters and search. You are looking at {totalProducts} products. Trendlines use
-        weekly snapshot dates of the Kinetiq dataset.
+        weekly dataset snapshots.
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -159,15 +189,41 @@ const MarketOverview: React.FC<MarketOverviewProps> = ({ products }) => {
             <div>
               <h3 className="text-lg font-bold text-gray-900 dark:text-white">Weekly trendlines</h3>
               <p className="text-xs text-gray-500 mt-1">
-                Snapshots are seeded from the current catalog for now and will be replaced with real weekly captures.
+                Trendlines reflect weekly snapshot history of the current filtered set.
               </p>
             </div>
-            <span className="text-xs text-gray-500">Last {WEEKLY_SNAPSHOT_DATES.length} weeks</span>
+            <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500">
+              <span>
+                Last capture:{' '}
+                {snapshotMeta.latest ? formatSnapshotLabel(snapshotMeta.latest.date) : 'Not yet captured'}
+              </span>
+              <div className="flex items-center gap-1 rounded-full bg-gray-100 p-1 dark:bg-dark-900">
+                {RANGE_OPTIONS.map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => setRangeWeeks(option)}
+                    className={`rounded-full px-3 py-1 text-[11px] font-semibold transition ${
+                      rangeWeeks === option
+                        ? 'bg-white text-gray-900 shadow-sm dark:bg-dark-800 dark:text-white'
+                        : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+                    }`}
+                  >
+                    {option}w
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
-          <div className="grid gap-6 md:grid-cols-2">
+          {snapshotMeta.series.length === 0 ? (
+            <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-sm text-gray-600 dark:border-gray-700 dark:bg-dark-900 dark:text-gray-300">
+              No weekly snapshots found yet. Run <code className="rounded bg-gray-100 px-2 py-0.5 text-xs dark:bg-dark-800">npm run snapshot:analytics</code>{' '}
+              to capture the first entry.
+            </div>
+          ) : (
+            <div className="grid gap-6 md:grid-cols-2">
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={snapshotSeries} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+                <LineChart data={snapshotMeta.series} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#374151" opacity={0.2} />
                   <XAxis dataKey="label" tick={{ fill: '#9ca3af' }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fill: '#9ca3af' }} axisLine={false} tickLine={false} />
@@ -181,7 +237,7 @@ const MarketOverview: React.FC<MarketOverviewProps> = ({ products }) => {
             </div>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={snapshotSeries} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+                <LineChart data={snapshotMeta.series} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#374151" opacity={0.2} />
                   <XAxis dataKey="label" tick={{ fill: '#9ca3af' }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fill: '#9ca3af' }} axisLine={false} tickLine={false} />
@@ -194,6 +250,7 @@ const MarketOverview: React.FC<MarketOverviewProps> = ({ products }) => {
               </ResponsiveContainer>
             </div>
           </div>
+          )}
         </div>
 
         <div className="bg-white dark:bg-dark-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">

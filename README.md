@@ -75,6 +75,16 @@ gcloud run deploy kinetiq-ai-product-database \
   --set-secrets API_KEY=kinetiq-api-key:latest
 ```
 
+## 📈 Analytics Snapshots
+Weekly analytics trendlines are backed by snapshot data stored in `src/data/analyticsSnapshots.json`.
+
+Capture a new snapshot:
+```bash
+npm run snapshot:analytics
+```
+
+The script appends (or updates) the current week and keeps the latest 52 snapshots.
+
 ## 🤝 Contributing
 
 We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to submit pull requests, report issues, and code standards.
