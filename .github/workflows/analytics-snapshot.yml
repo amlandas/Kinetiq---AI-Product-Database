@@ -29,6 +29,9 @@ jobs:
       - name: Capture snapshot
         run: npm run snapshot:analytics
 
+      - name: Refresh external signals
+        run: npm run signals:refresh
+
       - name: Commit & push (if changed)
         run: |
           if git diff --quiet; then
@@ -37,6 +40,6 @@ jobs:
           fi
           git config user.name "simpleflo-bot"
           git config user.email "simpleflo-bot@users.noreply.github.com"
-          git add src/data/analyticsSnapshots.json
-          git commit -m "chore: capture analytics snapshot"
+          git add src/data/analyticsSnapshots.json src/data/externalSignals.json
+          git commit -m "chore: refresh analytics and external signals"
           git push

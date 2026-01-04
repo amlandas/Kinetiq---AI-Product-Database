@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "snapshot:analytics": "tsx scripts/capture-analytics-snapshot.ts"
+    "snapshot:analytics": "tsx scripts/capture-analytics-snapshot.ts",
+    "signals:refresh": "tsx scripts/refresh-external-signals.ts"
   },
   "dependencies": {
     "@google/genai": "^1.34.0",

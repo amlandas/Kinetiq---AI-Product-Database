@@ -88,6 +88,31 @@ The script appends (or updates) the current week and keeps the latest 52 snapsho
 Automation:
 - A GitHub Actions workflow (`.github/workflows/analytics-snapshot.yml`) runs weekly to capture a snapshot and commit updates.
 
+## 📡 External Signals
+External signals (GitHub activity, job postings, traffic rank proxies, funding filings) are stored in `src/data/externalSignals.json`.
+
+Refresh signals locally:
+```bash
+npm run signals:refresh
+```
+
+SEC EDGAR requests a descriptive user-agent with contact info. Override the default with:
+```bash
+SEC_USER_AGENT="KinetiqSignals/1.0 (contact: you@example.com)" npm run signals:refresh
+```
+
+Sources:
+- GitHub API (repo/org activity)
+- Greenhouse Jobs API (company-level hiring signal)
+- Tranco top sites list (traffic rank proxy)
+- SEC EDGAR filings (public-company only)
+
+Automation:
+- The same GitHub Actions workflow refreshes external signals on the weekly cadence and commits updates.
+
+Feature flag:
+- `NEXT_PUBLIC_FEATURE_EXTERNAL_SIGNALS=true` enables the external signals UI and decision report export.
+
 ## 🤝 Contributing
 
 We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to submit pull requests, report issues, and code standards.

@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Product } from '../types';
-import { X, ExternalLink, Globe, Calendar, RefreshCw, Zap, MessageSquare, Loader2, Sparkles, Star } from 'lucide-react';
+import { X, ExternalLink, Globe, Calendar, RefreshCw, Zap, MessageSquare, Loader2, Sparkles, Star, Github, Briefcase, TrendingUp, Banknote } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { getProductAnalysis } from '../services/geminiService';
+import { ConfidenceLevel, formatCompactNumber, formatConfidenceLabel, formatDateLabel, getConfidenceBadgeClasses, getExternalSignals, getExternalSignalsUpdatedAt } from '../lib/externalSignals';
+import { isExternalSignalsAnalyticsEnabled } from '../lib/featureFlags';
 
 interface ProductModalProps {
   product: Product;
@@ -13,6 +15,51 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
   const [analysis, setAnalysis] = useState<string | null>(null);
   const [loadingAnalysis, setLoadingAnalysis] = useState(false);
   const analysisRef = useRef<HTMLDivElement>(null);
+  const showExternalSignals = isExternalSignalsAnalyticsEnabled();
+  const signals = getExternalSignals(product.id);
+  const signalsUpdatedAt = getExternalSignalsUpdatedAt();
+
+  const renderConfidenceBadge = (confidence: ConfidenceLevel) => (
+    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold ${getConfidenceBadgeClasses(confidence)}`}>
+      {formatConfidenceLabel(confidence)}
+    </span>
+  );
+
+  const renderSignalCard = (
+    title: string,
+    Icon: React.ComponentType<{ className?: string }>,
+    value: React.ReactNode,
+    meta: React.ReactNode,
+    confidence?: ConfidenceLevel,
+    source?: string,
+    sourceUrl?: string,
+    note?: string,
+  ) => (
+    <div className="rounded-lg border border-gray-200 bg-white/70 p-3 text-sm dark:border-gray-700 dark:bg-dark-800/60">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-center text-sm font-semibold text-gray-800 dark:text-gray-100">
+          <Icon className="mr-2 h-4 w-4 text-gray-400" />
+          {title}
+        </div>
+        {confidence ? renderConfidenceBadge(confidence) : null}
+      </div>
+      <div className="mt-2 text-sm text-gray-900 dark:text-white">{value}</div>
+      {meta ? <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">{meta}</div> : null}
+      {source ? (
+        <div className="mt-1 text-[11px] text-gray-400">
+          Source:{' '}
+          {sourceUrl ? (
+            <a href={sourceUrl} target="_blank" rel="noreferrer" className="underline decoration-dotted">
+              {source}
+            </a>
+          ) : (
+            source
+          )}
+        </div>
+      ) : null}
+      {note ? <div className="mt-1 text-[11px] text-gray-400">{note}</div> : null}
+    </div>
+  );
 
   useEffect(() => {
     if (analysis && analysisRef.current) {
@@ -158,6 +205,77 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
                   </div>
                 </div>
               </div>
+
+              {showExternalSignals && (
+                <div className="bg-gray-50 dark:bg-dark-900 rounded-xl p-5 border border-gray-100 dark:border-gray-700">
+                  <div className="flex items-center justify-between mb-4">
+                    <h4 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">External Signals</h4>
+                    <span className="text-[11px] text-gray-400">Updated {formatDateLabel(signalsUpdatedAt)}</span>
+                  </div>
+                  <div className="space-y-3">
+                    {renderSignalCard(
+                      'GitHub activity',
+                      Github,
+                      signals?.github
+                        ? signals.github.scope === 'repo'
+                          ? `${formatCompactNumber(signals.github.stars)} stars`
+                          : `${formatCompactNumber(signals.github.publicRepos)} public repos`
+                        : 'Not available',
+                      signals?.github
+                        ? signals.github.scope === 'repo'
+                          ? `Repo: ${signals.github.repo} • Last push ${formatDateLabel(signals.github.lastPush)}`
+                          : `Org: ${signals.github.org} • ${formatCompactNumber(signals.github.followers)} followers`
+                        : 'Add a verified repo/org mapping to enable GitHub signals.',
+                      signals?.github?.confidence,
+                      signals?.github?.source,
+                      signals?.github?.sourceUrl
+                    )}
+                    {renderSignalCard(
+                      'Job postings',
+                      Briefcase,
+                      signals?.jobs ? `${signals.jobs.openRoles} open roles` : 'Not available',
+                      signals?.jobs
+                        ? `Recent 30d: ${signals.jobs.recentRoles30d} • Top locations: ${signals.jobs.locations.join(', ') || 'N/A'}`
+                        : 'Company-level hiring signals require a verified job board mapping.',
+                      signals?.jobs?.confidence,
+                      signals?.jobs?.source,
+                      signals?.jobs?.sourceUrl,
+                      signals?.jobs?.note
+                    )}
+                    {renderSignalCard(
+                      'Traffic estimate',
+                      TrendingUp,
+                      signals?.traffic?.rank ? `Tranco rank #${signals.traffic.rank}` : 'Not ranked',
+                      signals?.traffic?.matchedDomain
+                        ? `Matched domain: ${signals.traffic.matchedDomain}`
+                        : 'No rank found in the latest Tranco list.',
+                      signals?.traffic?.confidence,
+                      signals?.traffic?.source,
+                      signals?.traffic?.sourceUrl,
+                      signals?.traffic?.note
+                    )}
+                    {renderSignalCard(
+                      'Funding signal',
+                      Banknote,
+                      signals?.funding?.lastFilingDate
+                        ? `Public filings (${signals.funding.ticker})`
+                        : 'Not available',
+                      signals?.funding?.lastFilingDate
+                        ? `Last filing: ${signals.funding.lastFilingType || 'SEC'} on ${formatDateLabel(
+                            signals.funding.lastFilingDate,
+                          )}`
+                        : 'Private funding data is not captured yet.',
+                      signals?.funding?.confidence,
+                      signals?.funding?.source,
+                      signals?.funding?.sourceUrl,
+                      signals?.funding?.note
+                    )}
+                  </div>
+                  <p className="mt-3 text-[11px] text-gray-500 dark:text-gray-400">
+                    Signals are directional and include provenance + confidence so you can judge reliability.
+                  </p>
+                </div>
+              )}
 
               <div className="bg-gray-50 dark:bg-dark-900 rounded-xl p-5 border border-gray-100 dark:border-gray-700">
                 <h4 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-4">Details</h4>

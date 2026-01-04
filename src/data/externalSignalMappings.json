@@ -1,0 +1,59 @@
+{
+  "products": {
+    "weaviate": {
+      "github": {
+        "repo": "weaviate/weaviate",
+        "scope": "repo",
+        "matchMethod": "manual"
+      }
+    },
+    "chroma": {
+      "github": {
+        "repo": "chroma-core/chroma",
+        "scope": "repo",
+        "matchMethod": "manual"
+      }
+    },
+    "milvus": {
+      "github": {
+        "repo": "milvus-io/milvus",
+        "scope": "repo",
+        "matchMethod": "manual"
+      }
+    },
+    "claude": {
+      "github": {
+        "org": "anthropics",
+        "scope": "org",
+        "matchMethod": "manual"
+      },
+      "jobs": {
+        "provider": "greenhouse",
+        "company": "anthropic",
+        "matchMethod": "company-level"
+      }
+    },
+    "runway": {
+      "jobs": {
+        "provider": "greenhouse",
+        "company": "runwayml",
+        "matchMethod": "company-level"
+      }
+    },
+    "gemini": {
+      "funding": {
+        "ticker": "GOOG"
+      }
+    },
+    "github-copilot": {
+      "funding": {
+        "ticker": "MSFT"
+      }
+    },
+    "amazon-q-developer": {
+      "funding": {
+        "ticker": "AMZN"
+      }
+    }
+  }
+}

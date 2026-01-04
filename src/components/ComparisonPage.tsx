@@ -1,7 +1,9 @@
 import React from 'react';
 import { Product, ComparisonResult } from '../types';
-import { ArrowLeft, Sparkles, Loader2, X, Check, Minus } from 'lucide-react';
+import { ArrowLeft, Sparkles, Loader2, X, Check, Minus, Download } from 'lucide-react';
 import { generateComparison } from '../services/geminiService';
+import { ConfidenceLevel, ExternalSignalsEntry, formatCompactNumber, formatConfidenceLabel, formatDateLabel, getConfidenceBadgeClasses, getExternalSignals } from '../lib/externalSignals';
+import { isExternalSignalsAnalyticsEnabled } from '../lib/featureFlags';
 
 interface ComparisonPageProps {
     products: Product[];
@@ -28,6 +30,142 @@ const ComparisonPage: React.FC<ComparisonPageProps> = ({
 }) => {
     const [searchQuery, setSearchQuery] = React.useState('');
     const [showSuggestions, setShowSuggestions] = React.useState(false);
+    const showExternalSignals = isExternalSignalsAnalyticsEnabled();
+
+    const renderConfidencePill = (confidence?: ConfidenceLevel) => {
+        if (!confidence) return null;
+        return (
+            <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold ${getConfidenceBadgeClasses(confidence)}`}>
+                {formatConfidenceLabel(confidence)}
+            </span>
+        );
+    };
+
+    const renderSignalCell = (
+        signal: ExternalSignalsEntry['github'] | ExternalSignalsEntry['jobs'] | ExternalSignalsEntry['traffic'] | ExternalSignalsEntry['funding'],
+        value: React.ReactNode,
+        meta?: string,
+    ) => (
+        <div className="flex flex-col items-center gap-1 text-center">
+            <div className="text-sm font-semibold text-gray-900 dark:text-white">{value}</div>
+            {meta ? <div className="text-[11px] text-gray-500 dark:text-gray-400">{meta}</div> : null}
+            {signal ? (
+                <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-gray-400">
+                    {renderConfidencePill(signal.confidence)}
+                    <span>{signal.source}</span>
+                </div>
+            ) : (
+                <div className="text-[11px] text-gray-400">No signal</div>
+            )}
+        </div>
+    );
+
+    const buildDecisionReport = () => {
+        const lines: string[] = [];
+        lines.push('# Kinetiq Decision Report');
+        lines.push(`Generated: ${new Date().toLocaleString('en-US')}`);
+        lines.push('');
+        lines.push('## Products compared');
+        products.forEach((product) => {
+            lines.push(`- ${product.name} (${product.category})`);
+        });
+        lines.push('');
+
+        if (aiData?.summary) {
+            lines.push('## AI summary');
+            lines.push(aiData.summary);
+            lines.push('');
+        } else {
+            lines.push('## AI summary');
+            lines.push('AI summary not generated yet.');
+            lines.push('');
+        }
+
+        if (aiData) {
+            lines.push('## Trade-offs (AI generated)');
+            products.forEach((product) => {
+                lines.push(`### ${product.name}`);
+                const pros = aiData.pros[product.name] || [];
+                const cons = aiData.cons[product.name] || [];
+                lines.push('Strengths:');
+                if (pros.length === 0) lines.push('- Not available');
+                pros.forEach((item) => lines.push(`- ${item}`));
+                lines.push('Limitations:');
+                if (cons.length === 0) lines.push('- Not available');
+                cons.forEach((item) => lines.push(`- ${item}`));
+                lines.push('');
+            });
+        }
+
+        lines.push('## External signals (directional)');
+        products.forEach((product) => {
+            const signals = getExternalSignals(product.id);
+            lines.push(`### ${product.name}`);
+
+            const github = signals?.github;
+            if (github) {
+                const value =
+                    github.scope === 'repo'
+                        ? `${formatCompactNumber(github.stars)} stars (repo ${github.repo})`
+                        : `${formatCompactNumber(github.publicRepos)} public repos (org ${github.org})`;
+                lines.push(`- GitHub: ${value}`);
+                lines.push(`  - Confidence: ${formatConfidenceLabel(github.confidence)} | Source: ${github.source}`);
+            } else {
+                lines.push('- GitHub: Not available');
+            }
+
+            const jobs = signals?.jobs;
+            if (jobs) {
+                lines.push(`- Jobs: ${jobs.openRoles} open roles (recent 30d: ${jobs.recentRoles30d})`);
+                lines.push(`  - Confidence: ${formatConfidenceLabel(jobs.confidence)} | Source: ${jobs.source}`);
+            } else {
+                lines.push('- Jobs: Not available');
+            }
+
+            const traffic = signals?.traffic;
+            if (traffic?.rank) {
+                lines.push(`- Traffic: Tranco rank #${traffic.rank} (${traffic.matchedDomain || 'domain match'})`);
+                lines.push(`  - Confidence: ${formatConfidenceLabel(traffic.confidence)} | Source: ${traffic.source}`);
+            } else {
+                lines.push('- Traffic: Not ranked');
+            }
+
+            const funding = signals?.funding;
+            if (funding?.lastFilingDate) {
+                lines.push(
+                    `- Funding: ${funding.ticker} filings, latest ${funding.lastFilingType || 'SEC'} on ${formatDateLabel(
+                        funding.lastFilingDate,
+                    )}`,
+                );
+                lines.push(`  - Confidence: ${formatConfidenceLabel(funding.confidence)} | Source: ${funding.source}`);
+            } else {
+                lines.push('- Funding: Not available');
+            }
+
+            lines.push('');
+        });
+
+        lines.push('Notes: External signals are directional proxies with explicit provenance + confidence.');
+        lines.push('');
+
+        return lines.join('\n');
+    };
+
+    const handleDecisionReportExport = () => {
+        if (products.length === 0) return;
+        const report = buildDecisionReport();
+        const blob = new Blob([report], { type: 'text/markdown;charset=utf-8;' });
+        const link = document.createElement('a');
+        if (link.download !== undefined) {
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `kinetiq_decision_report_${new Date().toISOString().slice(0, 10)}.md`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    };
 
     const filteredSuggestions = React.useMemo(() => {
         if (!searchQuery.trim()) return [];
@@ -148,34 +286,45 @@ const ComparisonPage: React.FC<ComparisonPageProps> = ({
                     <h1 className="text-xl font-bold text-gray-900 dark:text-white hidden md:block">Comparing {products.length} Products</h1>
 
                     {/* Persistent Add Product Search */}
-                    <div className="relative w-64 lg:w-80">
-                        <input
-                            type="text"
-                            placeholder="Add another product..."
-                            value={searchQuery}
-                            onChange={(e) => {
-                                setSearchQuery(e.target.value);
-                                setShowSuggestions(true);
-                            }}
-                            className="w-full pl-4 pr-10 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-dark-900 text-sm focus:ring-1 focus:ring-primary-500 text-gray-900 dark:text-white"
-                        />
-                        {showSuggestions && filteredSuggestions.length > 0 && (
-                            <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-dark-800 rounded-lg shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden z-50">
-                                {filteredSuggestions.map(p => (
-                                    <button
-                                        key={p.id}
-                                        onClick={() => {
-                                            onAdd(p);
-                                            setSearchQuery('');
-                                            setShowSuggestions(false);
-                                        }}
-                                        className="w-full px-4 py-2 flex items-center hover:bg-gray-50 dark:hover:bg-dark-700 text-left"
-                                    >
-                                        <img src={p.logoUrl} alt="" className="w-6 h-6 rounded mr-2" />
-                                        <span className="text-sm font-medium text-gray-900 dark:text-white truncate">{p.name}</span>
-                                    </button>
-                                ))}
-                            </div>
+                    <div className="flex items-center gap-3">
+                        <div className="relative w-56 lg:w-72">
+                            <input
+                                type="text"
+                                placeholder="Add another product..."
+                                value={searchQuery}
+                                onChange={(e) => {
+                                    setSearchQuery(e.target.value);
+                                    setShowSuggestions(true);
+                                }}
+                                className="w-full pl-4 pr-10 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-dark-900 text-sm focus:ring-1 focus:ring-primary-500 text-gray-900 dark:text-white"
+                            />
+                            {showSuggestions && filteredSuggestions.length > 0 && (
+                                <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-dark-800 rounded-lg shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden z-50">
+                                    {filteredSuggestions.map(p => (
+                                        <button
+                                            key={p.id}
+                                            onClick={() => {
+                                                onAdd(p);
+                                                setSearchQuery('');
+                                                setShowSuggestions(false);
+                                            }}
+                                            className="w-full px-4 py-2 flex items-center hover:bg-gray-50 dark:hover:bg-dark-700 text-left"
+                                        >
+                                            <img src={p.logoUrl} alt="" className="w-6 h-6 rounded mr-2" />
+                                            <span className="text-sm font-medium text-gray-900 dark:text-white truncate">{p.name}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                        {showExternalSignals && (
+                            <button
+                                onClick={handleDecisionReportExport}
+                                className="inline-flex items-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-gray-700 shadow-sm transition hover:border-primary-400 hover:text-primary-600 dark:border-gray-700 dark:bg-dark-800 dark:text-gray-200"
+                            >
+                                <Download className="mr-2 h-4 w-4" />
+                                <span className="hidden sm:inline">Decision Report</span>
+                            </button>
                         )}
                     </div>
                 </div>
@@ -369,6 +518,82 @@ const ComparisonPage: React.FC<ComparisonPageProps> = ({
                                         </td>
                                     ))}
                                 </tr>
+
+                                {showExternalSignals && (
+                                    <>
+                                        <tr className="bg-gray-50 dark:bg-dark-900/50">
+                                            <td colSpan={products.length + 1} className="p-3 px-6 text-xs font-bold text-gray-500 uppercase tracking-wider bg-gray-100 dark:bg-dark-800">
+                                                External Signals (directional)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="p-6 font-medium text-gray-500 border-r border-gray-100 dark:border-gray-700">GitHub activity</td>
+                                            {products.map(p => {
+                                                const signals = getExternalSignals(p.id);
+                                                const github = signals?.github;
+                                                const value = github
+                                                    ? github.scope === 'repo'
+                                                        ? `${formatCompactNumber(github.stars)} stars`
+                                                        : `${formatCompactNumber(github.publicRepos)} repos`
+                                                    : 'Not available';
+                                                const meta = github
+                                                    ? github.scope === 'repo'
+                                                        ? `Repo: ${github.repo}`
+                                                        : `Org: ${github.org}`
+                                                    : undefined;
+                                                return (
+                                                    <td key={p.id} className="p-6 text-center text-gray-700 dark:text-gray-300">
+                                                        {renderSignalCell(github, value, meta)}
+                                                    </td>
+                                                );
+                                            })}
+                                        </tr>
+                                        <tr>
+                                            <td className="p-6 font-medium text-gray-500 border-r border-gray-100 dark:border-gray-700">Job postings</td>
+                                            {products.map(p => {
+                                                const signals = getExternalSignals(p.id);
+                                                const jobs = signals?.jobs;
+                                                const value = jobs ? `${jobs.openRoles} open roles` : 'Not available';
+                                                const meta = jobs ? `Recent 30d: ${jobs.recentRoles30d}` : undefined;
+                                                return (
+                                                    <td key={p.id} className="p-6 text-center text-gray-700 dark:text-gray-300">
+                                                        {renderSignalCell(jobs, value, meta)}
+                                                    </td>
+                                                );
+                                            })}
+                                        </tr>
+                                        <tr>
+                                            <td className="p-6 font-medium text-gray-500 border-r border-gray-100 dark:border-gray-700">Traffic estimate</td>
+                                            {products.map(p => {
+                                                const signals = getExternalSignals(p.id);
+                                                const traffic = signals?.traffic;
+                                                const value = traffic?.rank ? `Tranco #${traffic.rank}` : 'Not ranked';
+                                                const meta = traffic?.matchedDomain ? `Domain: ${traffic.matchedDomain}` : undefined;
+                                                return (
+                                                    <td key={p.id} className="p-6 text-center text-gray-700 dark:text-gray-300">
+                                                        {renderSignalCell(traffic, value, meta)}
+                                                    </td>
+                                                );
+                                            })}
+                                        </tr>
+                                        <tr>
+                                            <td className="p-6 font-medium text-gray-500 border-r border-gray-100 dark:border-gray-700">Funding signal</td>
+                                            {products.map(p => {
+                                                const signals = getExternalSignals(p.id);
+                                                const funding = signals?.funding;
+                                                const value = funding?.lastFilingDate ? `Public filings (${funding.ticker})` : 'Not available';
+                                                const meta = funding?.lastFilingDate
+                                                    ? `Latest ${funding.lastFilingType || 'SEC'}: ${formatDateLabel(funding.lastFilingDate)}`
+                                                    : undefined;
+                                                return (
+                                                    <td key={p.id} className="p-6 text-center text-gray-700 dark:text-gray-300">
+                                                        {renderSignalCell(funding, value, meta)}
+                                                    </td>
+                                                );
+                                            })}
+                                        </tr>
+                                    </>
+                                )}
 
                             </tbody>
                         </table>
