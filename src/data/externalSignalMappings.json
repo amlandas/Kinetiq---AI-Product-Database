@@ -1,10 +1,462 @@
 {
   "products": {
-    "weaviate": {
+    "accountable-de": {
       "github": {
-        "repo": "weaviate/weaviate",
         "scope": "repo",
-        "matchMethod": "manual"
+        "repo": "KryptosZoeng/Accountable-Decryption-Using-Intel-SGX",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "activepieces": {
+      "github": {
+        "scope": "repo",
+        "repo": "activepieces/activepieces",
+        "matchMethod": "auto-website"
+      },
+      "jobs": {
+        "provider": "bamboohr",
+        "company": "documentation",
+        "matchMethod": "auto-website"
+      }
+    },
+    "adminer-pro": {
+      "github": {
+        "scope": "repo",
+        "repo": "hikmat30ce/adminer-prod",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "affable-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "newrelic/newrelic-browser-agent",
+        "matchMethod": "auto-website"
+      }
+    },
+    "affinda-com": {
+      "github": {
+        "scope": "org",
+        "org": "affinda",
+        "matchMethod": "auto-website"
+      }
+    },
+    "aha-inc": {
+      "github": {
+        "scope": "repo",
+        "repo": "Unobtainiumrock/aha-incidents",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "ai-bookkeeping": {
+      "github": {
+        "scope": "repo",
+        "repo": "mindful-ai-dude/bookeeping-ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "ai-chatbot": {
+      "github": {
+        "scope": "repo",
+        "repo": "verloop/verloop_ios",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "ai-for-work": {
+      "github": {
+        "scope": "repo",
+        "repo": "localhost7777/AI-For-Worker-Scrapper",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "ai-native-dev-landscape": {
+      "github": {
+        "scope": "repo",
+        "repo": "AI-Native-Dev-Community/ai-native-dev-landscape",
+        "matchMethod": "auto-website"
+      }
+    },
+    "ai21-maestro": {
+      "github": {
+        "scope": "repo",
+        "repo": "AI21Labs/MRKL_synthetic_data",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "aide": {
+      "github": {
+        "scope": "repo",
+        "repo": "hernanmd/OpenCOVID19-AIDetectApp",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "aider": {
+      "github": {
+        "scope": "repo",
+        "repo": "Aider-AI/aider",
+        "matchMethod": "auto-website"
+      }
+    },
+    "aijourney": {
+      "github": {
+        "scope": "repo",
+        "repo": "lalahappy2023/AI-Business-Ideas",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "aiter-io": {
+      "github": {
+        "scope": "repo",
+        "repo": "momoiroshikibu/aiteru-ios-client",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "amazon-partyrock": {
+      "github": {
+        "scope": "repo",
+        "repo": "kevindewbrown/Party-Rock",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "amazon-q-developer": {
+      "github": {
+        "scope": "repo",
+        "repo": "amazon-archives/aws-mobile-react-native-starter",
+        "matchMethod": "auto-homepage-search"
+      },
+      "funding": {
+        "ticker": "AMZN"
+      }
+    },
+    "ambit-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Ambitus-Intelligence/ambitus-ai-models",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "anakin-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "cogpy/cogflow",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "aphid": {
+      "github": {
+        "scope": "repo",
+        "repo": "CornilleEclecticLab/aphid-comparative-genomics",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "apify": {
+      "github": {
+        "scope": "org",
+        "org": "apify",
+        "matchMethod": "auto-website"
+      }
+    },
+    "appai": {
+      "github": {
+        "scope": "repo",
+        "repo": "tadast/switching-to-contracting-uk",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "appzen-com": {
+      "github": {
+        "scope": "repo",
+        "repo": "Unit-A/Market-WP-E-Commerce-Appzend-Commerce",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "arcads": {
+      "github": {
+        "scope": "repo",
+        "repo": "faisalsaqi/Arcads-Ai-Promo-Code",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "artwo": {
+      "github": {
+        "scope": "repo",
+        "repo": "Eypho/artworks.io",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "assist-biz": {
+      "github": {
+        "scope": "repo",
+        "repo": "AiAssistBiz/AiAssist-biz",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "assista-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "mmirthula02/AI-Personal-Voice-assistant-using-Python",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "athena-search": {
+      "github": {
+        "scope": "repo",
+        "repo": "jghoman/awesome-apache-airflow",
+        "matchMethod": "auto-retry"
+      }
+    },
+    "autify-com": {
+      "github": {
+        "scope": "repo",
+        "repo": "chikathreesix/autify-docs",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "autodevs-by-create": {
+      "github": {
+        "scope": "repo",
+        "repo": "Paxien/Create-xyz-Project-Collections",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "automi-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "mamathadeverakonda/automizeAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "b2b-research-ai-agent": {
+      "github": {
+        "scope": "repo",
+        "repo": "Abhyuday28/LEPT_enrichment-tool",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "base44": {
+      "github": {
+        "scope": "repo",
+        "repo": "vincenzo246/Premium-Develoment-Solutions",
+        "matchMethod": "auto-retry"
+      }
+    },
+    "batteryincluded-incl-volt-search": {
+      "github": {
+        "scope": "repo",
+        "repo": "eiling-io/batteryincluded-php-sdk",
+        "matchMethod": "auto-website"
+      }
+    },
+    "beautiful-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "presenton/presenton",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "bench-ai": {
+      "jobs": {
+        "provider": "ashby",
+        "company": "bench",
+        "matchMethod": "auto-website"
+      }
+    },
+    "bethgelab-org": {
+      "github": {
+        "scope": "repo",
+        "repo": "wowchemy/wowchemy-hugo-themes",
+        "matchMethod": "auto-website"
+      }
+    },
+    "big-tech-company": {
+      "github": {
+        "scope": "repo",
+        "repo": "moguchev/balun_meetup_2025",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "bika-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "bika-ai/bika.ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "blackbox-ai-1": {
+      "github": {
+        "scope": "repo",
+        "repo": "AIME-LOIC/blackboxai-1745813551791",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "bland-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Bland-AI/Bland-AI-Cookbooks",
+        "matchMethod": "auto-homepage-search"
+      },
+      "jobs": {
+        "provider": "ashby",
+        "company": "bland",
+        "matchMethod": "auto-website"
+      }
+    },
+    "blaze": {
+      "github": {
+        "scope": "repo",
+        "repo": "kieranklaassen/blazer-ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "blaze-designer": {
+      "github": {
+        "scope": "repo",
+        "repo": "kieranklaassen/blazer-ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "boost-engagement-3x-with-supergrowth-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "captadexp/dave-the-adcopy-guy",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "botpenguin-chatbot": {
+      "github": {
+        "scope": "repo",
+        "repo": "mohit821967/Web_Scraping_Chatbot",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "bourdain": {
+      "github": {
+        "scope": "repo",
+        "repo": "karen-ho/bourdain-ios",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "breadcrumb-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "nostalgicbear/UnityTutorial_BreadcrumbAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "bria": {
+      "github": {
+        "scope": "repo",
+        "repo": "Bria-AI/ComfyUI-BRIA-API",
+        "matchMethod": "auto-website"
+      }
+    },
+    "bria-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Bria-AI/ComfyUI-BRIA-API",
+        "matchMethod": "auto-website"
+      }
+    },
+    "browser-use": {
+      "github": {
+        "scope": "repo",
+        "repo": "browser-use/browser-use",
+        "matchMethod": "auto-website"
+      }
+    },
+    "browserbase": {
+      "github": {
+        "scope": "org",
+        "org": "browserbase",
+        "matchMethod": "auto-website"
+      }
+    },
+    "bubble": {
+      "github": {
+        "scope": "repo",
+        "repo": "demon-i386/pop_n_bubble",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "bytebot": {
+      "github": {
+        "scope": "repo",
+        "repo": "hatake79/bytebot1",
+        "matchMethod": "auto-retry"
+      }
+    },
+    "callin-io": {
+      "github": {
+        "scope": "repo",
+        "repo": "sainath-AI/NetworkApiCalling_IOS",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "cameralyze-no-code-ai-studio": {
+      "github": {
+        "scope": "repo",
+        "repo": "king1035/Photo_autocaption_script",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "captions": {
+      "github": {
+        "scope": "repo",
+        "repo": "twardoch/vid2captionsai",
+        "matchMethod": "auto-homepage-search"
+      },
+      "jobs": {
+        "provider": "ashby",
+        "company": "mirage",
+        "matchMethod": "auto-website"
+      }
+    },
+    "chaindesk-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "gmpetrov/databerry",
+        "matchMethod": "auto-website"
+      }
+    },
+    "chat-data": {
+      "github": {
+        "scope": "org",
+        "org": "chat-data-llc",
+        "matchMethod": "auto-website"
+      }
+    },
+    "chatbotkit": {
+      "github": {
+        "scope": "org",
+        "org": "chatbotkit",
+        "matchMethod": "auto-website"
+      }
+    },
+    "chatglm-cn": {
+      "github": {
+        "scope": "repo",
+        "repo": "sakura11111111111111/ChatGLM-Sidebar-Jump-Axis",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "chatgpt-toolbox": {
+      "github": {
+        "scope": "repo",
+        "repo": "bmv234/ai-toolbox-container-deployment",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "chatgpt-website-builder": {
+      "github": {
+        "scope": "repo",
+        "repo": "alien2112/Stunning.so-task",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "cheat-layer": {
+      "github": {
+        "scope": "repo",
+        "repo": "baphometsblade/cheatlayer-completeandpolishthiswebsitehtmlbodyclassheadercla165343",
+        "matchMethod": "auto-homepage-search"
       }
     },
     "chroma": {
@@ -14,11 +466,18 @@
         "matchMethod": "manual"
       }
     },
-    "milvus": {
+    "ciro": {
       "github": {
-        "repo": "milvus-io/milvus",
         "scope": "repo",
-        "matchMethod": "manual"
+        "repo": "cironob/cironobles.io",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "clari": {
+      "github": {
+        "scope": "repo",
+        "repo": "MarkGoldberg/ClarionCommunity",
+        "matchMethod": "auto-homepage-search"
       }
     },
     "claude": {
@@ -33,11 +492,465 @@
         "matchMethod": "company-level"
       }
     },
-    "runway": {
+    "claude-3": {
+      "github": {
+        "scope": "repo",
+        "repo": "cjinghong/chonktxt",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "claude-code": {
+      "github": {
+        "scope": "repo",
+        "repo": "MrChen-hero/CC-Prompt-Design",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "clay": {
+      "github": {
+        "scope": "repo",
+        "repo": "getbeton/beton-ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "clay-2-0": {
+      "github": {
+        "scope": "repo",
+        "repo": "claytonjwong/www.claytonjwong.com",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "cleargpt-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "clearml/clearml",
+        "matchMethod": "auto-website"
+      }
+    },
+    "clearstep-health": {
+      "github": {
+        "scope": "repo",
+        "repo": "eliteqa-create/clearstep-healthcare-site",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "cline": {
+      "github": {
+        "scope": "repo",
+        "repo": "cline/cline",
+        "matchMethod": "auto-website"
+      }
+    },
+    "code-gpt": {
+      "github": {
+        "scope": "repo",
+        "repo": "davila7/code-gpt-docs",
+        "matchMethod": "auto-website"
+      }
+    },
+    "command-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "ThinkThinkAI/CommandAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "contentbot-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "ContentBot-Ai/ContentBot-Ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "contlo-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Saksham412/ContloAI-Assignment",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "copyly": {
+      "github": {
+        "scope": "repo",
+        "repo": "Boramic/copyly.io",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "copymatic": {
+      "github": {
+        "scope": "repo",
+        "repo": "KTN1990/CVE-2024-31351_wordpress_exploit",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "coval": {
+      "github": {
+        "scope": "repo",
+        "repo": "ltcovalt/covalt-dev",
+        "matchMethod": "auto-homepage-search"
+      },
+      "jobs": {
+        "provider": "ashby",
+        "company": "coval",
+        "matchMethod": "auto-website"
+      }
+    },
+    "coze": {
+      "github": {
+        "scope": "repo",
+        "repo": "elaninhust/coze-beautify",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "crafter-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "iagolirapasssos/CodeCrafterAIX",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "csm": {
+      "github": {
+        "scope": "repo",
+        "repo": "CommonSenseMachines/csm-ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "cursor": {
+      "github": {
+        "scope": "repo",
+        "repo": "zetaloop/cursor-shadow-patch",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "d-id": {
+      "github": {
+        "scope": "repo",
+        "repo": "imsosleepy/d-id-java",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "datahawk-co": {
+      "github": {
+        "scope": "repo",
+        "repo": "raghuvanshishetty/datahawk-core-data-master",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "datrics-ai-analyst-builder": {
+      "github": {
+        "scope": "repo",
+        "repo": "microsoft/fluentui-system-icons",
+        "matchMethod": "auto-website"
+      }
+    },
+    "deepbrain-ai-s-ai-kiosk": {
+      "github": {
+        "scope": "repo",
+        "repo": "Deepbrainai470/deepbrain.io",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "deepgram-voice-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "UAPSTARTECHNUMBERLOGYTHAiLAND/-GOOGLEEDGEAi.ONMiCROSOFT.COM",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "deepl": {
+      "github": {
+        "scope": "org",
+        "org": "DeepLcom",
+        "matchMethod": "auto-website"
+      }
+    },
+    "deepmode-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "vilp62/DeepMode",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "deepsite": {
+      "github": {
+        "scope": "repo",
+        "repo": "GBcui/DeepSite-OpenAI",
+        "matchMethod": "auto-retry"
+      }
+    },
+    "desku": {
+      "github": {
+        "scope": "repo",
+        "repo": "HonkyMan/desku-dialogs-parser",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "devika-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "stitionai/devika",
+        "matchMethod": "auto-website"
+      }
+    },
+    "devin": {
+      "github": {
+        "scope": "repo",
+        "repo": "ANDYELPINGON/devin-ai-oficial-repositorio",
+        "matchMethod": "auto-homepage-search"
+      },
+      "jobs": {
+        "provider": "ashby",
+        "company": "cognition",
+        "matchMethod": "auto-website"
+      }
+    },
+    "dumpling-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "DUMPLINGAIBESTPROMOCODE/DUMPLING-AI-BEST-PROMO-CODE",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "e-commerce-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "JessFe/ECommerceAirsoft-.NETWebforms-BW4",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "echowin": {
+      "github": {
+        "scope": "repo",
+        "repo": "jublo/echofon-windows",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "ecomail": {
+      "github": {
+        "scope": "repo",
+        "repo": "Ecomailcz/ecomail-php",
+        "matchMethod": "auto-website"
+      }
+    },
+    "ecoreturns-ai-powered-returns": {
+      "github": {
+        "scope": "repo",
+        "repo": "The-WebOps-Club/saarang-iosched",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "editby-2-0": {
+      "github": {
+        "scope": "repo",
+        "repo": "zuranstore18-droid/EditbyAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "elevenlabs": {
+      "github": {
+        "scope": "org",
+        "org": "elevenlabs",
+        "matchMethod": "auto-website"
+      }
+    },
+    "emach-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "cmogle/emach-payments-control-tower",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "embra": {
+      "github": {
+        "scope": "repo",
+        "repo": "embrace-io/embrace-apple-sdk",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "empy": {
+      "github": {
+        "scope": "repo",
+        "repo": "MOHSIN0749/Empyema-AI-model",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "enconvo": {
+      "github": {
+        "scope": "org",
+        "org": "enconvo",
+        "matchMethod": "auto-website"
+      }
+    },
+    "enhencer-com": {
+      "github": {
+        "scope": "repo",
+        "repo": "enhencerdev/EnhencerEvents-Android",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "evangeler-list-of-affiliate-programs": {
+      "github": {
+        "scope": "repo",
+        "repo": "k1m190r/evangeler2",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "extruct-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "extruct-ai/n8n-nodes-extruct",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "faceless-video": {
+      "github": {
+        "scope": "repo",
+        "repo": "SamurAIGPT/AI-Faceless-Video-Generator",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "fastbots-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "WordPressBugBounty/plugins-fastbots-ai-chatbots",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "fastn-ai-composable-middleware": {
+      "github": {
+        "scope": "repo",
+        "repo": "fastnear/fastnear_ai_page",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "fibr-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "taufeeq-ahmed/fibr-ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "figma": {
+      "github": {
+        "scope": "repo",
+        "repo": "neetly/figma-agent-linux",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "financeops": {
+      "github": {
+        "scope": "repo",
+        "repo": "EMZEDI/FinanceOps.ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "findly": {
+      "github": {
+        "scope": "repo",
+        "repo": "Abdurrahman-Muaz/Findly-AI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "findnlink": {
+      "github": {
+        "scope": "repo",
+        "repo": "Findnlink/Neuro-UI",
+        "matchMethod": "auto-retry"
+      }
+    },
+    "finvi-com": {
+      "github": {
+        "scope": "repo",
+        "repo": "s079208/FINVICTUM_COMPONENTS",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "firecrawl": {
+      "github": {
+        "scope": "repo",
+        "repo": "itsajchan/firecrawl-site-chunking-weaviate-queries",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "fireflies": {
+      "github": {
+        "scope": "repo",
+        "repo": "culstrup/fireflies-raycast",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "fleak-ai-workflows": {
+      "github": {
+        "scope": "repo",
+        "repo": "Shaik-mohd-huzaifa/Report-Summarization-Fleak-AI-",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "flowchai": {
+      "github": {
+        "scope": "repo",
+        "repo": "AkhilSharma90/FlowchartAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "flowla": {
+      "github": {
+        "scope": "repo",
+        "repo": "Lokesh-Rella/flowlaunch-company",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "flutterflow": {
+      "github": {
+        "scope": "repo",
+        "repo": "maearon/flutter_social_app",
+        "matchMethod": "auto-homepage-search"
+      },
+      "jobs": {
+        "provider": "ashby",
+        "company": "flutterflow",
+        "matchMethod": "auto-website"
+      }
+    },
+    "force-com": {
+      "github": {
+        "scope": "repo",
+        "repo": "forceworkbench/forceworkbench",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "forethought": {
+      "github": {
+        "scope": "repo",
+        "repo": "alfredo1111/solve-demos.forethought.ai",
+        "matchMethod": "auto-homepage-search"
+      },
       "jobs": {
         "provider": "greenhouse",
-        "company": "runwayml",
-        "matchMethod": "company-level"
+        "company": "forethought",
+        "matchMethod": "auto-website"
+      }
+    },
+    "freeday-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "mehrismore/sliding-puzzle",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "frequently-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "max1-98/frequentlyAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "fresho": {
+      "github": {
+        "scope": "repo",
+        "repo": "Yuri3K/freshokDev",
+        "matchMethod": "auto-homepage-search"
       }
     },
     "gemini": {
@@ -45,14 +958,1654 @@
         "ticker": "GOOG"
       }
     },
+    "genforge": {
+      "github": {
+        "scope": "repo",
+        "repo": "karlbarzo/genforge_ai_game_generator",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
     "github-copilot": {
+      "github": {
+        "scope": "repo",
+        "repo": "vuejs/vue",
+        "matchMethod": "auto-retry"
+      },
       "funding": {
         "ticker": "MSFT"
       }
     },
-    "amazon-q-developer": {
-      "funding": {
-        "ticker": "AMZN"
+    "glean": {
+      "github": {
+        "scope": "repo",
+        "repo": "askscio/glean-browser-api",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "gnucleus-ai": {
+      "github": {
+        "scope": "org",
+        "org": "gnucleus",
+        "matchMethod": "auto-website"
+      }
+    },
+    "gobi": {
+      "github": {
+        "scope": "org",
+        "org": "gobi-ai",
+        "matchMethod": "auto-website"
+      }
+    },
+    "gong": {
+      "github": {
+        "scope": "repo",
+        "repo": "JustinBeckwith/gongio-mcp",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "google-ai-studio": {
+      "github": {
+        "scope": "repo",
+        "repo": "ManuFlosoYT/CHAT-PDF",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "google-antigravity": {
+      "github": {
+        "scope": "org",
+        "org": "google-deepmind",
+        "matchMethod": "auto-website"
+      }
+    },
+    "gorgias": {
+      "github": {
+        "scope": "repo",
+        "repo": "gorgias/gorgias-webflow",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "groweasy": {
+      "github": {
+        "scope": "repo",
+        "repo": "yashhooda1/GrowEasy-AI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "growstack": {
+      "github": {
+        "scope": "repo",
+        "repo": "SteephenManoj/Growstack-AI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "gupshup-io": {
+      "github": {
+        "scope": "repo",
+        "repo": "gupshup-io/deployd-demo",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "heysam": {
+      "github": {
+        "scope": "repo",
+        "repo": "arch-style/HeysamaAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "higgsfield": {
+      "github": {
+        "scope": "repo",
+        "repo": "geopopos/higgsfield_ai_mcp",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "houndify-com": {
+      "github": {
+        "scope": "repo",
+        "repo": "TylerSeanRau/HoundHouse",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "hubtype": {
+      "jobs": {
+        "provider": "workable",
+        "company": "hubtype",
+        "matchMethod": "auto-website"
+      }
+    },
+    "humai-in": {
+      "github": {
+        "scope": "repo",
+        "repo": "Ghazimabrouki/HUMAINlINK-v1.1",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "humanic-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Raj1513566433/Humanic_AI_Apps_LIke_Replika",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "inbuild": {
+      "github": {
+        "scope": "repo",
+        "repo": "Zion203/InbuildAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "inkeep": {
+      "github": {
+        "scope": "repo",
+        "repo": "inkeep/agents",
+        "matchMethod": "auto-website"
+      }
+    },
+    "inlink": {
+      "github": {
+        "scope": "repo",
+        "repo": "Amh-42/inlinkai.com",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "insightsoftware": {
+      "github": {
+        "scope": "repo",
+        "repo": "newrelic/newrelic-browser-agent",
+        "matchMethod": "auto-website"
+      }
+    },
+    "integry": {
+      "github": {
+        "scope": "repo",
+        "repo": "abdullah-aabi/cypress-ui-tests-pom-integry.ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "invoiceocr": {
+      "github": {
+        "scope": "repo",
+        "repo": "ImHaifa/InvoiceOCR.NET",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "inworld": {
+      "github": {
+        "scope": "repo",
+        "repo": "inworld-ai/inworld-api-examples",
+        "matchMethod": "auto-website"
+      }
+    },
+    "ioni-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "joshuamorony/ionic-ai-theme",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "iris-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "brunosan/iris-ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "jarvis-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "l0v3m0n3y/jarvis",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "jaxo-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Apurva1205/Jaxon.ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "jobo-the-ai-auto-apply-bot": {
+      "github": {
+        "scope": "repo",
+        "repo": "Quantum-Allure/JOBOT-World",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "juicebox-work": {
+      "github": {
+        "scope": "repo",
+        "repo": "juicebox-ai/juicebox-ai.github.io",
+        "matchMethod": "auto-homepage-search"
+      },
+      "jobs": {
+        "provider": "ashby",
+        "company": "juicebox",
+        "matchMethod": "auto-website"
+      }
+    },
+    "khanmigo": {
+      "github": {
+        "scope": "repo",
+        "repo": "rand-net/khan-dl",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "khroma": {
+      "github": {
+        "scope": "repo",
+        "repo": "KarstSkarn/KhromaCoder",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "kick": {
+      "github": {
+        "scope": "repo",
+        "repo": "hendrikmi/neovim-kickstart-config",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "kili": {
+      "github": {
+        "scope": "repo",
+        "repo": "owensam/KilimoSoko",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "kiro": {
+      "github": {
+        "scope": "repo",
+        "repo": "kirodotdev/Kiro",
+        "matchMethod": "auto-website"
+      }
+    },
+    "kling-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "yihong0618/klingCreator",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "klink-cloud": {
+      "github": {
+        "scope": "repo",
+        "repo": "bruceklink/klink_cloud",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "kore-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Koredotcom/KnowledgeGraphGenerator",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "krecicki": {
+      "github": {
+        "scope": "repo",
+        "repo": "krecicki/ChatGPT-Trading-Bot-for-KuCoin",
+        "matchMethod": "auto-retry"
+      }
+    },
+    "krisp": {
+      "github": {
+        "scope": "repo",
+        "repo": "erick777hn/krispchromeAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "krut-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Imranalikm/Krut-AI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "kuki-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "kodpe/Kuki_AI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "kwrds-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "mkotsollaris/kwrds-ai-mcp",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "lang-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "jiran214/langup-ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "layla-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Kentonx-tech/layla-ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "lazyapply-com": {
+      "github": {
+        "scope": "repo",
+        "repo": "viveklazyapply/backlink",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "learn-prompting-pro": {
+      "github": {
+        "scope": "repo",
+        "repo": "Cpolackal/LearnPromptingHyperlinks",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "lecca-io": {
+      "github": {
+        "scope": "repo",
+        "repo": "darkmoon810/lecca-io",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "leena-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "vishallamba23/Leena-AI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "lek": {
+      "github": {
+        "scope": "repo",
+        "repo": "lekh-ai/lekh-ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "lindy": {
+      "github": {
+        "scope": "repo",
+        "repo": "YATHARTH-Sriv/LindyAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "livex-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "13point5/livex-ai-challenge",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "lovable": {
+      "github": {
+        "scope": "repo",
+        "repo": "AntonOsika/gpt-engineer",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "ludo-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Aryan0-1Maurya/Ludo-ai-vs-you",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "luma-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "lumalabs/luma-web-examples",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "luma-dream-machine": {
+      "github": {
+        "scope": "repo",
+        "repo": "lumalabs/luma-web-examples",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "lyro": {
+      "github": {
+        "scope": "repo",
+        "repo": "SerRivera/Chat",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "m-veo-ai": {
+      "github": {
+        "scope": "org",
+        "org": "moveo-ai",
+        "matchMethod": "auto-website"
+      }
+    },
+    "macaly": {
+      "github": {
+        "scope": "repo",
+        "repo": "MarcioMontrezor/Quantika",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "mad-ad": {
+      "github": {
+        "scope": "repo",
+        "repo": "Revisto/MadadSite",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "magical-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "sojohnnysaid/project-guide",
+        "matchMethod": "auto-retry"
+      },
+      "jobs": {
+        "provider": "ashby",
+        "company": "magical",
+        "matchMethod": "auto-website"
+      }
+    },
+    "maker-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "HubSpot/draft-convert",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "manus": {
+      "github": {
+        "scope": "repo",
+        "repo": "Fosowl/agenticSeek",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "marketer-tech": {
+      "github": {
+        "scope": "repo",
+        "repo": "Rayxworld/PromptJar",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "markopolo-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "PeaceOloruntoba/glowing-umbrella",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "maxkb": {
+      "github": {
+        "scope": "repo",
+        "repo": "1Panel-dev/MaxKB",
+        "matchMethod": "auto-website"
+      }
+    },
+    "mazaal-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Mazaal-AI/mazaalai_public_models",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "mercor": {
+      "github": {
+        "scope": "repo",
+        "repo": "prajwalshendge/mercoradigital.com",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "meshy": {
+      "github": {
+        "scope": "repo",
+        "repo": "mrbid/AIGeneratedGame",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "metagpt-mgx": {
+      "github": {
+        "scope": "repo",
+        "repo": "FoundationAgents/MetaGPT",
+        "matchMethod": "auto-website"
+      }
+    },
+    "milvus": {
+      "github": {
+        "repo": "milvus-io/milvus",
+        "scope": "repo",
+        "matchMethod": "manual"
+      }
+    },
+    "mindbridge-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "deepakuy/mindbridge-ai-hackathon",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "mindsdb": {
+      "github": {
+        "scope": "repo",
+        "repo": "mindsdb/mindsdb",
+        "matchMethod": "auto-website"
+      }
+    },
+    "minea": {
+      "github": {
+        "scope": "repo",
+        "repo": "GreatJeff90/mineactivation.com",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "motionscribe": {
+      "github": {
+        "scope": "repo",
+        "repo": "YianAndCode/gintonic",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "moveworks": {
+      "github": {
+        "scope": "repo",
+        "repo": "roxst4r/prisma.moveworks.com",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "muku-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "MukulAIML/MukulAIML",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "muku-ai-1": {
+      "github": {
+        "scope": "repo",
+        "repo": "MukulAIML/MukulAIML",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "n8n": {
+      "github": {
+        "scope": "repo",
+        "repo": "n8n-io/n8n",
+        "matchMethod": "auto-website"
+      }
+    },
+    "nevermined": {
+      "github": {
+        "scope": "org",
+        "org": "nevermined-io",
+        "matchMethod": "auto-website"
+      }
+    },
+    "nightwatch-io": {
+      "github": {
+        "scope": "repo",
+        "repo": "sparticvs/nightwatch-iot",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "niya-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "hemal9102/NiyantrakAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "notebooklm": {
+      "github": {
+        "scope": "repo",
+        "repo": "ParthSarthi-tech/Stock-Market-Analysis-",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "notion-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "jamalex/notion-py",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "nume": {
+      "github": {
+        "scope": "repo",
+        "repo": "gavinconran/numerical-finance",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "numind": {
+      "github": {
+        "scope": "repo",
+        "repo": "numindai/nuextract",
+        "matchMethod": "auto-website"
+      }
+    },
+    "obviously-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "yeganehsadeghzadeh/Obviously-AI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "oliv": {
+      "github": {
+        "scope": "repo",
+        "repo": "olivia-ai/olivia-ai.org",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "oliv-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "olivia-ai/olivia-ai.org",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "olly-2-0": {
+      "github": {
+        "scope": "repo",
+        "repo": "whyashthakker/olly_docs",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "omneky": {
+      "github": {
+        "scope": "repo",
+        "repo": "abdul-omneky/Omneky-ComfyUI-Inpaint",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "omnichat-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Ravi-exe/OmniChat-AI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "openjobs-ai": {
+      "github": {
+        "scope": "org",
+        "org": "OpenJobsAI",
+        "matchMethod": "auto-website"
+      }
+    },
+    "orga-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Sai3127/organise-ai.com",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "osfin-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Manju299/OsfinAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "otter-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "gmchad/otterai-api",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "ouro": {
+      "github": {
+        "scope": "org",
+        "org": "ourofoundation",
+        "matchMethod": "auto-website"
+      }
+    },
+    "outreach": {
+      "github": {
+        "scope": "repo",
+        "repo": "thechrisoshow/outreach",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "pagepilot-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "vedantbakhade-git/PagePilot-AI-Summarizer-Hackathon",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "parny": {
+      "github": {
+        "scope": "org",
+        "org": "Parny-io",
+        "matchMethod": "auto-website"
+      }
+    },
+    "patterns": {
+      "github": {
+        "scope": "repo",
+        "repo": "nirzaf/AccessPatternsApp",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "pearai": {
+      "github": {
+        "scope": "repo",
+        "repo": "trypear/pearai-master",
+        "matchMethod": "auto-website"
+      }
+    },
+    "phot-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "code100x/photo-ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "photog": {
+      "github": {
+        "scope": "repo",
+        "repo": "zjqc/photographing-art",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "pika": {
+      "github": {
+        "scope": "repo",
+        "repo": "privet-fun/phpbb_ailabs",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "pinecone": {
+      "github": {
+        "scope": "org",
+        "org": "pinecone-io",
+        "matchMethod": "auto-website"
+      }
+    },
+    "planner-5d": {
+      "github": {
+        "scope": "repo",
+        "repo": "All-logins-are-taken/Planner",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "play-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "warren-bank/Android-ExoPlayer-AirPlay-Receiver",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "polaranalytics-com": {
+      "jobs": {
+        "provider": "ashby",
+        "company": "polaranalytics",
+        "matchMethod": "auto-website"
+      }
+    },
+    "poly-ai-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "lorine93s/polymarket-ai-market-suggestor",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "postly": {
+      "github": {
+        "scope": "repo",
+        "repo": "artaasd95/postlytics-ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "powpow": {
+      "github": {
+        "scope": "repo",
+        "repo": "empow-ux/PowpowAi",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "predis": {
+      "github": {
+        "scope": "repo",
+        "repo": "suhasinir075-stack/PredisAI-Project1",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "productly-app": {
+      "github": {
+        "scope": "repo",
+        "repo": "AdePhil/productly",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "promo-ai-video-maker": {
+      "github": {
+        "scope": "repo",
+        "repo": "microsoft/CSharpContentsCreationPromotionCommittee",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "proofs-ai-agents-for-sales-engineering": {
+      "github": {
+        "scope": "repo",
+        "repo": "CezaryBielecki/KRSBrowser",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "pump": {
+      "github": {
+        "scope": "repo",
+        "repo": "openhp/HeatPumpController",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "qa-tech": {
+      "github": {
+        "scope": "repo",
+        "repo": "pridiuksson/cursor-agents-2",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "qdrant-io": {
+      "github": {
+        "scope": "repo",
+        "repo": "qdrant/qdrant",
+        "matchMethod": "auto-website"
+      }
+    },
+    "qrev-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "qrev-ai/qrev",
+        "matchMethod": "auto-website"
+      }
+    },
+    "quanta": {
+      "github": {
+        "scope": "repo",
+        "repo": "GeraldoLuizbatista/site-tucont-escuro",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "questflow-build-ai-agents-with-no-code": {
+      "github": {
+        "scope": "repo",
+        "repo": "questflowai/awesome-a2a-hub",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "quickbooks-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "sindresorhus/modern-normalize",
+        "matchMethod": "auto-website"
+      }
+    },
+    "reactor-by-arc": {
+      "github": {
+        "scope": "repo",
+        "repo": "coleam00/arcade-ai-agent",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "reclaim-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "labiso-gmbh/reclaim-sdk",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "recraft-image-model": {
+      "github": {
+        "scope": "repo",
+        "repo": "recraft-ai/ComfyUI-RecraftAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "regie": {
+      "github": {
+        "scope": "repo",
+        "repo": "Kashish-satija29/Regie.ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "rep-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "linyiLYi/reply-ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "replit": {
+      "github": {
+        "scope": "repo",
+        "repo": "mewzax/Discord-RPC-Selfbot",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "revueai": {
+      "github": {
+        "scope": "repo",
+        "repo": "jasonwonton/revueai-public",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "reworkd": {
+      "github": {
+        "scope": "org",
+        "org": "reworkd",
+        "matchMethod": "auto-website"
+      }
+    },
+    "reworkd-ai": {
+      "github": {
+        "scope": "org",
+        "org": "reworkd",
+        "matchMethod": "auto-website"
+      }
+    },
+    "ribbo-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "TPR-Acc/ribbon-ai-starter",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "robofin": {
+      "github": {
+        "scope": "repo",
+        "repo": "ThomasJockin/JosefinSansFont-master",
+        "matchMethod": "auto-website"
+      }
+    },
+    "rooftops-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "bsbillings/RooftopsAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "runway": {
+      "github": {
+        "scope": "org",
+        "org": "runwayml",
+        "matchMethod": "auto-website"
+      },
+      "jobs": {
+        "provider": "greenhouse",
+        "company": "runwayml",
+        "matchMethod": "company-level"
+      }
+    },
+    "s10-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "s10aimedicalscribe/clinicprocessautomation",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "saaspec": {
+      "github": {
+        "scope": "repo",
+        "repo": "akshat-crypto/saaspect.com",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "salesforce-einstein": {
+      "github": {
+        "scope": "repo",
+        "repo": "simple-salesforce/simple-salesforce",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "salesforge": {
+      "github": {
+        "scope": "repo",
+        "repo": "syrius10/salesforge-ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "salesloft": {
+      "github": {
+        "scope": "repo",
+        "repo": "hemadri-rnd-org/salesloft-com-v2-openapi",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "samespace-com": {
+      "github": {
+        "scope": "repo",
+        "repo": "Nisarga-MS/Music-Player-UI-Samespace-Company-Frontend-Assessment-",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "sana-labs": {
+      "github": {
+        "scope": "repo",
+        "repo": "jollescott/sana-python",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "saydata": {
+      "github": {
+        "scope": "repo",
+        "repo": "thejuggernaut01/speech-to-text-dashboard-app",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "scrap-so": {
+      "github": {
+        "scope": "repo",
+        "repo": "danielsaban/data-scraping-sofascore",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "scrapegraphai": {
+      "github": {
+        "scope": "repo",
+        "repo": "ScrapeGraphAI/Scrapegraph-ai",
+        "matchMethod": "auto-website"
+      }
+    },
+    "scrapybara": {
+      "github": {
+        "scope": "repo",
+        "repo": "scrapybara/codecapy",
+        "matchMethod": "auto-website"
+      }
+    },
+    "seasalt-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Kitt-AI/snowboy",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "seek": {
+      "github": {
+        "scope": "repo",
+        "repo": "DeepLifeStudio/DeepSeekAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "sendbird": {
+      "github": {
+        "scope": "org",
+        "org": "sendbird",
+        "matchMethod": "auto-website"
+      }
+    },
+    "sendwo": {
+      "github": {
+        "scope": "repo",
+        "repo": "LukeShell/sendwoomail.com",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "seo-bot": {
+      "github": {
+        "scope": "repo",
+        "repo": "MarsX-dev/tools-for-makers",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "serina": {
+      "github": {
+        "scope": "repo",
+        "repo": "nithin953/Serina-AI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "serp-api": {
+      "github": {
+        "scope": "org",
+        "org": "luminati-io",
+        "matchMethod": "auto-website"
+      }
+    },
+    "shakespeare": {
+      "github": {
+        "scope": "repo",
+        "repo": "johnafish/shakespeare_ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "sheliapp": {
+      "github": {
+        "scope": "repo",
+        "repo": "emremsr/shelix-app",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "shortwave": {
+      "github": {
+        "scope": "repo",
+        "repo": "haraldmartin/shortwave_commands",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "shots-maker": {
+      "github": {
+        "scope": "repo",
+        "repo": "mikegrantx-stack/product-shot-",
+        "matchMethod": "auto-retry"
+      }
+    },
+    "shown-io": {
+      "github": {
+        "scope": "repo",
+        "repo": "Jalolbek17/shown.io",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "sierra": {
+      "github": {
+        "scope": "repo",
+        "repo": "dgaray01/SierraAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "simplified-co": {
+      "github": {
+        "scope": "repo",
+        "repo": "ltebean/simple-co",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "skydeck-ai": {
+      "github": {
+        "scope": "org",
+        "org": "skydeckai",
+        "matchMethod": "auto-website"
+      }
+    },
+    "skylight": {
+      "github": {
+        "scope": "repo",
+        "repo": "skylight-ai/skylight-python-sdk",
+        "matchMethod": "auto-website"
+      }
+    },
+    "skywork-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "SkyworkAI/Skywork-R1V",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "skywork-super-agents": {
+      "github": {
+        "scope": "repo",
+        "repo": "SkyworkAI/Skywork-R1V",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "sleekflow": {
+      "github": {
+        "scope": "repo",
+        "repo": "UAPSTARTECHNUMBERLOGYTHAiLAND/-GOOGLEEDGEAi.ONMiCROSOFT.COM",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "smartrip": {
+      "github": {
+        "scope": "repo",
+        "repo": "Zypgungorr/smartrip-ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "softr": {
+      "github": {
+        "scope": "repo",
+        "repo": "alexmeurant/Google_trends_with_Softr.io",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "sourcery-sentinel": {
+      "github": {
+        "scope": "repo",
+        "repo": "sourcery-ai/sourcery",
+        "matchMethod": "auto-website"
+      }
+    },
+    "spatial": {
+      "github": {
+        "scope": "repo",
+        "repo": "kornia/kornia",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "sre-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "mstrYoda/sre-ai-agent",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "stable-fast-3d-sf3d": {
+      "github": {
+        "scope": "repo",
+        "repo": "Stability-AI/stable-fast-3d",
+        "matchMethod": "auto-website"
+      }
+    },
+    "standard-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "hassanhabib/Standard.AI.OpenAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "storychief": {
+      "github": {
+        "scope": "repo",
+        "repo": "eviltester/scapihookhandler",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "streamr": {
+      "github": {
+        "scope": "repo",
+        "repo": "devmate-cloud/streamr-airbyte-connectors",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "studio-neiro-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "aliceberd00/neiroai_test",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "styldod": {
+      "github": {
+        "scope": "repo",
+        "repo": "It9991/http-ztedevices.refr.cc-ittimongkollapkit",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "sully-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Odiggo/security",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "suno": {
+      "github": {
+        "scope": "repo",
+        "repo": "sunowsir/rj-aux.sunowsir.com.github",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "supermeme-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "mansii663/FUTURE_BC_03",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "symbl-ai": {
+      "github": {
+        "scope": "org",
+        "org": "symblai",
+        "matchMethod": "auto-website"
+      }
+    },
+    "synthesia": {
+      "github": {
+        "scope": "repo",
+        "repo": "sonuMehta12/Synthesia.io",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "synthflow-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "steviebdesignstraining/SynthflowAI_Interview",
+        "matchMethod": "auto-homepage-search"
+      },
+      "jobs": {
+        "provider": "ashby",
+        "company": "synthflow",
+        "matchMethod": "auto-website"
+      }
+    },
+    "tailortalk": {
+      "github": {
+        "scope": "repo",
+        "repo": "Srushti750/tailortalk-ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "tavus": {
+      "github": {
+        "scope": "repo",
+        "repo": "alexbehrens/demo-tavus-valentine-template",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "taxly-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "RishyanthReddy/TAXLY---AI-Powered-R-D-Tax-Credit-Automation-Platform",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "tidio": {
+      "github": {
+        "scope": "repo",
+        "repo": "SerRivera/Chat",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "tomat": {
+      "github": {
+        "scope": "repo",
+        "repo": "BookmDan/tomatoAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "travlo": {
+      "github": {
+        "scope": "repo",
+        "repo": "travlog/travlog-ios",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "trellis-3d-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Trellis-3d/Trellis-3D",
+        "matchMethod": "auto-retry"
+      }
+    },
+    "trickle": {
+      "github": {
+        "scope": "repo",
+        "repo": "pkgtm2419/Trickle-Solution",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "triorama-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Dheeraj-TN/triorama-ai-viz",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "truly-co": {
+      "github": {
+        "scope": "repo",
+        "repo": "CryceTruly/truly-contacts-youtube",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "tryolabs-com": {
+      "github": {
+        "scope": "org",
+        "org": "tryolabs",
+        "matchMethod": "auto-website"
+      }
+    },
+    "tunk": {
+      "github": {
+        "scope": "repo",
+        "repo": "logicnimbus/tunk-website",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "twelvelabs": {
+      "github": {
+        "scope": "repo",
+        "repo": "vchhajed/askvideo",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "udio": {
+      "github": {
+        "scope": "repo",
+        "repo": "flowese/UdioWrapper",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "uizard": {
+      "github": {
+        "scope": "repo",
+        "repo": "CyJavac/Proyecto-Interfaces",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "usemotion-com": {
+      "github": {
+        "scope": "repo",
+        "repo": "RF-D/motion-mcp",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "vagent": {
+      "github": {
+        "scope": "repo",
+        "repo": "octionic/vagent",
+        "matchMethod": "auto-website"
+      }
+    },
+    "vanna-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "vanna-ai/vanna",
+        "matchMethod": "auto-website"
+      }
+    },
+    "vapi": {
+      "github": {
+        "scope": "repo",
+        "repo": "VapiAI/server-sdk-typescript",
+        "matchMethod": "auto-website"
+      },
+      "jobs": {
+        "provider": "ashby",
+        "company": "vapi",
+        "matchMethod": "auto-website"
+      }
+    },
+    "vectal-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Keshavvakul/vectal-clone-nextjs",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "venice-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "veniceai/api-docs",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "vic-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "Devarora-0981/Vick-Ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "vidix": {
+      "github": {
+        "scope": "repo",
+        "repo": "cloudstudio/vidix.public.app",
+        "matchMethod": "auto-website"
+      }
+    },
+    "vidyard-com": {
+      "github": {
+        "scope": "repo",
+        "repo": "Meytalke/Inventory-Management",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "vison-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "francisdogbey/Digital-Twin-Microsoft-IoT-AI-Texas",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "vly-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "RishiDalvi/vly.ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "vocai-chatbot": {
+      "github": {
+        "scope": "repo",
+        "repo": "TheProfessorsLab/Oracle-VocalAI-Interface-DISCONTINUED",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "voiceflow-ai": {
+      "github": {
+        "scope": "org",
+        "org": "voiceflow",
+        "matchMethod": "auto-website"
+      }
+    },
+    "voicegenie": {
+      "github": {
+        "scope": "repo",
+        "repo": "ShilaAi12/VoiceGenie-ai-Promo",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "volv-elevate-shopping-experience": {
+      "github": {
+        "scope": "repo",
+        "repo": "p0ryae/VolvoComm",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "wald-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "heolfief/Where_is_Waldo_AI_solver",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "weaviate": {
+      "github": {
+        "repo": "weaviate/weaviate",
+        "scope": "repo",
+        "matchMethod": "manual"
+      }
+    },
+    "webapi-ai-3-0": {
+      "github": {
+        "scope": "repo",
+        "repo": "myonathanlinkedin/mcp-rag-agency-book-appointments",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "websparks": {
+      "github": {
+        "scope": "repo",
+        "repo": "ASU/webspark-drops-drupal7",
+        "matchMethod": "auto-retry"
+      }
+    },
+    "webtap-ai-web-scraper": {
+      "github": {
+        "scope": "repo",
+        "repo": "webtap-ai/webtap-ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "windsurf": {
+      "github": {
+        "scope": "repo",
+        "repo": "grzegorzk/codeium_windsurf_in_podman",
+        "matchMethod": "auto-homepage-search"
+      },
+      "jobs": {
+        "provider": "ashby",
+        "company": "cognition",
+        "matchMethod": "auto-website"
+      }
+    },
+    "wobo-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "aamirkhan9420/wobot.ai",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "wonderchat": {
+      "github": {
+        "scope": "repo",
+        "repo": "Carlos-glitch/wonderchat.io",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "wondershare-virbo": {
+      "github": {
+        "scope": "repo",
+        "repo": "hotpants-1972/Advanced-Driver-Updater-Working",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "wordspilot": {
+      "github": {
+        "scope": "repo",
+        "repo": "ShilaAi12/CodeWP-ai-Promo-",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "xenonstack": {
+      "github": {
+        "scope": "org",
+        "org": "xenonstack",
+        "matchMethod": "auto-website"
+      }
+    },
+    "yourgpt-chatbot": {
+      "github": {
+        "scope": "org",
+        "org": "YourGPT",
+        "matchMethod": "auto-website"
+      }
+    },
+    "yuma": {
+      "github": {
+        "scope": "repo",
+        "repo": "Abdullah-Tasfiek/YumAI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "zaia-app": {
+      "github": {
+        "scope": "repo",
+        "repo": "Rodr17/zaia_app",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "zapgpt-com-br": {
+      "github": {
+        "scope": "repo",
+        "repo": "Rodr17/zaia_app",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "zeni-ai": {
+      "github": {
+        "scope": "repo",
+        "repo": "AnurupaK/Zenith-AI",
+        "matchMethod": "auto-homepage-search"
+      }
+    },
+    "zocket": {
+      "github": {
+        "scope": "repo",
+        "repo": "HarxSan/zocket_ai_agent",
+        "matchMethod": "auto-homepage-search"
       }
     }
   }

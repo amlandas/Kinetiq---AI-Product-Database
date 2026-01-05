@@ -89,23 +89,21 @@ Automation:
 - A GitHub Actions workflow (`.github/workflows/analytics-snapshot.yml`) runs weekly to capture a snapshot and commit updates.
 
 ## 📡 External Signals
-External signals (GitHub activity, job postings, traffic rank proxies, funding filings) are stored in `src/data/externalSignals.json`.
+External signals (GitHub activity, traffic rank proxies) are stored in `src/data/externalSignals.json`.
 
 Refresh signals locally:
 ```bash
-npm run signals:refresh
+GITHUB_TOKEN=your_token npm run signals:refresh
 ```
 
-SEC EDGAR requests a descriptive user-agent with contact info. Override the default with:
-```bash
-SEC_USER_AGENT="KinetiqSignals/1.0 (contact: you@example.com)" npm run signals:refresh
-```
+Batch controls (optional):
+- `EXTERNAL_SIGNALS_BATCH_SIZE=500` (default)
+- `EXTERNAL_SIGNALS_BATCH_INDEX=2` (run a single batch by rank of total users)
+- `EXTERNAL_SIGNALS_NAME_SEARCH=true` (fallback GitHub search by product name on 404s)
 
 Sources:
 - GitHub API (repo/org activity)
-- Greenhouse Jobs API (company-level hiring signal)
 - Tranco top sites list (traffic rank proxy)
-- SEC EDGAR filings (public-company only)
 
 Automation:
 - The same GitHub Actions workflow refreshes external signals on the weekly cadence and commits updates.

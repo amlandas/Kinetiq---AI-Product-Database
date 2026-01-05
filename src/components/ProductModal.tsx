@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Product } from '../types';
-import { X, ExternalLink, Globe, Calendar, RefreshCw, Zap, MessageSquare, Loader2, Sparkles, Star, Github, Briefcase, TrendingUp, Banknote } from 'lucide-react';
+import { X, ExternalLink, Globe, Calendar, RefreshCw, Zap, MessageSquare, Loader2, Sparkles, Star, Github, TrendingUp } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { getProductAnalysis } from '../services/geminiService';
 import { ConfidenceLevel, formatCompactNumber, formatConfidenceLabel, formatDateLabel, getConfidenceBadgeClasses, getExternalSignals, getExternalSignalsUpdatedAt } from '../lib/externalSignals';
@@ -231,18 +231,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
                       signals?.github?.sourceUrl
                     )}
                     {renderSignalCard(
-                      'Job postings',
-                      Briefcase,
-                      signals?.jobs ? `${signals.jobs.openRoles} open roles` : 'Not available',
-                      signals?.jobs
-                        ? `Recent 30d: ${signals.jobs.recentRoles30d} • Top locations: ${signals.jobs.locations.join(', ') || 'N/A'}`
-                        : 'Company-level hiring signals require a verified job board mapping.',
-                      signals?.jobs?.confidence,
-                      signals?.jobs?.source,
-                      signals?.jobs?.sourceUrl,
-                      signals?.jobs?.note
-                    )}
-                    {renderSignalCard(
                       'Traffic estimate',
                       TrendingUp,
                       signals?.traffic?.rank ? `Tranco rank #${signals.traffic.rank}` : 'Not ranked',
@@ -253,22 +241,6 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
                       signals?.traffic?.source,
                       signals?.traffic?.sourceUrl,
                       signals?.traffic?.note
-                    )}
-                    {renderSignalCard(
-                      'Funding signal',
-                      Banknote,
-                      signals?.funding?.lastFilingDate
-                        ? `Public filings (${signals.funding.ticker})`
-                        : 'Not available',
-                      signals?.funding?.lastFilingDate
-                        ? `Last filing: ${signals.funding.lastFilingType || 'SEC'} on ${formatDateLabel(
-                            signals.funding.lastFilingDate,
-                          )}`
-                        : 'Private funding data is not captured yet.',
-                      signals?.funding?.confidence,
-                      signals?.funding?.source,
-                      signals?.funding?.sourceUrl,
-                      signals?.funding?.note
                     )}
                   </div>
                   <p className="mt-3 text-[11px] text-gray-500 dark:text-gray-400">

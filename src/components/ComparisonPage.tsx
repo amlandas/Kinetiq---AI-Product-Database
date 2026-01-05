@@ -2,7 +2,7 @@ import React from 'react';
 import { Product, ComparisonResult } from '../types';
 import { ArrowLeft, Sparkles, Loader2, X, Check, Minus, Download } from 'lucide-react';
 import { generateComparison } from '../services/geminiService';
-import { ConfidenceLevel, ExternalSignalsEntry, formatCompactNumber, formatConfidenceLabel, formatDateLabel, getConfidenceBadgeClasses, getExternalSignals } from '../lib/externalSignals';
+import { ConfidenceLevel, ExternalSignalsEntry, formatCompactNumber, formatConfidenceLabel, getConfidenceBadgeClasses, getExternalSignals } from '../lib/externalSignals';
 import { useFeatureFlags } from '../lib/featureFlags';
 
 interface ComparisonPageProps {
@@ -42,7 +42,7 @@ const ComparisonPage: React.FC<ComparisonPageProps> = ({
     };
 
     const renderSignalCell = (
-        signal: ExternalSignalsEntry['github'] | ExternalSignalsEntry['jobs'] | ExternalSignalsEntry['traffic'] | ExternalSignalsEntry['funding'],
+        signal: ExternalSignalsEntry['github'] | ExternalSignalsEntry['traffic'],
         value: React.ReactNode,
         meta?: string,
     ) => (
@@ -114,32 +114,12 @@ const ComparisonPage: React.FC<ComparisonPageProps> = ({
                 lines.push('- GitHub: Not available');
             }
 
-            const jobs = signals?.jobs;
-            if (jobs) {
-                lines.push(`- Jobs: ${jobs.openRoles} open roles (recent 30d: ${jobs.recentRoles30d})`);
-                lines.push(`  - Confidence: ${formatConfidenceLabel(jobs.confidence)} | Source: ${jobs.source}`);
-            } else {
-                lines.push('- Jobs: Not available');
-            }
-
             const traffic = signals?.traffic;
             if (traffic?.rank) {
                 lines.push(`- Traffic: Tranco rank #${traffic.rank} (${traffic.matchedDomain || 'domain match'})`);
                 lines.push(`  - Confidence: ${formatConfidenceLabel(traffic.confidence)} | Source: ${traffic.source}`);
             } else {
                 lines.push('- Traffic: Not ranked');
-            }
-
-            const funding = signals?.funding;
-            if (funding?.lastFilingDate) {
-                lines.push(
-                    `- Funding: ${funding.ticker} filings, latest ${funding.lastFilingType || 'SEC'} on ${formatDateLabel(
-                        funding.lastFilingDate,
-                    )}`,
-                );
-                lines.push(`  - Confidence: ${formatConfidenceLabel(funding.confidence)} | Source: ${funding.source}`);
-            } else {
-                lines.push('- Funding: Not available');
             }
 
             lines.push('');
@@ -549,20 +529,6 @@ const ComparisonPage: React.FC<ComparisonPageProps> = ({
                                             })}
                                         </tr>
                                         <tr>
-                                            <td className="p-6 font-medium text-gray-500 border-r border-gray-100 dark:border-gray-700">Job postings</td>
-                                            {products.map(p => {
-                                                const signals = getExternalSignals(p.id);
-                                                const jobs = signals?.jobs;
-                                                const value = jobs ? `${jobs.openRoles} open roles` : 'Not available';
-                                                const meta = jobs ? `Recent 30d: ${jobs.recentRoles30d}` : undefined;
-                                                return (
-                                                    <td key={p.id} className="p-6 text-center text-gray-700 dark:text-gray-300">
-                                                        {renderSignalCell(jobs, value, meta)}
-                                                    </td>
-                                                );
-                                            })}
-                                        </tr>
-                                        <tr>
                                             <td className="p-6 font-medium text-gray-500 border-r border-gray-100 dark:border-gray-700">Traffic estimate</td>
                                             {products.map(p => {
                                                 const signals = getExternalSignals(p.id);
@@ -572,22 +538,6 @@ const ComparisonPage: React.FC<ComparisonPageProps> = ({
                                                 return (
                                                     <td key={p.id} className="p-6 text-center text-gray-700 dark:text-gray-300">
                                                         {renderSignalCell(traffic, value, meta)}
-                                                    </td>
-                                                );
-                                            })}
-                                        </tr>
-                                        <tr>
-                                            <td className="p-6 font-medium text-gray-500 border-r border-gray-100 dark:border-gray-700">Funding signal</td>
-                                            {products.map(p => {
-                                                const signals = getExternalSignals(p.id);
-                                                const funding = signals?.funding;
-                                                const value = funding?.lastFilingDate ? `Public filings (${funding.ticker})` : 'Not available';
-                                                const meta = funding?.lastFilingDate
-                                                    ? `Latest ${funding.lastFilingType || 'SEC'}: ${formatDateLabel(funding.lastFilingDate)}`
-                                                    : undefined;
-                                                return (
-                                                    <td key={p.id} className="p-6 text-center text-gray-700 dark:text-gray-300">
-                                                        {renderSignalCell(funding, value, meta)}
                                                     </td>
                                                 );
                                             })}

@@ -21,7 +21,7 @@ export type GithubSignal = {
 };
 
 export type JobsSignal = {
-  provider: 'greenhouse';
+  provider: 'greenhouse' | 'lever' | 'workable' | 'ashby' | 'smartrecruiters' | 'bamboohr';
   openRoles: number;
   recentRoles30d: number;
   locations: string[];

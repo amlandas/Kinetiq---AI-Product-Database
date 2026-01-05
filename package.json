@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "snapshot:analytics": "tsx scripts/capture-analytics-snapshot.ts",
-    "signals:refresh": "tsx scripts/refresh-external-signals.ts"
+    "signals:refresh": "tsx scripts/refresh-external-signals.ts",
+    "mappings:build": "tsx scripts/build-external-signal-mappings.ts"
   },
   "dependencies": {
     "@google/genai": "^1.34.0",
