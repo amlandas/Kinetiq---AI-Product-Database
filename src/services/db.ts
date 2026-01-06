@@ -2,7 +2,7 @@ import { Product } from "../types";
 import { PRODUCTS as SEED_PRODUCTS } from "../data";
 
 const DB_KEY = 'ai_nexus_db_v1';
-const CURRENT_DB_VERSION = 15; // Incrementing version to 15 to fix Canva duplication
+const CURRENT_DB_VERSION = 16; // Increment to refresh catalog after cleanup
 const UPDATE_INTERVAL_MS = 7 * 24 * 60 * 60 * 1000; // 7 Days in milliseconds
 
 interface DBSnapshot {

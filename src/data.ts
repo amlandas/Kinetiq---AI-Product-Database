@@ -122,14 +122,14 @@ const getLogo = (name: string, bg: string = '0ea5e9') =>
 
 // INITIAL SEED DATA (High Quality, Manually Curated)
 const SEED_PRODUCTS: Product[] = [
-  {
+    {
     "id": "claude",
-    "name": "Claude Desktop",
+    "name": "Claude",
     "companyId": "anthropic",
     "logoUrl": "https://ui-avatars.com/api/?name=Claude&background=D97757&color=fff&size=200&font-size=0.4&bold=true",
     "category": "Productivity & Assistants",
     "subCategory": "AI Assistant",
-    "description": "The industry-leading AI assistant for work, capable of complex reasoning, coding, and writing with a massive context window.",
+    "description": "Anthropic's Claude desktop chat assistant for work, capable of complex reasoning, coding, and writing with a massive context window.",
     "features": [
       "Large Context Window",
       "Coding",
@@ -186,14 +186,14 @@ const SEED_PRODUCTS: Product[] = [
       "Standard"
     ]
   },
-  {
+    {
     "id": "gemini",
-    "name": "Gemini",
+    "name": "Google Gemini",
     "companyId": "google",
-    "logoUrl": "https://ui-avatars.com/api/?name=Gemini&background=4285F4&color=fff&size=200&font-size=0.4&bold=true",
+    "logoUrl": "https://ui-avatars.com/api/?name=Google%20Gemini&background=4285F4&color=fff&size=200&font-size=0.4&bold=true",
     "category": "Productivity & Assistants",
     "subCategory": "Chatbot",
-    "description": "Google’s most capable and general model, built to be multimodal from the ground up and integrated with Workspace.",
+    "description": "Google Gemini is Google's AI chat assistant with multimodal responses and Workspace integrations.",
     "features": [
       "Multimodal",
       "Google Workspace",
@@ -1081,37 +1081,6 @@ const SEED_PRODUCTS: Product[] = [
       "Low-Code",
       "CLI",
       "Open Source"
-    ]
-  },
-  {
-    "id": "codex",
-    "name": "OpenAI Codex",
-    "companyId": "openai",
-    "logoUrl": "https://ui-avatars.com/api/?name=Codex&background=10a37f&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Development & Data",
-    "subCategory": "Low-Code",
-    "description": "The AI model powering GitHub Copilot, capable of translating natural language to code in more than a dozen languages.",
-    "features": [
-      "Code Generation",
-      "Translation",
-      "Documentation",
-      "Refactoring"
-    ],
-    "website": "https://openai.com/blog/openai-codex",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2021-08-10",
-    "lastUpdate": "2025-05-01",
-    "metrics": {
-      "totalUsers": 5000000,
-      "rating": 4.6,
-      "growthRate": 10
-    },
-    "tags": [
-      "Low-Code",
-      "Model",
-      "API"
     ]
   },
   {
@@ -3503,7 +3472,7 @@ const IMPORTED_PRODUCTS: Product[] = [
       "Cloud-Based"
     ]
   },
-  {
+    {
     "id": "meshy",
     "name": "Meshy",
     "companyId": "Meshy",
@@ -3515,7 +3484,7 @@ const IMPORTED_PRODUCTS: Product[] = [
       "AI-Powered",
       "Cloud-Based"
     ],
-    "website": "https://app.meshy.ai",
+    "website": "https://meshy.ai",
     "pricing": [
       "Paid"
     ],
@@ -13534,14 +13503,14 @@ const IMPORTED_PRODUCTS: Product[] = [
       "Cloud-Based"
     ]
   },
-  {
+    {
     "id": "ugc-ads",
-    "name": "Ugc Ads",
-    "companyId": "Ugc",
-    "logoUrl": "https://ui-avatars.com/api/?name=Ugc%20Ads&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
+    "name": "UGC Ads",
+    "companyId": "UGC Ads",
+    "logoUrl": "https://ui-avatars.com/api/?name=UGC%20Ads&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
     "category": "Business & Operations",
     "subCategory": "Marketing",
-    "description": "Ugc Ads is a leading Marketing tool focused on Business & Operations.",
+    "description": "UGC Ads is a leading Marketing tool focused on Business & Operations.",
     "features": [
       "AI-Powered",
       "Cloud-Based"
@@ -15371,36 +15340,6 @@ const IMPORTED_PRODUCTS: Product[] = [
     ]
   },
   {
-    "id": "recraft-image-model",
-    "name": "Recraft Image Model",
-    "companyId": "Recraft",
-    "logoUrl": "https://ui-avatars.com/api/?name=Recraft%20Image%20Model&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Content & Creative",
-    "subCategory": "Image Generation",
-    "description": "Recraft Image Model is a leading Image Generation tool focused on Content & Creative.",
-    "features": [
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://www.recraft.ai",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2024-03-30",
-    "lastUpdate": "2024-07-12",
-    "metrics": {
-      "totalUsers": 3811,
-      "rating": 4.6,
-      "growthRate": 111
-    },
-    "tags": [
-      "Content & Creative",
-      "Image Generation",
-      "AI-Powered",
-      "Cloud-Based"
-    ]
-  },
-  {
     "id": "captions",
     "name": "Captions",
     "companyId": "Captions",
@@ -17118,36 +17057,6 @@ const IMPORTED_PRODUCTS: Product[] = [
     ]
   },
   {
-    "id": "bria-ai",
-    "name": "Bria Ai",
-    "companyId": "Bria",
-    "logoUrl": "https://ui-avatars.com/api/?name=Bria%20Ai&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Content & Creative",
-    "subCategory": "Content Creation",
-    "description": "Bria Ai is a leading Content Creation tool focused on Content & Creative.",
-    "features": [
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://bria.ai",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2024-09-29",
-    "lastUpdate": "2024-12-09",
-    "metrics": {
-      "totalUsers": 99820,
-      "rating": 4.4,
-      "growthRate": 185
-    },
-    "tags": [
-      "Content & Creative",
-      "Content Creation",
-      "AI-Powered",
-      "Cloud-Based"
-    ]
-  },
-  {
     "id": "postly",
     "name": "Postly",
     "companyId": "Postly",
@@ -17294,36 +17203,6 @@ const IMPORTED_PRODUCTS: Product[] = [
     "tags": [
       "Development & Data",
       "Website Builder",
-      "AI-Powered",
-      "Cloud-Based"
-    ]
-  },
-  {
-    "id": "ugc-ads-ai",
-    "name": "Ugc Ads Ai",
-    "companyId": "Ugc",
-    "logoUrl": "https://ui-avatars.com/api/?name=Ugc%20Ads%20Ai&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Content & Creative",
-    "subCategory": "Video Editing",
-    "description": "Ugc Ads Ai is a leading Video Editing tool focused on Content & Creative.",
-    "features": [
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://ugcads.ai",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2023-07-12",
-    "lastUpdate": "2023-11-17",
-    "metrics": {
-      "totalUsers": 38666,
-      "rating": 4.6,
-      "growthRate": 61
-    },
-    "tags": [
-      "Content & Creative",
-      "Video Editing",
       "AI-Powered",
       "Cloud-Based"
     ]
@@ -18563,14 +18442,14 @@ const IMPORTED_PRODUCTS: Product[] = [
       "Cloud-Based"
     ]
   },
-  {
+    {
     "id": "muku-ai",
-    "name": "Muku Ai",
+    "name": "Muku",
     "companyId": "Muku",
-    "logoUrl": "https://ui-avatars.com/api/?name=Muku%20Ai&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
+    "logoUrl": "https://ui-avatars.com/api/?name=Muku&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
     "category": "Content & Creative",
     "subCategory": "Video Editing",
-    "description": "Muku Ai is a leading Video Editing tool focused on Content & Creative.",
+    "description": "Muku is a leading Video Editing tool focused on Content & Creative.",
     "features": [
       "AI-Powered",
       "Cloud-Based"
@@ -18585,36 +18464,6 @@ const IMPORTED_PRODUCTS: Product[] = [
       "totalUsers": 24724,
       "rating": 4.1,
       "growthRate": 141
-    },
-    "tags": [
-      "Content & Creative",
-      "Video Editing",
-      "AI-Powered",
-      "Cloud-Based"
-    ]
-  },
-  {
-    "id": "muku-ai-1",
-    "name": "Muku Ai 1",
-    "companyId": "Muku",
-    "logoUrl": "https://ui-avatars.com/api/?name=Muku%20Ai%201&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Content & Creative",
-    "subCategory": "Video Editing",
-    "description": "Muku Ai 1 is a leading Video Editing tool focused on Content & Creative.",
-    "features": [
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://muku.ai/",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2024-09-29",
-    "lastUpdate": "2025-02-21",
-    "metrics": {
-      "totalUsers": 58019,
-      "rating": 4.8,
-      "growthRate": 111
     },
     "tags": [
       "Content & Creative",
@@ -19607,36 +19456,6 @@ const IMPORTED_PRODUCTS: Product[] = [
       "totalUsers": 38233,
       "rating": 5,
       "growthRate": 10
-    },
-    "tags": [
-      "Business & Operations",
-      "Marketing",
-      "AI-Powered",
-      "Cloud-Based"
-    ]
-  },
-  {
-    "id": "editby-2-0",
-    "name": "Editby 2 0",
-    "companyId": "Editby",
-    "logoUrl": "https://ui-avatars.com/api/?name=Editby%202%200&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Business & Operations",
-    "subCategory": "Marketing",
-    "description": "Editby 2 0 is a leading Marketing tool focused on Business & Operations.",
-    "features": [
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://editby.ai",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2023-03-03",
-    "lastUpdate": "2023-08-02",
-    "metrics": {
-      "totalUsers": 75242,
-      "rating": 3.6,
-      "growthRate": 198
     },
     "tags": [
       "Business & Operations",
@@ -26861,14 +26680,14 @@ const IMPORTED_PRODUCTS: Product[] = [
       "Cloud-Based"
     ]
   },
-  {
+    {
     "id": "keywordsearch-com",
-    "name": "Keywordsearch Com",
-    "companyId": "Keywordsearch",
-    "logoUrl": "https://ui-avatars.com/api/?name=Keywordsearch%20Com&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
+    "name": "KeywordSearch",
+    "companyId": "KeywordSearch",
+    "logoUrl": "https://ui-avatars.com/api/?name=KeywordSearch&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
     "category": "Business & Operations",
     "subCategory": "Marketing",
-    "description": "Keywordsearch Com is a leading Marketing tool focused on Business & Operations.",
+    "description": "KeywordSearch is a leading Marketing tool focused on Business & Operations.",
     "features": [
       "AI-Powered",
       "Cloud-Based"
@@ -26883,36 +26702,6 @@ const IMPORTED_PRODUCTS: Product[] = [
       "totalUsers": 36937,
       "rating": 3.6,
       "growthRate": 116
-    },
-    "tags": [
-      "Business & Operations",
-      "Marketing",
-      "AI-Powered",
-      "Cloud-Based"
-    ]
-  },
-  {
-    "id": "keywordsearch-com-1",
-    "name": "Keywordsearch Com 1",
-    "companyId": "Keywordsearch",
-    "logoUrl": "https://ui-avatars.com/api/?name=Keywordsearch%20Com%201&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Business & Operations",
-    "subCategory": "Marketing",
-    "description": "Keywordsearch Com 1 is a leading Marketing tool focused on Business & Operations.",
-    "features": [
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://www.keywordsearch.com",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2023-10-19",
-    "lastUpdate": "2024-05-18",
-    "metrics": {
-      "totalUsers": 27855,
-      "rating": 3.6,
-      "growthRate": 139
     },
     "tags": [
       "Business & Operations",
@@ -27642,36 +27431,6 @@ const IMPORTED_PRODUCTS: Product[] = [
       "Other",
       "Real-time Processing",
       "Customizable"
-    ]
-  },
-  {
-    "id": "dappier-2-0",
-    "name": "Dappier 2 0",
-    "companyId": "Dappier",
-    "logoUrl": "https://ui-avatars.com/api/?name=Dappier%202%200&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Development & Data",
-    "subCategory": "Data Analytics",
-    "description": "Dappier 2 0 is a leading Data Analytics tool focused on Development & Data.",
-    "features": [
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://dappier.com",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2024-08-31",
-    "lastUpdate": "2025-01-30",
-    "metrics": {
-      "totalUsers": 364845,
-      "rating": 4,
-      "growthRate": 31
-    },
-    "tags": [
-      "Development & Data",
-      "Data Analytics",
-      "AI-Powered",
-      "Cloud-Based"
     ]
   },
   {
@@ -33944,36 +33703,6 @@ const IMPORTED_PRODUCTS: Product[] = [
     ]
   },
   {
-    "id": "claude-3",
-    "name": "Claude 3",
-    "companyId": "Claude",
-    "logoUrl": "https://ui-avatars.com/api/?name=Claude%203&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Business & Operations",
-    "subCategory": "SEO",
-    "description": "Claude 3 is a leading SEO tool focused on Business & Operations.",
-    "features": [
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://www.anthropic.com/claude",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2024-05-14",
-    "lastUpdate": "2025-01-28",
-    "metrics": {
-      "totalUsers": 28665,
-      "rating": 4,
-      "growthRate": 129
-    },
-    "tags": [
-      "Business & Operations",
-      "SEO",
-      "AI-Powered",
-      "Cloud-Based"
-    ]
-  },
-  {
     "id": "zapier-com",
     "name": "Zapier Com",
     "companyId": "Zapier",
@@ -37186,36 +36915,6 @@ const IMPORTED_PRODUCTS: Product[] = [
     ]
   },
   {
-    "id": "reworkd-ai",
-    "name": "Reworkd Ai",
-    "companyId": "Reworkd",
-    "logoUrl": "https://ui-avatars.com/api/?name=Reworkd%20Ai&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Development & Data",
-    "subCategory": "Data Analytics",
-    "description": "Reworkd Ai is a leading Data Analytics tool focused on Development & Data.",
-    "features": [
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://reworkd.ai",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2023-10-19",
-    "lastUpdate": "2024-06-03",
-    "metrics": {
-      "totalUsers": 73390,
-      "rating": 5,
-      "growthRate": 140
-    },
-    "tags": [
-      "Development & Data",
-      "Data Analytics",
-      "AI-Powered",
-      "Cloud-Based"
-    ]
-  },
-  {
     "id": "reworkd",
     "name": "Reworkd",
     "companyId": "Reworkd",
@@ -37910,37 +37609,6 @@ const IMPORTED_PRODUCTS: Product[] = [
       "Data Analytics",
       "AI-Powered",
       "Cloud-Based"
-    ]
-  },
-  {
-    "id": "claap-2-0",
-    "name": "Claap 2 0",
-    "companyId": "Claap",
-    "logoUrl": "https://ui-avatars.com/api/?name=Claap%202%200&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Productivity & Assistants",
-    "subCategory": "AI Assistant",
-    "description": "Claap 2 0 is a leading AI Assistant tool focused on Productivity & Assistants.",
-    "features": [
-      "Customizable",
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://claap.io/",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2024-12-05",
-    "lastUpdate": "2025-02-21",
-    "metrics": {
-      "totalUsers": 855227,
-      "rating": 4.2,
-      "growthRate": 40
-    },
-    "tags": [
-      "Productivity & Assistants",
-      "AI Assistant",
-      "Customizable",
-      "AI-Powered"
     ]
   },
   {
@@ -40118,37 +39786,6 @@ const IMPORTED_PRODUCTS: Product[] = [
     ]
   },
   {
-    "id": "quickchat-ai",
-    "name": "Quickchat Ai",
-    "companyId": "Quickchat",
-    "logoUrl": "https://ui-avatars.com/api/?name=Quickchat%20Ai&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Productivity & Assistants",
-    "subCategory": "Chatbot",
-    "description": "Quickchat Ai is a leading Chatbot tool focused on Productivity & Assistants.",
-    "features": [
-      "Customizable",
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://Quickchat.ai/",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2024-06-30",
-    "lastUpdate": "2024-11-02",
-    "metrics": {
-      "totalUsers": 45392480,
-      "rating": 4.5,
-      "growthRate": 37
-    },
-    "tags": [
-      "Productivity & Assistants",
-      "Chatbot",
-      "Customizable",
-      "AI-Powered"
-    ]
-  },
-  {
     "id": "b2b-rocket",
     "name": "B2B Rocket",
     "companyId": "B2B",
@@ -41754,14 +41391,14 @@ const IMPORTED_PRODUCTS: Product[] = [
       "AI-Powered"
     ]
   },
-  {
+    {
     "id": "salescloser-ai",
-    "name": "Salescloser Ai",
+    "name": "Salescloser",
     "companyId": "Salescloser",
-    "logoUrl": "https://ui-avatars.com/api/?name=Salescloser%20Ai&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
+    "logoUrl": "https://ui-avatars.com/api/?name=Salescloser&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
     "category": "Business & Operations",
     "subCategory": "Sales",
-    "description": "Salescloser Ai is a leading Sales tool focused on Business & Operations.",
+    "description": "Salescloser is a leading Sales tool focused on Business & Operations.",
     "features": [
       "AI-Powered",
       "Cloud-Based"
@@ -41776,36 +41413,6 @@ const IMPORTED_PRODUCTS: Product[] = [
       "totalUsers": 59787,
       "rating": 4.6,
       "growthRate": 189
-    },
-    "tags": [
-      "Business & Operations",
-      "Sales",
-      "AI-Powered",
-      "Cloud-Based"
-    ]
-  },
-  {
-    "id": "salescloser-ai-1",
-    "name": "Salescloser Ai 1",
-    "companyId": "Salescloser",
-    "logoUrl": "https://ui-avatars.com/api/?name=Salescloser%20Ai%201&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Business & Operations",
-    "subCategory": "Sales",
-    "description": "Salescloser Ai 1 is a leading Sales tool focused on Business & Operations.",
-    "features": [
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://salescloser.ai",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2022-03-06",
-    "lastUpdate": "2022-10-15",
-    "metrics": {
-      "totalUsers": 26994,
-      "rating": 4.4,
-      "growthRate": 53
     },
     "tags": [
       "Business & Operations",
@@ -42203,36 +41810,6 @@ const IMPORTED_PRODUCTS: Product[] = [
     "tags": [
       "Development & Data",
       "Automation",
-      "AI-Powered",
-      "Cloud-Based"
-    ]
-  },
-  {
-    "id": "oliv-ai",
-    "name": "Oliv Ai",
-    "companyId": "Oliv",
-    "logoUrl": "https://ui-avatars.com/api/?name=Oliv%20Ai&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Business & Operations",
-    "subCategory": "Sales",
-    "description": "Oliv Ai is a leading Sales tool focused on Business & Operations.",
-    "features": [
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://oliv.ai",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2024-11-10",
-    "lastUpdate": "2025-02-21",
-    "metrics": {
-      "totalUsers": 80614,
-      "rating": 4.5,
-      "growthRate": 188
-    },
-    "tags": [
-      "Business & Operations",
-      "Sales",
       "AI-Powered",
       "Cloud-Based"
     ]
@@ -43960,37 +43537,6 @@ const IMPORTED_PRODUCTS: Product[] = [
     "tags": [
       "Productivity & Assistants",
       "Conversational AI",
-      "Customizable",
-      "AI-Powered"
-    ]
-  },
-  {
-    "id": "solidroad-2-0",
-    "name": "Solidroad 2 0",
-    "companyId": "Solidroad",
-    "logoUrl": "https://ui-avatars.com/api/?name=Solidroad%202%200&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Business & Operations",
-    "subCategory": "Marketing",
-    "description": "Solidroad 2 0 is a leading Marketing tool focused on Business & Operations.",
-    "features": [
-      "Customizable",
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://solidroad.com",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2024-11-28",
-    "lastUpdate": "2025-02-21",
-    "metrics": {
-      "totalUsers": 78320,
-      "rating": 3.8,
-      "growthRate": 79
-    },
-    "tags": [
-      "Business & Operations",
-      "Marketing",
       "Customizable",
       "AI-Powered"
     ]
@@ -47489,14 +47035,14 @@ const IMPORTED_PRODUCTS: Product[] = [
       "Cloud-Based"
     ]
   },
-  {
+    {
     "id": "langtrace-ai",
-    "name": "Langtrace Ai",
+    "name": "Langtrace",
     "companyId": "Langtrace",
-    "logoUrl": "https://ui-avatars.com/api/?name=Langtrace%20Ai&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
+    "logoUrl": "https://ui-avatars.com/api/?name=Langtrace&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
     "category": "Lifestyle & Specific",
     "subCategory": "Other",
-    "description": "Langtrace Ai is a leading Other tool focused on Lifestyle & Specific.",
+    "description": "Langtrace is a leading Other tool focused on Lifestyle & Specific.",
     "features": [
       "AI-Powered",
       "Cloud-Based"
@@ -47511,36 +47057,6 @@ const IMPORTED_PRODUCTS: Product[] = [
       "totalUsers": 67705,
       "rating": 3.9,
       "growthRate": 172
-    },
-    "tags": [
-      "Lifestyle & Specific",
-      "Other",
-      "AI-Powered",
-      "Cloud-Based"
-    ]
-  },
-  {
-    "id": "langtrace-ai-1",
-    "name": "Langtrace Ai 1",
-    "companyId": "Langtrace",
-    "logoUrl": "https://ui-avatars.com/api/?name=Langtrace%20Ai%201&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Lifestyle & Specific",
-    "subCategory": "Other",
-    "description": "Langtrace Ai 1 is a leading Other tool focused on Lifestyle & Specific.",
-    "features": [
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://www.langtrace.ai",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2023-08-04",
-    "lastUpdate": "2023-09-29",
-    "metrics": {
-      "totalUsers": 19164,
-      "rating": 4.5,
-      "growthRate": 96
     },
     "tags": [
       "Lifestyle & Specific",
@@ -51016,36 +50532,6 @@ const IMPORTED_PRODUCTS: Product[] = [
       "totalUsers": 66834,
       "rating": 4.3,
       "growthRate": 32
-    },
-    "tags": [
-      "Lifestyle & Specific",
-      "Other",
-      "AI-Powered",
-      "Cloud-Based"
-    ]
-  },
-  {
-    "id": "awan-llm",
-    "name": "Awan Llm",
-    "companyId": "Awan",
-    "logoUrl": "https://ui-avatars.com/api/?name=Awan%20Llm&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Lifestyle & Specific",
-    "subCategory": "Other",
-    "description": "Awan Llm is a leading Other tool focused on Lifestyle & Specific.",
-    "features": [
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://awanllm.com",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2024-05-26",
-    "lastUpdate": "2025-02-21",
-    "metrics": {
-      "totalUsers": 69396,
-      "rating": 4.5,
-      "growthRate": 147
     },
     "tags": [
       "Lifestyle & Specific",
@@ -59307,14 +58793,14 @@ const IMPORTED_PRODUCTS: Product[] = [
       "Cloud-Based"
     ]
   },
-  {
+    {
     "id": "opencord-ai",
-    "name": "Opencord Ai",
+    "name": "Opencord",
     "companyId": "Opencord",
-    "logoUrl": "https://ui-avatars.com/api/?name=Opencord%20Ai&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
+    "logoUrl": "https://ui-avatars.com/api/?name=Opencord&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
     "category": "Business & Operations",
     "subCategory": "Marketing",
-    "description": "Opencord Ai is a leading Marketing tool focused on Business & Operations.",
+    "description": "Opencord is a leading Marketing tool focused on Business & Operations.",
     "features": [
       "AI-Powered",
       "Cloud-Based"
@@ -59335,37 +58821,6 @@ const IMPORTED_PRODUCTS: Product[] = [
       "Marketing",
       "AI-Powered",
       "Cloud-Based"
-    ]
-  },
-  {
-    "id": "opencord-ai-2-0",
-    "name": "Opencord Ai 2 0",
-    "companyId": "Opencord",
-    "logoUrl": "https://ui-avatars.com/api/?name=Opencord%20Ai%202%200&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Business & Operations",
-    "subCategory": "Marketing",
-    "description": "Opencord Ai 2 0 is a leading Marketing tool focused on Business & Operations.",
-    "features": [
-      "Customizable",
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://Opencord.ai",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2023-07-08",
-    "lastUpdate": "2024-03-09",
-    "metrics": {
-      "totalUsers": 39579,
-      "rating": 4,
-      "growthRate": 126
-    },
-    "tags": [
-      "Business & Operations",
-      "Marketing",
-      "Customizable",
-      "AI-Powered"
     ]
   },
   {
@@ -68352,37 +67807,6 @@ const IMPORTED_PRODUCTS: Product[] = [
     ]
   },
   {
-    "id": "free-google-gemini-ai-chatbot",
-    "name": "Free Google Gemini Ai Chatbot",
-    "companyId": "Free",
-    "logoUrl": "https://ui-avatars.com/api/?name=Free%20Google%20Gemini%20Ai%20Chatbot&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Productivity & Assistants",
-    "subCategory": "Chatbot",
-    "description": "Free Google Gemini Ai Chatbot is a leading Chatbot tool focused on Productivity & Assistants.",
-    "features": [
-      "Free Tier",
-      "AI-Powered",
-      "Cloud-Based"
-    ],
-    "website": "https://chatbot.story321.com",
-    "pricing": [
-      "Freemium"
-    ],
-    "launchDate": "2023-10-06",
-    "lastUpdate": "2024-01-01",
-    "metrics": {
-      "totalUsers": 38249,
-      "rating": 3.5,
-      "growthRate": 173
-    },
-    "tags": [
-      "Productivity & Assistants",
-      "Chatbot",
-      "Free Tier",
-      "AI-Powered"
-    ]
-  },
-  {
     "id": "agentic",
     "name": "Agentic",
     "companyId": "Agentic",
@@ -68685,37 +68109,6 @@ const IMPORTED_PRODUCTS: Product[] = [
     "tags": [
       "Business & Operations",
       "Sales",
-      "AI-Powered",
-      "Cloud-Based"
-    ]
-  },
-  {
-    "id": "meshy-ai",
-    "name": "Meshy AI",
-    "companyId": "Meshy",
-    "logoUrl": "https://ui-avatars.com/api/?name=Meshy%20AI&background=0ea5e9&color=fff&size=200&font-size=0.4&bold=true",
-    "category": "Content & Creative",
-    "subCategory": "Image Generation",
-    "description": "Meshy AI is a leading Image Generation tool focused on Content & Creative.",
-    "features": [
-      "AI-Powered",
-      "Cloud-Based",
-      "API Access"
-    ],
-    "website": "https://meshy.ai",
-    "pricing": [
-      "Paid"
-    ],
-    "launchDate": "2023-01-01",
-    "lastUpdate": "2025-02-21",
-    "metrics": {
-      "totalUsers": 893481,
-      "rating": 4.8,
-      "growthRate": 32
-    },
-    "tags": [
-      "Content & Creative",
-      "Image Generation",
       "AI-Powered",
       "Cloud-Based"
     ]
