@@ -1,4 +1,7 @@
+"use client";
+
 import React from 'react';
+import Link from 'next/link';
 import { Search, Bell, Sun, Moon, Grid, List, Table as TableIcon, Menu, ArrowUpDown, Sparkles } from 'lucide-react';
 import { FilterState } from '../types';
 
@@ -13,6 +16,7 @@ interface HeaderProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   searchRef: React.RefObject<HTMLInputElement>;
+  onSearchSubmit?: (value: string) => void;
 }
 
 // Simple debounce hook could be extracted, but keeping it inline for simplicity
@@ -35,7 +39,8 @@ const Header: React.FC<HeaderProps> = ({
   toggleTheme,
   activeTab,
   setActiveTab,
-  searchRef
+  searchRef,
+  onSearchSubmit
 }) => {
   return (
     <header className="sticky top-0 z-30 bg-white dark:bg-dark-800 border-b border-gray-200 dark:border-gray-700 px-4 py-3 shadow-sm">
@@ -60,6 +65,11 @@ const Header: React.FC<HeaderProps> = ({
               value={filters.search}
               title={filters.search} // Tooltip for long queries
               onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && onSearchSubmit) {
+                  onSearchSubmit(e.currentTarget.value);
+                }
+              }}
             />
             {/* Filter Count Badge (Usability Fix) */}
             {(filters.category.length > 0 || filters.pricing.length > 0 || filters.minRating > 0) && (
@@ -81,6 +91,21 @@ const Header: React.FC<HeaderProps> = ({
             </span>
             <span>simpleflo</span>
           </a>
+
+          <nav className="flex items-center gap-2">
+            <Link
+              href="/about"
+              className="inline-flex items-center rounded-full border border-gray-200 dark:border-gray-700 px-3 py-2 text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-dark-900 transition-colors"
+            >
+              About
+            </Link>
+            <Link
+              href="/docs"
+              className="inline-flex items-center rounded-full border border-gray-200 dark:border-gray-700 px-3 py-2 text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-dark-900 transition-colors"
+            >
+              Docs
+            </Link>
+          </nav>
         </div>
 
         {/* Prominent Matchmaker Button (Top Center) */}
