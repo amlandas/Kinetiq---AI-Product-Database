@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowLeft, ExternalLink, Star, Users, Calendar, Tag, Check, X } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import ProductAnalysisSection from '../../../components/ProductAnalysisSection';
+import SiteHeader from '../../../components/SiteHeader';
 
 interface ProductPageProps {
     params: Promise<{
@@ -69,20 +70,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-dark-900 pb-20">
-            {/* Header */}
-            <div className="bg-white dark:bg-dark-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30">
-                <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-                    <Link
-                        href="/"
-                        className="flex items-center text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors"
-                    >
-                        <ArrowLeft className="w-5 h-5 mr-2" />
-                        Back to Database
-                    </Link>
-                </div>
-            </div>
+            <SiteHeader />
 
             <div className="max-w-4xl mx-auto px-4 py-8">
+                <Link
+                    href="/"
+                    className="mb-6 inline-flex items-center text-sm font-medium text-gray-600 transition-colors hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400"
+                >
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Back to Database
+                </Link>
                 {/* Product Hero */}
                 <div className="bg-white dark:bg-dark-800 rounded-2xl shadow-xl overflow-hidden mb-8 border border-gray-100 dark:border-gray-700">
                     <div className="p-8 md:p-10">

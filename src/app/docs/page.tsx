@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import SiteHeader from '../../components/SiteHeader';
 import {
   Sparkles,
   ArrowRightLeft,
@@ -40,6 +41,7 @@ export const metadata: Metadata = {
 export default function DocsPage() {
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-dark-900">
+      <SiteHeader />
       <div className="relative overflow-hidden border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-dark-800">
         <div className="absolute inset-0 opacity-40">
           <div className="absolute -top-24 left-1/2 h-60 w-60 -translate-x-1/2 rounded-full bg-primary-100 blur-3xl dark:bg-primary-900/30"></div>
@@ -68,6 +70,66 @@ export default function DocsPage() {
       </div>
 
       <div className="mx-auto max-w-6xl space-y-6 px-4 py-10">
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-dark-800">
+            <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">The core value</p>
+            <h2 className="mt-2 text-2xl font-semibold text-gray-900 dark:text-white">
+              Choose based on constraints, not hype.
+            </h2>
+            <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">
+              Kinetiq replaces open-ended searching with structured discovery.
+            </p>
+            <div className="mt-5 space-y-4">
+              <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-600 dark:border-gray-700 dark:bg-dark-900 dark:text-gray-300">
+                <p className="font-semibold text-gray-900 dark:text-white">Ask AI Matchmaker</p>
+                <p className="mt-2">
+                  Describe your needs in plain English and get recommendations with a fit score, plus
+                  alternatives worth considering.
+                </p>
+              </div>
+              <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-600 dark:border-gray-700 dark:bg-dark-900 dark:text-gray-300">
+                <p className="font-semibold text-gray-900 dark:text-white">Structured comparisons</p>
+                <p className="mt-2">
+                  Compare candidates across dimensions that matter in practice, not marketing checklists.
+                </p>
+              </div>
+            </div>
+            <p className="mt-4 text-sm text-gray-600 dark:text-gray-300">
+              The goal is not to crown a winner. It is to leave you with a decision you can defend.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-dark-800">
+            <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Try the workflow (60 seconds)</p>
+            <ol className="mt-4 list-decimal list-inside space-y-2 text-sm text-gray-600 dark:text-gray-300">
+              <li>Open <strong>Ask AI Matchmaker</strong> and describe your constraints.</li>
+              <li>Skim the <strong>Why this fits</strong> reasoning and the trade-offs.</li>
+              <li>Move your top two into <strong>Compare</strong> and make the call.</li>
+            </ol>
+            <p className="mt-4 text-sm text-gray-600 dark:text-gray-300">
+              A clean decision beats an endless search.
+            </p>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-dark-800">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">What Kinetiq helps with</h2>
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+            <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-600 dark:border-gray-700 dark:bg-dark-900 dark:text-gray-300">
+              <p className="font-semibold text-gray-900 dark:text-white">Discovery</p>
+              <p className="mt-2">Browse a broad catalog without getting lost in AI slop.</p>
+            </div>
+            <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-600 dark:border-gray-700 dark:bg-dark-900 dark:text-gray-300">
+              <p className="font-semibold text-gray-900 dark:text-white">Filtering</p>
+              <p className="mt-2">Narrow by hard constraints like pricing, ratings, and growth signals.</p>
+            </div>
+            <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-600 dark:border-gray-700 dark:bg-dark-900 dark:text-gray-300">
+              <p className="font-semibold text-gray-900 dark:text-white">Shortlisting</p>
+              <p className="mt-2">Go from "I have a problem" to "here are three real options" fast.</p>
+            </div>
+          </div>
+        </div>
+
         <DocCard id="matchmaker" title="The Matchmaker workflow" icon={Sparkles}>
           <ol className="list-decimal list-inside space-y-2">
             <li><strong>Describe the need.</strong> Write it like a human: "I need X for Y situation."</li>

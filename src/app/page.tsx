@@ -11,7 +11,6 @@ import MarketOverview from '../components/MarketOverview';
 import ComparisonView from '../components/ComparisonView';
 import ComparisonPage from '../components/ComparisonPage';
 import MatchmakerView from '../components/MatchmakerView';
-import AboutSection from '../components/AboutSection';
 import { Product, FilterState, ComparisonResult } from '../types';
 import { Table, Database, CheckCircle, Server, Loader2, Share2, Download } from 'lucide-react';
 import { db } from '../services/db';
@@ -85,6 +84,10 @@ export default function Home() {
 
         // Load URL params (Initial Load)
         const params = new URLSearchParams(window.location.search);
+        const tabParam = params.get('tab');
+        if (tabParam && ['products', 'comparison', 'analytics', 'matchmaker'].includes(tabParam)) {
+            setActiveTab(tabParam);
+        }
         if (params.toString()) {
             setFilters(prev => ({
                 ...prev,
@@ -119,11 +122,12 @@ export default function Home() {
         if (filters.searchFields.length > 0) params.set('fields', filters.searchFields.join(','));
         if (filters.sort.primary !== 'users-desc') params.set('sort', filters.sort.primary);
         if (filters.sort.secondary !== 'rating-desc') params.set('sort2', filters.sort.secondary);
+        if (activeTab !== 'products') params.set('tab', activeTab);
 
         const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
         window.history.replaceState({}, '', newUrl);
         setCurrentPage(1);
-    }, [filters]);
+    }, [filters, activeTab]);
 
     const toggleFavorite = (id: string) => {
         setFavorites(prev => {
@@ -433,7 +437,7 @@ export default function Home() {
                                                     onClick={() => jumpToApp('products')}
                                                     className="rounded-full border border-gray-200 px-5 py-2 text-sm font-semibold text-gray-700 transition hover:border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-dark-900"
                                                 >
-                                                    Browse utilities
+                                                    Browse AI Tools
                                                 </button>
                                                 <Link
                                                     href="/docs"
@@ -454,94 +458,6 @@ export default function Home() {
                                     </div>
                                 </div>
 
-                                <div className="grid gap-6 lg:grid-cols-2">
-                                    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-dark-800">
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">The core value</p>
-                                        <h2 className="mt-2 text-2xl font-semibold text-gray-900 dark:text-white">
-                                            Choose based on constraints, not hype.
-                                        </h2>
-                                        <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">
-                                            Kinetiq replaces open-ended searching with structured discovery.
-                                        </p>
-                                        <div className="mt-5 space-y-4">
-                                            <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-600 dark:border-gray-700 dark:bg-dark-900 dark:text-gray-300">
-                                                <p className="font-semibold text-gray-900 dark:text-white">Ask AI Matchmaker</p>
-                                                <p className="mt-2">
-                                                    Describe your needs in plain English and get recommendations with a fit score, plus
-                                                    alternatives worth considering.
-                                                </p>
-                                            </div>
-                                            <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-600 dark:border-gray-700 dark:bg-dark-900 dark:text-gray-300">
-                                                <p className="font-semibold text-gray-900 dark:text-white">Structured comparisons</p>
-                                                <p className="mt-2">
-                                                    Compare candidates across dimensions that matter in practice, not marketing checklists.
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <p className="mt-4 text-sm text-gray-600 dark:text-gray-300">
-                                            The goal is not to crown a winner. It is to leave you with a decision you can defend.
-                                        </p>
-                                    </div>
-
-                                    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-dark-800">
-                                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Try the workflow (60 seconds)</p>
-                                        <ol className="mt-4 list-decimal list-inside space-y-2 text-sm text-gray-600 dark:text-gray-300">
-                                            <li>Open <strong>Ask AI Matchmaker</strong> and describe your constraints.</li>
-                                            <li>Skim the <strong>Why this fits</strong> reasoning and the trade-offs.</li>
-                                            <li>Move your top two into <strong>Compare</strong> and make the call.</li>
-                                        </ol>
-                                        <p className="mt-4 text-sm text-gray-600 dark:text-gray-300">
-                                            A clean decision beats an endless search.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-dark-800">
-                                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white">What Kinetiq helps with</h2>
-                                    <div className="mt-4 grid gap-4 md:grid-cols-3">
-                                        <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-600 dark:border-gray-700 dark:bg-dark-900 dark:text-gray-300">
-                                            <p className="font-semibold text-gray-900 dark:text-white">Discovery</p>
-                                            <p className="mt-2">Browse a broad catalog without getting lost in AI slop.</p>
-                                        </div>
-                                        <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-600 dark:border-gray-700 dark:bg-dark-900 dark:text-gray-300">
-                                            <p className="font-semibold text-gray-900 dark:text-white">Filtering</p>
-                                            <p className="mt-2">Narrow by hard constraints like pricing, ratings, and growth signals.</p>
-                                        </div>
-                                        <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-600 dark:border-gray-700 dark:bg-dark-900 dark:text-gray-300">
-                                            <p className="font-semibold text-gray-900 dark:text-white">Shortlisting</p>
-                                            <p className="mt-2">Go from "I have a problem" to "here are three real options" fast.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-dark-800">
-                                    <div className="flex flex-wrap items-center justify-between gap-3">
-                                        <div>
-                                            <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Links</p>
-                                            <p className="text-sm text-gray-600 dark:text-gray-300">Explore more context and workflows.</p>
-                                        </div>
-                                        <div className="flex flex-wrap gap-3">
-                                            <Link
-                                                href="/about"
-                                                className="rounded-full border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 transition hover:border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-dark-900"
-                                            >
-                                                About
-                                            </Link>
-                                            <Link
-                                                href="/docs"
-                                                className="rounded-full border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 transition hover:border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-dark-900"
-                                            >
-                                                Docs
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <AboutSection id="about" />
-
-                                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5 text-sm text-gray-600 shadow-sm dark:border-gray-700 dark:bg-dark-900 dark:text-gray-300">
-                                    Data in fast markets is noisy. Kinetiq treats metrics as signals to help you narrow, not as unquestionable truth.
-                                </div>
                             </section>
                         )}
 

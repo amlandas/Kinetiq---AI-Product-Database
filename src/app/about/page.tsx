@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import AboutSection from '../../components/AboutSection';
+import SiteHeader from '../../components/SiteHeader';
 
 export const metadata: Metadata = {
   title: 'About Kinetiq',
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-dark-900">
+      <SiteHeader />
       <div className="mx-auto max-w-5xl space-y-8 px-4 py-10">
         <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-dark-800 md:p-8">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary-600 dark:text-primary-300">Kinetiq</p>
