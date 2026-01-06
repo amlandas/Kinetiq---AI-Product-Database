@@ -437,7 +437,7 @@ export default function Home() {
                                                     onClick={() => jumpToApp('products')}
                                                     className="rounded-full border border-gray-200 px-5 py-2 text-sm font-semibold text-gray-700 transition hover:border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-dark-900"
                                                 >
-                                                    Browse utilities
+                                                    Browse AI Tools
                                                 </button>
                                                 <Link
                                                     href="/docs"
